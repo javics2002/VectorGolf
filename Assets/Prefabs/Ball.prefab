@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8383623213249251155}
   - component: {fileID: 75598482412552616}
   - component: {fileID: 3977376871514891936}
+  - component: {fileID: 4939789818740057651}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Player
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015462755638427360}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -148,3 +149,29 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &4939789818740057651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015462755638427360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe7975a49631bf41954578cdeead85e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityArrow:
+    visible: 1
+    color: {r: 0, g: 0.60024977, b: 1, a: 1}
+    stemLength: 1
+    stemWidth: 0.2
+    tipLegth: 1
+    tipWidth: 0.5
+  accelerationArrow:
+    visible: 1
+    color: {r: 1, g: 0.94715035, b: 0, a: 1}
+    stemLength: 2
+    stemWidth: 0.1
+    tipLegth: 0.5
+    tipWidth: 0.2
