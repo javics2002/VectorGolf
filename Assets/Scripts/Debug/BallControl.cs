@@ -15,7 +15,7 @@ public class BallControl : MonoBehaviour
 	}
 
 	private void Update() {
-		rigidbody.velocity = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed;
+		rigidbody.velocity = new Vector3(Input.GetAxis("Horizontal"), rigidbody.velocity.y, 0) * speed;
 	}
 #endif
 }

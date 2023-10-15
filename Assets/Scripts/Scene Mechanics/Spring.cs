@@ -24,4 +24,8 @@ public class Spring : MonoBehaviour
 
         collision.rigidbody.AddForce(transform.up * _springForce, ForceMode2D.Impulse);
     }
+
+    public void setSpringForce(float springForce) { 
+        _springForce = springForce;
+    }
 }
