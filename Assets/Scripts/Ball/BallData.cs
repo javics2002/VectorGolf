@@ -13,14 +13,14 @@ public class BallData : MonoBehaviour
         deltaPositon = Vector2.zero;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         deltaPositon = new Vector2(transform.position.x - lastPosition.x, transform.position.y - lastPosition.y);
         lastPosition = transform.position;
     }
 
-    public Vector2 getDeltaPosition()
+    public Vector3 getDeltaPosition()
     {
-        return deltaPositon;
+        return new Vector3(deltaPositon.x, deltaPositon.y, 0);
     }
 }

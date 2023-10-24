@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DraggableItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler {
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
     [SerializeField, Range(0f, 1f)]
     float scaleWhenDrag;
 
@@ -18,9 +16,6 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
-    }
-    public void OnPointerDown(PointerEventData eventData) {
-        // throw new System.NotImplementedException();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

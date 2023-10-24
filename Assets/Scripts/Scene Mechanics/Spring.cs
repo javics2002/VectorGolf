@@ -22,7 +22,11 @@ public class Spring : MonoBehaviour
         // TODO: Check if the ball collided ?
         // If not: as everything jumpes off the spring, we can make puzzles more complex
 
-        collision.rigidbody.AddForce(transform.up * _springForce, ForceMode2D.Impulse);
+        // prev force
+        // Vector2 prevForce = -collision.gameObject.GetComponent<Rigidbody2D>().totalForce;
+
+
+		collision.rigidbody.AddForce(transform.up * _springForce  , ForceMode2D.Impulse);
     }
 
     public void setSpringForce(float springForce) { 
