@@ -8,7 +8,9 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public abstract class KinematicArrow : MonoBehaviour
 {
-    public Transform target { get; set; }
+	protected bool isVisible;
+
+	public Transform target { get; set; }
 	
 	public float stemLength { get; private set; }
 	public float stemWidth { get; set; }
@@ -23,16 +25,16 @@ public abstract class KinematicArrow : MonoBehaviour
 	[System.NonSerialized]
 	public List<int> trianglesList;
 
-	Mesh mesh;
+	protected Mesh mesh;
+	protected MeshRenderer meshRenderer;
+	protected MeshFilter meshFilter;
 	protected new Rigidbody2D rigidbody;
 
-	MeshRenderer meshRenderer;
-	MeshFilter meshFilter;
+	protected Vector3 lastFrameVector;
 
-	Vector3 lastFrameVector;
-
-	float threshold = .5f;
-	float lerpFactor = .1f;
+	protected float threshold = .5f;
+	protected float lerpFactor = .1f;
+	
 
 	void Start()
     {
@@ -49,6 +51,8 @@ public abstract class KinematicArrow : MonoBehaviour
 		meshFilter = GetComponent<MeshFilter>();
 
 		lastFrameVector = Vector3.zero;
+
+		isVisible = true;
 	}
 
     void LateUpdate()
@@ -56,7 +60,7 @@ public abstract class KinematicArrow : MonoBehaviour
 		Vector3 vector = GetVector();
 		transform.position = target.position + priority * Vector3.back * .1f;
 
-		if (DrawArrow(vector)) {
+		if (isVisible && DrawArrow(vector)) {
 			meshRenderer.enabled = true;
 
 			vector.Normalize();
@@ -131,4 +135,8 @@ public abstract class KinematicArrow : MonoBehaviour
 	float ArrowRotation(Vector2 vector) => Mathf.Rad2Deg * Mathf.Atan2(vector.y, vector.x);
 
 	protected abstract Vector3 GetVector();
+
+	public void ToggleVisible() {
+		isVisible = !isVisible;
+	}
 }
