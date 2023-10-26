@@ -12,7 +12,6 @@ public class ForceSlot : MonoBehaviour
     private bool isBall = false;
 
     private GameObject instanciatedObject = null;
-    private RectTransform instanciatedObjRT = null;
 
     private void Start()
     {
@@ -21,19 +20,17 @@ public class ForceSlot : MonoBehaviour
         instanciatedObject = Instantiate(prefab);
         instanciatedObject.transform.SetParent(canvas);
 
+        instanciatedObject.GetComponent<RectTransform>().localScale = Vector3.one;
+
         // TODO: ID?
         instanciatedObject.name = transform.parent.name + "_ForceSlot";
 
-        instanciatedObjRT = instanciatedObject.GetComponent<RectTransform>();
-        instanciatedObjRT.anchoredPosition = objectPosition.position * 50;
-        instanciatedObjRT.localScale = Vector2.one;
-
-        // Get sprite width and height
-        SpriteRenderer springSprite = transform.parent.GetComponentInChildren<SpriteRenderer>();
-
         if (isBall)
-			instanciatedObjRT.position = GameObject.Find("Ball").transform.position;
-		else
-            instanciatedObjRT.anchoredPosition = new Vector2(instanciatedObjRT.anchoredPosition.x + (springSprite.bounds.size.x * 30), instanciatedObjRT.anchoredPosition.y + (springSprite.bounds.size.y * 90));
+            instanciatedObject.transform.position = GameObject.Find("Ball").transform.position;
+        else
+        {
+            instanciatedObject.transform.position = GameObject.Find("Spring").transform.position;
+            instanciatedObject.transform.Translate(new Vector3(1, 1, 0));
+        }
     }
 }

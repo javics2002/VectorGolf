@@ -21,7 +21,7 @@ public class DropForceBall : MonoBehaviour, IDropHandler
     {
         background = GetComponentInChildren<Image>();
 
-        string testText = eventData.pointerPress.GetComponentInChildren<TextMeshProUGUI>().GetParsedText();
+        string testText = eventData.pointerDrag.GetComponentInChildren<TextMeshProUGUI>().GetParsedText();
 
         // Parse String to Vector2
         testText = testText.Substring(1, testText.Length - 2);

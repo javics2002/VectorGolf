@@ -14,8 +14,8 @@ public class DropItem : MonoBehaviour, IDropHandler
         text = GetComponentInChildren<TextMeshProUGUI>();
 
         // Modify our values
-        background.color = eventData.pointerPress.GetComponent<Image>().color;
-        string testText = eventData.pointerPress.GetComponentInChildren<TextMeshProUGUI>().GetParsedText();
+        background.color = eventData.pointerDrag.GetComponent<Image>().color;
+        string testText = eventData.pointerDrag.GetComponentInChildren<TextMeshProUGUI>().GetParsedText();
         text.SetText(testText);
 
         // Change Spring Force value
