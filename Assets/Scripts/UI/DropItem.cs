@@ -3,26 +3,26 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DropItem : MonoBehaviour, IDropHandler
+public class DropItem : DropObject, IDropHandler
 {
-    private Image background;
-    private TextMeshProUGUI text;
+    private Image _background;
+    private TextMeshProUGUI _text;
 
     public void OnDrop(PointerEventData eventData)
     {
-        background = GetComponentInChildren<Image>();
-        text = GetComponentInChildren<TextMeshProUGUI>();
+        _background = GetComponentInChildren<Image>();
+        _text = GetComponentInChildren<TextMeshProUGUI>();
 
         // Modify our values
-        background.color = eventData.pointerDrag.GetComponent<Image>().color;
+        _background.color = eventData.pointerDrag.GetComponent<Image>().color;
         string testText = eventData.pointerDrag.GetComponentInChildren<TextMeshProUGUI>().GetParsedText();
-        text.SetText(testText);
+        _text.SetText(testText);
 
         // Change Spring Force value
         float value;
         float.TryParse(testText, out value);
-
-        // TODO: Add object ID
-        GameObject.Find("Spring").GetComponentInChildren<Spring>().setSpringForce(value);
+        
+        if (_interactableObject != null)
+            _interactableObject.GetComponentInChildren<Spring>().setSpringForce(value);
     }
 }

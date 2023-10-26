@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spring : MonoBehaviour
+public class Spring : InteractableObject
 {
     [SerializeField]
     private float _springForce;
 
     void Start()
     {
-        
+        objectType = ObjectType.SPRING;
     }
 
     void Update()

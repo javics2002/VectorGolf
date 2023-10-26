@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallData : MonoBehaviour
+public class Ball : InteractableObject
 {
     Vector3 lastPosition;
     Vector2 deltaPositon;
@@ -11,6 +11,11 @@ public class BallData : MonoBehaviour
     {
         lastPosition = transform.position;
         deltaPositon = Vector2.zero;
+    }
+
+    private void Start()
+    {
+        objectType = ObjectType.BALL;
     }
 
     void FixedUpdate()

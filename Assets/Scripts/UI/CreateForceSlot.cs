@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ForceSlot : MonoBehaviour
+public class CreateForceSlot : MonoBehaviour
 {
     [SerializeField]
     private Transform canvas;
@@ -15,22 +15,19 @@ public class ForceSlot : MonoBehaviour
 
     private void Start()
     {
-        Transform objectPosition = GetComponentInParent<Transform>();
-
         instanciatedObject = Instantiate(prefab);
         instanciatedObject.transform.SetParent(canvas);
 
         instanciatedObject.GetComponent<RectTransform>().localScale = Vector3.one;
 
-        // TODO: ID?
-        instanciatedObject.name = transform.parent.name + "_ForceSlot";
+        DropObject dropObject = instanciatedObject.GetComponent<DropObject>();
+        dropObject.setInteractableItem(transform.parent.gameObject);
+       
+        instanciatedObject.name = transform.parent.name + "_ForceSlot_" + dropObject.getNextID();
 
-        if (isBall)
-            instanciatedObject.transform.position = GameObject.Find("Ball").transform.position;
-        else
-        {
-            instanciatedObject.transform.position = GameObject.Find("Spring").transform.position;
+        instanciatedObject.transform.position = transform.parent.transform.position;
+
+        if (!isBall)
             instanciatedObject.transform.Translate(new Vector3(1, 1, 0));
-        }
     }
 }

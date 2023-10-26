@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.Assertions;
 
-public class Fan : MonoBehaviour
+public class Fan : InteractableObject
 {
     [SerializeField]
     private float _fanForce;
@@ -14,7 +13,7 @@ public class Fan : MonoBehaviour
 
     void Start()
     {
-        
+        objectType = ObjectType.FAN;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

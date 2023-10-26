@@ -6,18 +6,19 @@ using UnityEngine.EventSystems;
 using TMPro;
 using Unity.VisualScripting;
 
-public class DropForceBall : MonoBehaviour, IDropHandler
+public class DropForceBall : DropObject, IDropHandler
 {
     private Image background;
     private RectTransform rectTransform;
-    private BallData ballData;
+    private Ball ballData;
 
-	private void Awake() {
-		rectTransform = GetComponent<RectTransform>();
-		ballData = GameObject.Find("Ball").GetComponent<BallData>();
-	}
+    private void Start()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        ballData = _interactableObject.GetComponent<Ball>();
+    }
 
-	public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData)
     {
         background = GetComponentInChildren<Image>();
 
@@ -33,19 +34,11 @@ public class DropForceBall : MonoBehaviour, IDropHandler
 
         Vector2 force = new Vector2(valueX, valueY);
 
-		// TODO: Add object ID
 		ballData.gameObject.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
     }
 
 	private void Update() {
 		rectTransform.position = ballData.gameObject.transform.position;
 	}
-
-	//private void FixedUpdate() {
-	//       // Obtain delta changes in position
-	//       rectTransform.position += ballData.getDeltaPosition();
-	//       //Debug.Log(ballData.getDeltaPosition());
-
-	//}
 }
 
