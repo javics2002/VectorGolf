@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager Instance { get; private set; }
 
+    public bool isArrowVisible;
 	public bool isDragging;
 	public GameObject draggedObject;
 
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     private void Init()
 	{
 		isDragging = false;
+        isArrowVisible = false;
 		draggedObject = null;
     }
 
