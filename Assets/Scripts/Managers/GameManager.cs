@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,10 +7,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager Instance { get; private set; }
 
-	public bool isDragging;
-	public GameObject draggedObject;
+    public bool isDragging;
+    public GameObject draggedObject;
 
-	private void Awake()
+    #region Progreso
+    public enum LevelCompletion { Locked, Uncompleted, Completed, Par, HoleInOne };
+
+    public const int numberOfLevels = 100;
+    public LevelCompletion[] levelCompletion;
+    #endregion
+
+    private void Awake()
 	{
 		if (Instance == null)
 		{
@@ -31,6 +36,13 @@ public class GameManager : MonoBehaviour
 	{
 		isDragging = false;
 		draggedObject = null;
+
+        LoadManager.Instance.Load();
+    }
+
+    public void Save()
+    {
+        LoadManager.Instance.Save();
     }
 
 	public void DragObject(GameObject dragObject)
