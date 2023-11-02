@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
   prefab: {fileID: 553887176084421543, guid: 43f2092e4c97ddb458b6919d18d9b9b2, type: 3}
+  isBall: 0
 --- !u!1 &2023085421859178440
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,4 +329,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02662045ca524c144b3368b6ced8ff96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectType: 1
   _springForce: 5

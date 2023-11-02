@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scalars:
   - 5
+  - 10
+  - 20
   vectors:
   - {x: 3, y: 10}
+  - {x: 5, y: 5}
+  - {x: 20, y: 5}
