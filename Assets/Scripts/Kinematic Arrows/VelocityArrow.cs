@@ -3,6 +3,7 @@ using UnityEngine;
 public class VelocityArrow : KinematicArrow
 {
 	protected override Vector3 GetVector() {
-		return rigidbody.velocity;
+		Vector3 vector = GameManager.Instance.convertToScale(rigidbody.velocity);
+        return vector;
 	}
 }

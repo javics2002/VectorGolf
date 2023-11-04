@@ -8,9 +8,6 @@ public class Fan : InteractableObject
     [SerializeField]
     private float _fanForce;
     
-    private bool _addForceFieldEffect = false;
-    private Rigidbody2D _objectRb = null;
-
     void Start()
     {
         objectType = ObjectType.FAN;
@@ -18,24 +15,11 @@ public class Fan : InteractableObject
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        _addForceFieldEffect = true;
-        Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-		
-		// TODO: every object that enters in the trigger and is detected by ontriggerstay has rigidbody
-		// so this is useless?
-		
-        Assert.IsNotNull(rb, "The object in the fan zone does not have rigidbody");
-
-        _objectRb = rb;
+        collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * _fanForce, ForceMode2D.Force);
     }
 
-    void FixedUpdate()
+    public void setFanForce(float fanForce)
     {
-        if (_addForceFieldEffect)
-        {
-            _objectRb.AddForce(transform.up * _fanForce, ForceMode2D.Force);
-            _addForceFieldEffect = false;
-            _objectRb = null;
-        }
+        _fanForce = fanForce;
     }
 }

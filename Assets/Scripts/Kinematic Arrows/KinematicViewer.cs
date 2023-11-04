@@ -27,7 +27,8 @@ public class KinematicViewer : MonoBehaviour
 		KinematicArrow arrow = arrowGameObject.AddComponent<ArrowType>();
 
 		arrow.target = transform;
-		arrow.color = properties.color;
+        arrow.setVisible(properties.visible);
+        arrow.color = properties.color;
 		arrow.stemWidth = properties.stemWidth;
 		arrow.tipLength = properties.tipLegth;
 		arrow.tipWidth = properties.tipWidth;

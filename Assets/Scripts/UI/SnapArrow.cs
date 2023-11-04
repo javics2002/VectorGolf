@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class SnapArrow : MonoBehaviour
@@ -7,72 +8,161 @@ public class SnapArrow : MonoBehaviour
     [SerializeField]
     private InterfaceArrow _interfaceArrow;
 
-    private void Start()
+    [SerializeField]
+    private float _lastScalarForce;
+
+    [System.Serializable]
+    public class ArrowProperties
     {
+        public bool visible;
+        public bool forceSmooth;
+        public int priority;
+        public Color color;
+        public float stemLength, stemWidth;
+        public float tipLegth, tipWidth;
     }
-    private void OnMouseOver()
+
+    [SerializeField]
+    ArrowProperties arrowProperties;
+
+    // For fan/springs
+    [SerializeField]
+    private bool _isArrowActive;
+
+    // For fan/springs
+    [SerializeField]
+    private bool _isArrowVisible;
+
+    private void OnMouseEnter()
     {
-        if (!GameManager.Instance.isDragging && GameManager.Instance.isArrowVisible)
-            return;
-
-        switch (GetComponentInParent<InteractableObject>().objectType)
+        if (!GameManager.Instance.isDragging)
         {
-            case InteractableObject.ObjectType.BALL:
-                if (GameManager.Instance.draggedObject.GetComponent<VectorForce>())
-                {
-                    // Show arrow
-                    _interfaceArrow = gameObject.AddComponent<InterfaceArrow>();
+            return;
+        }
 
-                    _interfaceArrow.target.position = transform.parent.position;
-                    _interfaceArrow.setInterfaceArrow(GameManager.Instance.draggedObject.GetComponent<VectorForce>().getVectorialForce());
+        Debug.Log("Mouse enter");
 
-                    GameManager.Instance.isArrowVisible = true;
-                    //_interfaceArrow.ToggleVisible();
+        // Ball
+        if (GameManager.Instance.draggedObject.GetComponent<VectorForce>()
+            && transform.parent.gameObject.GetComponentInChildren<InteractableObject>().objectType == InteractableObject.ObjectType.BALL)
+        {
+            // Show arrow
+            createVectorArrow();
 
-                    // Invisible
-                    GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
-                }
-                break;
-            case InteractableObject.ObjectType.FAN:
-            case InteractableObject.ObjectType.SPRING:
-                if (GameManager.Instance.draggedObject.GetComponent<ScalarForce>())
-                {
-                    // Show arrow
+            // Invisible
+            GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
+        }
 
-                    // Invisible
-                    GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
-                }
-                break;
+        // Spring/Fan
+        else if (GameManager.Instance.draggedObject.GetComponent<ScalarForce>() 
+            && transform.parent.gameObject.GetComponentInChildren<InteractableObject>().objectType != InteractableObject.ObjectType.BALL)
+        {
+            // Show arrow
+            createScalarArrow();
+
+            // Invisible
+            GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
         }
     }
+
     private void OnMouseExit()
     {
         if (!GameManager.Instance.isDragging)
             return;
 
-        switch (GetComponentInParent<InteractableObject>().objectType)
+        Debug.Log("Mouse exit");
+
+        if (transform.parent.GetComponentInChildren<InteractableObject>().objectType == InteractableObject.ObjectType.BALL &&
+            GameManager.Instance.draggedObject.GetComponent<VectorForce>() && _isArrowVisible)
         {
-            case InteractableObject.ObjectType.BALL:
-                if (GameManager.Instance.draggedObject.GetComponent<VectorForce>())
-                {
-                    // NOT Show arrow
-                    _interfaceArrow.ToggleVisible();
-
-                    // Visible
-                    GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
-                }
-                break;
-            case InteractableObject.ObjectType.FAN:
-            case InteractableObject.ObjectType.SPRING:
-                if (GameManager.Instance.draggedObject.GetComponent<ScalarForce>())
-                {
-                    // NOT Show arrow
-                    _interfaceArrow.ToggleVisible();
-
-                    // Visible
-                    GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
-                }
-                break;
+            deleteArrow();
+            GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
         }
+        else if (transform.parent.GetComponentInChildren<InteractableObject>().objectType != InteractableObject.ObjectType.BALL &&
+            GameManager.Instance.draggedObject.GetComponent<ScalarForce>() && _isArrowVisible)
+        {
+            deleteArrow();
+            GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
+        }
+
+    }
+
+    public void createVectorArrow()
+    {
+        // Reference
+        if (_interfaceArrow != null && !_interfaceArrow.enabled)
+            _interfaceArrow.enabled = true;
+        else
+            _interfaceArrow = transform.gameObject.AddComponent<InterfaceArrow>();
+
+        // Properties
+        _interfaceArrow.target = transform.parent;
+        _interfaceArrow.setVisible(arrowProperties.visible);
+        _interfaceArrow.setForceSmooth(arrowProperties.forceSmooth);
+
+        _interfaceArrow.color = arrowProperties.color;
+        _interfaceArrow.stemWidth = arrowProperties.stemWidth;
+        _interfaceArrow.tipLength = arrowProperties.tipLegth;
+        _interfaceArrow.tipWidth = arrowProperties.tipWidth;
+        _interfaceArrow.priority = arrowProperties.priority;
+
+        // Behaviour
+        _interfaceArrow.setInterfaceArrow(GameManager.Instance.draggedObject.GetComponent<VectorForce>().getVectorialForce());
+
+        _isArrowVisible = true;
+        GameManager.Instance.mouseOverObject = transform.parent.gameObject;
+    }
+
+    public void createScalarArrow()
+    {
+        // Reference
+        if (_interfaceArrow != null && !_interfaceArrow.enabled)
+            _interfaceArrow.enabled = true;
+        else
+            _interfaceArrow = transform.gameObject.AddComponent<InterfaceArrow>();
+
+        // Properties
+        _interfaceArrow.target = transform.parent;
+        _interfaceArrow.setVisible(arrowProperties.visible);
+        _interfaceArrow.setForceSmooth(arrowProperties.forceSmooth);
+
+        _interfaceArrow.color = arrowProperties.color;
+        _interfaceArrow.stemWidth = arrowProperties.stemWidth;
+        _interfaceArrow.tipLength = arrowProperties.tipLegth;
+        _interfaceArrow.tipWidth = arrowProperties.tipWidth;
+        _interfaceArrow.priority = arrowProperties.priority;
+
+        // Behaviour
+        _interfaceArrow.setInterfaceArrow(transform.parent.up * GameManager.Instance.draggedObject.GetComponent<ScalarForce>().getScalarForce());
+
+        _isArrowVisible = true;
+        GameManager.Instance.mouseOverObject = transform.parent.gameObject;
+    }
+
+    public void deleteArrow()
+    {
+        if (_isArrowActive)
+        {
+            _interfaceArrow.setInterfaceArrow(transform.parent.up * _lastScalarForce);
+        }
+        else
+        {
+            GetComponent<MeshFilter>().mesh = null;
+            _interfaceArrow.setInterfaceArrow(Vector3.zero);
+            _interfaceArrow.enabled = false;   
+        }
+        _isArrowVisible = false;
+        GameManager.Instance.mouseOverObject = null;
+    }
+
+    public void setArrowActive(bool active)
+    {
+        _isArrowActive = active;
+        _lastScalarForce = GameManager.Instance.draggedObject.GetComponent<ScalarForce>().getScalarForce();
+    }
+
+    public void setArrowInvisible()
+    {
+        _isArrowVisible = false;
     }
 }
