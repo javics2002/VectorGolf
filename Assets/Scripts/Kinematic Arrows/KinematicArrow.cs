@@ -30,30 +30,29 @@ public abstract class KinematicArrow : MonoBehaviour
 	protected MeshFilter meshFilter;
 	protected new Rigidbody2D rigidbody;
 
-	protected Vector3 lastFrameVector;
+	public Vector3 lastFrameVector;
+
+	protected bool forceSmooth;
 
 	protected float threshold = .5f;
 	protected float lerpFactor = .1f;
 	
-
 	void Start()
     {
-		//setup
-		verticesList = new List<Vector3>();
-		trianglesList = new List<int>();
+        //setup
+        verticesList = new List<Vector3>();
+        trianglesList = new List<int>();
 
-		rigidbody = target.GetComponent<Rigidbody2D>();
+        rigidbody = target.GetComponent<Rigidbody2D>();
 
-		transform.position = Vector3.zero;
+        transform.position = Vector3.zero;
 
-		mesh = new Mesh();
-		meshRenderer = GetComponent<MeshRenderer>();
-		meshFilter = GetComponent<MeshFilter>();
+        mesh = new Mesh();
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshFilter = GetComponent<MeshFilter>();
 
-		lastFrameVector = Vector3.zero;
-
-		isVisible = true;
-	}
+        lastFrameVector = Vector3.zero;
+    }
 
     void LateUpdate()
     {
@@ -62,10 +61,16 @@ public abstract class KinematicArrow : MonoBehaviour
 
 		if (isVisible && DrawArrow(vector)) {
 			meshRenderer.enabled = true;
-
 			vector.Normalize();
 
-			transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
+			if (forceSmooth)
+			{
+                transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
+            }
+			else
+			{
+				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
+			}
 		}
 		else
 			meshRenderer.enabled = false;
@@ -76,6 +81,12 @@ public abstract class KinematicArrow : MonoBehaviour
 			vector = Vector3.Lerp(lastFrameVector, vector, lerpFactor);
 		}
 
+		lastFrameVector = vector;
+		return vector;
+	}
+
+	private Vector3 Smooth(Vector3 vector) {
+		vector = Vector3.Lerp(lastFrameVector, vector, lerpFactor);
 		lastFrameVector = vector;
 		return vector;
 	}
@@ -138,5 +149,14 @@ public abstract class KinematicArrow : MonoBehaviour
 
 	public void ToggleVisible() {
 		isVisible = !isVisible;
+	}
+
+	public void setVisible(bool newValue)
+	{
+		isVisible = newValue;
+	}
+	public void setForceSmooth(bool newValue)
+	{
+		forceSmooth = newValue;
 	}
 }
