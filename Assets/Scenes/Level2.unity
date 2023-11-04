@@ -704,6 +704,63 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1001 &1440212531
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2661725527620701680, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_Name
+      value: Level Sprite Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
 --- !u!1 &1469620091 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2015462755638427360, guid: ac794778abdd18a489834112eee7b18e, type: 3}
@@ -909,15 +966,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8745f204044d3a343a1d179bc0e15baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallLaunchers:
-  - Rotation: 135
-    Force: 200
-  - Rotation: 90
-    Force: 500
-  - Rotation: 0
-    Force: 200
-  - Rotation: 180
-    Force: 200
+  isArrowVisible: 0
+  isDragging: 0
+  draggedObject: {fileID: 0}
+  levelCompletion: 
+  musicVolume: 0
+  soundsVolume: 0
 --- !u!4 &1667047451
 Transform:
   m_ObjectHideFlags: 0
@@ -2387,7 +2441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab20787487bd67147aed0c3a2dc7d70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 80644733787142597, guid: 79b64b39643b66f40b768d01ab90e717, type: 3}
 --- !u!114 &2140365949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2511,3 +2564,4 @@ SceneRoots:
   - {fileID: 597695938}
   - {fileID: 2129932907}
   - {fileID: 1285899441}
+  - {fileID: 1440212531}

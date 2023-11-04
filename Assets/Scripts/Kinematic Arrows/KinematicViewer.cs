@@ -22,7 +22,9 @@ public class KinematicViewer : MonoBehaviour
 	}
 
 	Transform CreateArrow<ArrowType>(string name, ArrowProperties properties) where ArrowType : KinematicArrow {
-		KinematicArrow arrow = new GameObject(name).AddComponent<ArrowType>();
+		GameObject arrowGameObject = new GameObject(name);
+		arrowGameObject.layer = LayerMask.NameToLayer("UI");
+		KinematicArrow arrow = arrowGameObject.AddComponent<ArrowType>();
 
 		arrow.target = transform;
 		arrow.color = properties.color;

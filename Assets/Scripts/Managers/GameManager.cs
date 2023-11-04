@@ -2,33 +2,38 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    /// <summary>
-    ///     The GameManager instance for the game
-    /// </summary>
     public static GameManager Instance { get; private set; }
 
-    public bool isArrowVisible;
+    LoadManager loadManager;
+
+	[Header("Gameplay State")]
+	public bool isArrowVisible;
 	public bool isDragging;
 	public GameObject draggedObject;
 
-    #region Progreso
+	public const int numberOfLevels = 3;
     public enum LevelCompletion { Locked, Uncompleted, Completed, Par, HoleInOne };
 
-    public const int numberOfLevels = 100;
+	//[Space(10)]
+	[Header("Progression")]
     public LevelCompletion[] levelCompletion;
-    #endregion
 
-    private void Awake()
+	[Header("Settings")]
+	public float musicVolume, soundsVolume;
+
+    [Header("Hacks")]
+    public bool unlockAllLevels;
+
+	private void Awake()
 	{
-		if (Instance == null)
-		{
-			Instance = this;
-			DontDestroyOnLoad(gameObject);
-		}
-		else
-		{
+		if (Instance != null) {
 			Destroy(gameObject);
+
+            return;
 		}
+
+		Instance = this;
+		DontDestroyOnLoad(gameObject);
 
 		Instance.Init();
 	}
@@ -39,12 +44,21 @@ public class GameManager : MonoBehaviour
         isArrowVisible = false;
 		draggedObject = null;
 
-        LoadManager.Instance.Load();
+        loadManager = gameObject.AddComponent<LoadManager>();
+
+		loadManager.Load();
+
+#if UNITY_EDITOR
+        if(unlockAllLevels)
+            for(int i = 0; i < numberOfLevels; i++)
+                if (levelCompletion[i] == LevelCompletion.Locked)
+                    levelCompletion[i] = LevelCompletion.Uncompleted;
+#endif
     }
 
     public void Save()
     {
-        LoadManager.Instance.Save();
+		loadManager.Save();
     }
 
 	public void DragObject(GameObject dragObject)
