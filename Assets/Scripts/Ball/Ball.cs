@@ -1,31 +1,97 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : InteractableObject
-{
-    Vector3 lastPosition;
-    Vector2 deltaPositon;
+public class Ball : InteractableObject {
+    [Header("Animation times")]
+    [SerializeField, Range(0f, 1f)]
+    float secondArrowTime;
+	[SerializeField, Range(0f, 1f)]
+	float resultArrowTime;
+	[SerializeField, Range(0f, 1f)]
+	float pauseAfterSecond, pauseAfterResult;
 
-    void Awake()
-    {
-        lastPosition = transform.position;
-        deltaPositon = Vector2.zero;
-    }
+	[Header("References")]
+	[SerializeField]
+	Transform secondArrowTarget;
+
+	public VelocityArrow velocityArrow {get;set;}
+    InterfaceArrow firstVector, secondVector, resultVector;
+
+	new Rigidbody2D rigidbody;
 
     private void Start()
     {
         objectType = ObjectType.BALL;
+
+        rigidbody = GetComponentInParent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
-    {
-        deltaPositon = new Vector2(transform.position.x - lastPosition.x, transform.position.y - lastPosition.y);
-        lastPosition = transform.position;
+    public void Hit(Vector2 force) {
+        StartCoroutine(AddVectorsAnimation(force));
+	}
+
+    IEnumerator AddVectorsAnimation(Vector3 force) {
+        if (velocityArrow.IsLongEnoughToDraw(velocityArrow.GetVector())) {
+			Time.timeScale = 0;
+
+			velocityArrow.isVisible = false;
+
+            firstVector = KinematicArrow.CreateArrow<InterfaceArrow>("First Vector", 
+                transform, velocityArrow.GetArrowProperties());
+            firstVector.SetInterfaceArrow(velocityArrow.GetVector());
+			firstVector.isVisible = true;
+
+			yield return MoveSecondVector(force);
+			yield return new WaitForSecondsRealtime(pauseAfterSecond);
+
+			yield return GrowResultVector(force);
+			yield return new WaitForSecondsRealtime(pauseAfterResult);
+
+            Destroy(firstVector.gameObject);
+            Destroy(secondVector.gameObject);
+            Destroy(resultVector.gameObject);
+
+            velocityArrow.isVisible = true;
+
+			Time.timeScale = 1;
+		}
+
+		rigidbody.AddForce(force, ForceMode2D.Impulse);
     }
 
-    public Vector3 getDeltaPosition()
-    {
-        return new Vector3(deltaPositon.x, deltaPositon.y, 0);
-    }
+    IEnumerator MoveSecondVector(Vector3 force) {
+		secondVector = KinematicArrow.CreateArrow<InterfaceArrow>("Second Vector",
+				transform, velocityArrow.GetArrowProperties());
+		secondVector.SetInterfaceArrow(force);
+		secondVector.isVisible = true;
+		secondVector.target = secondArrowTarget;
+
+		float t = 0;
+        while(t < secondArrowTime) {
+			secondArrowTarget.position = Vector3.Lerp(transform.position, 
+                transform.position + velocityArrow.GetVector(), t / secondArrowTime);
+
+            yield return null;
+            t += Time.unscaledDeltaTime;
+        }
+
+		secondArrowTarget.position = transform.position + velocityArrow.GetVector();
+	}
+
+	IEnumerator GrowResultVector(Vector3 force) {
+		resultVector = KinematicArrow.CreateArrow<InterfaceArrow>("Result Vector",
+				transform, velocityArrow.GetArrowProperties());
+		resultVector.isVisible = true;
+
+		float t = 0;
+        while(t < resultArrowTime) {
+			resultVector.SetInterfaceArrow(Vector3.Lerp(Vector3.zero, 
+                velocityArrow.GetVector() + force, t / resultArrowTime));
+
+		    yield return null;
+			t += Time.unscaledDeltaTime;
+		}
+
+		resultVector.SetInterfaceArrow(velocityArrow.GetVector() + force);
+	}
 }

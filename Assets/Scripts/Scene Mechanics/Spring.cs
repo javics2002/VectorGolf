@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spring : InteractableObject
 {
     [SerializeField]
-    private float _springForce;
+    private float _springForce = 1f;
 
     void Start()
     {
@@ -25,8 +25,7 @@ public class Spring : InteractableObject
         // prev force
         // Vector2 prevForce = -collision.gameObject.GetComponent<Rigidbody2D>().totalForce;
 
-
-		collision.rigidbody.AddForce(transform.up * _springForce  , ForceMode2D.Impulse);
+        collision.gameObject.GetComponentInChildren<Ball>().Hit(transform.up * _springForce);
     }
 
     public void setSpringForce(float springForce) { 

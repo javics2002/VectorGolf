@@ -6,7 +6,7 @@ using UnityEngine.Assertions;
 public class Fan : InteractableObject
 {
     [SerializeField]
-    private float _fanForce;
+    private float _fanForce = 1f;
     
     void Start()
     {

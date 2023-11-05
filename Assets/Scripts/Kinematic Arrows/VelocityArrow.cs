@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class VelocityArrow : KinematicArrow
 {
-	protected override Vector3 GetVector() {
-		Vector3 vector = GameManager.Instance.convertToScale(rigidbody.velocity);
-        return vector;
+	public override Vector3 GetVector() {
+        //return GameManager.Instance.convertToScale(rigidbody.velocity);
+        return rigidbody.velocity;
 	}
 }

@@ -11,19 +11,8 @@ public class SnapArrow : MonoBehaviour
     [SerializeField]
     private float _lastScalarForce;
 
-    [System.Serializable]
-    public class ArrowProperties
-    {
-        public bool visible;
-        public bool forceSmooth;
-        public int priority;
-        public Color color;
-        public float stemLength, stemWidth;
-        public float tipLegth, tipWidth;
-    }
-
     [SerializeField]
-    ArrowProperties arrowProperties;
+    KinematicArrow.ArrowProperties arrowProperties;
 
     // For fan/springs
     [SerializeField]
@@ -33,14 +22,13 @@ public class SnapArrow : MonoBehaviour
     [SerializeField]
     private bool _isArrowVisible;
 
-    private void OnMouseEnter()
+	private void Start() {
+	}
+
+	private void OnMouseEnter()
     {
         if (!GameManager.Instance.isDragging)
-        {
             return;
-        }
-
-        Debug.Log("Mouse enter");
 
         // Ball
         if (GameManager.Instance.draggedObject.GetComponent<VectorForce>()
@@ -70,8 +58,6 @@ public class SnapArrow : MonoBehaviour
         if (!GameManager.Instance.isDragging)
             return;
 
-        Debug.Log("Mouse exit");
-
         if (transform.parent.GetComponentInChildren<InteractableObject>().objectType == InteractableObject.ObjectType.BALL &&
             GameManager.Instance.draggedObject.GetComponent<VectorForce>() && _isArrowVisible)
         {
@@ -97,17 +83,17 @@ public class SnapArrow : MonoBehaviour
 
         // Properties
         _interfaceArrow.target = transform.parent;
-        _interfaceArrow.setVisible(arrowProperties.visible);
-        _interfaceArrow.setForceSmooth(arrowProperties.forceSmooth);
+        _interfaceArrow.isVisible = arrowProperties.visible;
+        _interfaceArrow.SetForceSmooth(arrowProperties.forceSmooth);
 
         _interfaceArrow.color = arrowProperties.color;
         _interfaceArrow.stemWidth = arrowProperties.stemWidth;
-        _interfaceArrow.tipLength = arrowProperties.tipLegth;
+        _interfaceArrow.tipLength = arrowProperties.tipLength;
         _interfaceArrow.tipWidth = arrowProperties.tipWidth;
         _interfaceArrow.priority = arrowProperties.priority;
 
         // Behaviour
-        _interfaceArrow.setInterfaceArrow(GameManager.Instance.draggedObject.GetComponent<VectorForce>().getVectorialForce());
+        _interfaceArrow.SetInterfaceArrow(GameManager.Instance.draggedObject.GetComponent<VectorForce>().getVectorialForce());
 
         _isArrowVisible = true;
         GameManager.Instance.mouseOverObject = transform.parent.gameObject;
@@ -123,17 +109,17 @@ public class SnapArrow : MonoBehaviour
 
         // Properties
         _interfaceArrow.target = transform.parent;
-        _interfaceArrow.setVisible(arrowProperties.visible);
-        _interfaceArrow.setForceSmooth(arrowProperties.forceSmooth);
+        _interfaceArrow.isVisible = arrowProperties.visible;
+        _interfaceArrow.SetForceSmooth(arrowProperties.forceSmooth);
 
         _interfaceArrow.color = arrowProperties.color;
         _interfaceArrow.stemWidth = arrowProperties.stemWidth;
-        _interfaceArrow.tipLength = arrowProperties.tipLegth;
+        _interfaceArrow.tipLength = arrowProperties.tipLength;
         _interfaceArrow.tipWidth = arrowProperties.tipWidth;
         _interfaceArrow.priority = arrowProperties.priority;
 
         // Behaviour
-        _interfaceArrow.setInterfaceArrow(transform.parent.up * GameManager.Instance.draggedObject.GetComponent<ScalarForce>().getScalarForce());
+        _interfaceArrow.SetInterfaceArrow(transform.parent.up * GameManager.Instance.draggedObject.GetComponent<ScalarForce>().getScalarForce());
 
         _isArrowVisible = true;
         GameManager.Instance.mouseOverObject = transform.parent.gameObject;
@@ -143,12 +129,12 @@ public class SnapArrow : MonoBehaviour
     {
         if (_isArrowActive)
         {
-            _interfaceArrow.setInterfaceArrow(transform.parent.up * _lastScalarForce);
+            _interfaceArrow.SetInterfaceArrow(transform.parent.up * _lastScalarForce);
         }
         else
         {
             GetComponent<MeshFilter>().mesh = null;
-            _interfaceArrow.setInterfaceArrow(Vector3.zero);
+            _interfaceArrow.SetInterfaceArrow(Vector3.zero);
             _interfaceArrow.enabled = false;   
         }
         _isArrowVisible = false;

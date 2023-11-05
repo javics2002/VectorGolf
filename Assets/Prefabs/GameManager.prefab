@@ -47,4 +47,12 @@ MonoBehaviour:
   isArrowVisible: 0
   isDragging: 0
   draggedObject: {fileID: 0}
+  mouseOverObject: {fileID: 0}
+  minForce: 1
+  maxForce: 20
+  minLinearValue: 0
+  maxLinearValue: 5
   levelCompletion: 
+  musicVolume: 1
+  soundsVolume: 1
+  unlockAllLevels: 0
