@@ -8,7 +8,36 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public abstract class KinematicArrow : MonoBehaviour
 {
-	protected bool isVisible;
+	[System.Serializable]
+	public class ArrowProperties {
+		public bool visible;
+		public int priority;
+		public Color color;
+		public float stemLength, stemWidth;
+		public float tipLegth, tipWidth;
+		public bool forceSmooth;
+	}
+
+	public static ArrowType CreateArrow<ArrowType>(string name, Transform target, ArrowProperties properties) 
+		where ArrowType : KinematicArrow {
+		GameObject arrowGameObject = new GameObject(name);
+		arrowGameObject.layer = LayerMask.NameToLayer("UI");
+		ArrowType arrow = arrowGameObject.AddComponent<ArrowType>();
+
+		arrow.isVisible = properties.visible;
+		arrow.target = target;
+		arrow.color = properties.color;
+		arrow.stemWidth = properties.stemWidth;
+		arrow.tipLength = properties.tipLegth;
+		arrow.tipWidth = properties.tipWidth;
+		arrow.priority = properties.priority;
+
+		return arrow;
+	}
+
+	public bool isVisible { get; set; }
+	//Durante las animaciones no quiero mostrar la flecha real
+	public bool animating { get; set; } = false;
 
 	public Transform target { get; set; }
 	
@@ -39,7 +68,6 @@ public abstract class KinematicArrow : MonoBehaviour
 	
 	void Start()
     {
-        //setup
         verticesList = new List<Vector3>();
         trianglesList = new List<int>();
 
@@ -59,36 +87,31 @@ public abstract class KinematicArrow : MonoBehaviour
 		Vector3 vector = GetVector();
 		transform.position = target.position + priority * Vector3.back * .1f;
 
-		if (isVisible && DrawArrow(vector)) {
+		if (isVisible && !animating && DrawArrow(vector)) {
 			meshRenderer.enabled = true;
 			vector.Normalize();
 
 			if (forceSmooth)
-			{
                 transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
-            }
 			else
-			{
 				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
-			}
 		}
 		else
 			meshRenderer.enabled = false;
 	}
 
 	private Vector3 SmoothIfSimilar(Vector3 vector, float threshold) {
-		if ((lastFrameVector - vector).sqrMagnitude < threshold * threshold) {
-			vector = Vector3.Lerp(lastFrameVector, vector, lerpFactor);
-		}
+		if ((lastFrameVector - vector).sqrMagnitude < threshold * threshold)
+			return Smooth(vector);
 
 		lastFrameVector = vector;
 		return vector;
 	}
 
 	private Vector3 Smooth(Vector3 vector) {
-		vector = Vector3.Lerp(lastFrameVector, vector, lerpFactor);
-		lastFrameVector = vector;
-		return vector;
+		Vector3 newVector = Vector3.Lerp(lastFrameVector, vector, lerpFactor);
+		lastFrameVector = newVector;
+		return newVector;
 	}
 
 	bool DrawArrow(Vector3 vector) {
@@ -151,11 +174,7 @@ public abstract class KinematicArrow : MonoBehaviour
 		isVisible = !isVisible;
 	}
 
-	public void setVisible(bool newValue)
-	{
-		isVisible = newValue;
-	}
-	public void setForceSmooth(bool newValue)
+	public void SetForceSmooth(bool newValue)
 	{
 		forceSmooth = newValue;
 	}

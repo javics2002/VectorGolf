@@ -1,31 +1,47 @@
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class Ball : InteractableObject
-{
-    Vector3 lastPosition;
-    Vector2 deltaPositon;
+public class Ball : InteractableObject {
+    new Rigidbody2D rigidbody;
 
-    void Awake()
-    {
-        lastPosition = transform.position;
-        deltaPositon = Vector2.zero;
-    }
+    public VelocityArrow velocityArrow {get;set;}
 
     private void Start()
     {
         objectType = ObjectType.BALL;
+
+        rigidbody = GetComponentInParent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
-    {
-        deltaPositon = new Vector2(transform.position.x - lastPosition.x, transform.position.y - lastPosition.y);
-        lastPosition = transform.position;
+    public void Hit(Vector2 force) {
+        StartCoroutine(AddVectorsAnimation(force));
+	}
+
+    IEnumerator AddVectorsAnimation(Vector2 force) {
+        Time.timeScale = 0;
+
+        if (velocityArrow.isVisible) {
+            velocityArrow.isVisible = false;
+
+
+
+			yield return ShowSecondVector();
+			yield return ShowResultVector();
+
+            velocityArrow.isVisible = true;
+		}
+        
+		rigidbody.AddForce(force, ForceMode2D.Impulse);
+
+		Time.timeScale = 1;
     }
 
-    public Vector3 getDeltaPosition()
-    {
-        return new Vector3(deltaPositon.x, deltaPositon.y, 0);
+    IEnumerator ShowSecondVector() {
+        yield return null;
     }
+
+	IEnumerator ShowResultVector() {
+		yield return null;
+	}
 }

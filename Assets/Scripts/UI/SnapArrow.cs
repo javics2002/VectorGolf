@@ -11,19 +11,8 @@ public class SnapArrow : MonoBehaviour
     [SerializeField]
     private float _lastScalarForce;
 
-    [System.Serializable]
-    public class ArrowProperties
-    {
-        public bool visible;
-        public bool forceSmooth;
-        public int priority;
-        public Color color;
-        public float stemLength, stemWidth;
-        public float tipLegth, tipWidth;
-    }
-
     [SerializeField]
-    ArrowProperties arrowProperties;
+    KinematicArrow.ArrowProperties arrowProperties;
 
     // For fan/springs
     [SerializeField]
@@ -36,11 +25,7 @@ public class SnapArrow : MonoBehaviour
     private void OnMouseEnter()
     {
         if (!GameManager.Instance.isDragging)
-        {
             return;
-        }
-
-        Debug.Log("Mouse enter");
 
         // Ball
         if (GameManager.Instance.draggedObject.GetComponent<VectorForce>()
@@ -70,8 +55,6 @@ public class SnapArrow : MonoBehaviour
         if (!GameManager.Instance.isDragging)
             return;
 
-        Debug.Log("Mouse exit");
-
         if (transform.parent.GetComponentInChildren<InteractableObject>().objectType == InteractableObject.ObjectType.BALL &&
             GameManager.Instance.draggedObject.GetComponent<VectorForce>() && _isArrowVisible)
         {
@@ -97,8 +80,8 @@ public class SnapArrow : MonoBehaviour
 
         // Properties
         _interfaceArrow.target = transform.parent;
-        _interfaceArrow.setVisible(arrowProperties.visible);
-        _interfaceArrow.setForceSmooth(arrowProperties.forceSmooth);
+        _interfaceArrow.isVisible = arrowProperties.visible;
+        _interfaceArrow.SetForceSmooth(arrowProperties.forceSmooth);
 
         _interfaceArrow.color = arrowProperties.color;
         _interfaceArrow.stemWidth = arrowProperties.stemWidth;
@@ -123,8 +106,8 @@ public class SnapArrow : MonoBehaviour
 
         // Properties
         _interfaceArrow.target = transform.parent;
-        _interfaceArrow.setVisible(arrowProperties.visible);
-        _interfaceArrow.setForceSmooth(arrowProperties.forceSmooth);
+        _interfaceArrow.isVisible = arrowProperties.visible;
+        _interfaceArrow.SetForceSmooth(arrowProperties.forceSmooth);
 
         _interfaceArrow.color = arrowProperties.color;
         _interfaceArrow.stemWidth = arrowProperties.stemWidth;

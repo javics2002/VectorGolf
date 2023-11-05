@@ -227,8 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363ac4bc31e25ce4ba2510b7582e7317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 2
-  _fanForce: 0
+  _fanForce: 1
 --- !u!1 &6196423698109117268
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,13 +358,13 @@ MonoBehaviour:
   _lastScalarForce: 0
   arrowProperties:
     visible: 1
-    forceSmooth: 1
     priority: 2
     color: {r: 1, g: 0.94715035, b: 0, a: 1}
     stemLength: 1
     stemWidth: 0.2
     tipLegth: 1
     tipWidth: 0.5
+    forceSmooth: 1
   _isArrowActive: 0
   _isArrowVisible: 0
 --- !u!61 &7051980943930993278

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spring : InteractableObject
 {
     [SerializeField]
-    private float _springForce;
+    private float _springForce = 1f;
 
     void Start()
     {

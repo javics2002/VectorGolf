@@ -27,8 +27,10 @@ public class GameManager : MonoBehaviour
 	[Header("Settings")]
 	public float musicVolume, soundsVolume;
 
+#if UNITY_EDITOR
     [Header("Hacks")]
     public bool unlockAllLevels;
+#endif
 
 	private void Awake()
 	{
