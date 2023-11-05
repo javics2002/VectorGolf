@@ -1,24 +1,20 @@
 using System.Collections.Generic;
-
-using Unity.VisualScripting;
-
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-public abstract class KinematicArrow : MonoBehaviour
-{
+public abstract class KinematicArrow : MonoBehaviour {
 	[System.Serializable]
 	public class ArrowProperties {
 		public bool visible;
 		public int priority;
 		public Color color;
 		public float stemLength, stemWidth;
-		public float tipLegth, tipWidth;
+		public float tipLength, tipWidth;
 		public bool forceSmooth;
 	}
 
-	public static ArrowType CreateArrow<ArrowType>(string name, Transform target, ArrowProperties properties) 
+	public static ArrowType CreateArrow<ArrowType>(string name, Transform target, ArrowProperties properties)
 		where ArrowType : KinematicArrow {
 		GameObject arrowGameObject = new GameObject(name);
 		arrowGameObject.layer = LayerMask.NameToLayer("UI");
@@ -28,7 +24,7 @@ public abstract class KinematicArrow : MonoBehaviour
 		arrow.target = target;
 		arrow.color = properties.color;
 		arrow.stemWidth = properties.stemWidth;
-		arrow.tipLength = properties.tipLegth;
+		arrow.tipLength = properties.tipLength;
 		arrow.tipWidth = properties.tipWidth;
 		arrow.priority = properties.priority;
 
@@ -40,14 +36,14 @@ public abstract class KinematicArrow : MonoBehaviour
 	public bool animating { get; set; } = false;
 
 	public Transform target { get; set; }
-	
+
 	public float stemLength { get; private set; }
 	public float stemWidth { get; set; }
 	public float tipLength { get; set; }
 	public float tipWidth { get; set; }
 
 	public Color color { get; set; }
-	public float priority { get; set; }
+	public int priority { get; set; }
 
 	[System.NonSerialized]
 	public List<Vector3> verticesList;
@@ -65,34 +61,34 @@ public abstract class KinematicArrow : MonoBehaviour
 
 	protected float threshold = .5f;
 	protected float lerpFactor = .1f;
-	
-	void Start()
-    {
-        verticesList = new List<Vector3>();
-        trianglesList = new List<int>();
 
-        rigidbody = target.GetComponent<Rigidbody2D>();
+	void Start() {
+		verticesList = new List<Vector3>();
+		trianglesList = new List<int>();
 
-        transform.position = Vector3.zero;
+		rigidbody = target.GetComponent<Rigidbody2D>();
 
-        mesh = new Mesh();
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshFilter = GetComponent<MeshFilter>();
+		transform.position = Vector3.zero;
 
-        lastFrameVector = Vector3.zero;
-    }
+		mesh = new Mesh();
+		meshRenderer = GetComponent<MeshRenderer>();
+		meshFilter = GetComponent<MeshFilter>();
 
-    void LateUpdate()
-    {
+		lastFrameVector = Vector3.zero;
+	}
+
+	void LateUpdate() {
 		Vector3 vector = GetVector();
 		transform.position = target.position + priority * Vector3.back * .1f;
 
-		if (isVisible && !animating && DrawArrow(vector)) {
+		if (isVisible && !animating && IsLongEnoughToDraw(vector)) {
+			CreateArrowMesh(vector);
+
 			meshRenderer.enabled = true;
 			vector.Normalize();
 
 			if (forceSmooth)
-                transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
+				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
 			else
 				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
 		}
@@ -114,20 +110,14 @@ public abstract class KinematicArrow : MonoBehaviour
 		return newVector;
 	}
 
-	bool DrawArrow(Vector3 vector) {
+	void CreateArrowMesh(Vector3 vector) {
 		verticesList.Clear();
 		trianglesList.Clear();
 
-		//stem setup
 		Vector3 stemOrigin = Vector3.zero;
 		float stemHalfWidth = stemWidth * .5f;
 		stemLength = vector.magnitude - tipLength;
 
-		if(stemLength < 0) {
-			//Flecha demasiado pequeña como para pintarla
-			return false;
-		}
-		
 		//Stem points
 		verticesList.Add(stemOrigin + stemHalfWidth * Vector3.down);
 		verticesList.Add(stemOrigin + stemHalfWidth * Vector3.up);
@@ -163,19 +153,34 @@ public abstract class KinematicArrow : MonoBehaviour
 
 		meshFilter.mesh = mesh;
 		meshRenderer.material.color = color;
-		return true;
+	}
+
+	public bool IsLongEnoughToDraw(Vector3 vector) {
+		return vector.magnitude - tipLength >= 0;
 	}
 
 	float ArrowRotation(Vector2 vector) => Mathf.Rad2Deg * Mathf.Atan2(vector.y, vector.x);
 
-	protected abstract Vector3 GetVector();
+	public abstract Vector3 GetVector();
 
 	public void ToggleVisible() {
 		isVisible = !isVisible;
 	}
 
-	public void SetForceSmooth(bool newValue)
-	{
+	public void SetForceSmooth(bool newValue) {
 		forceSmooth = newValue;
+	}
+
+	public ArrowProperties GetArrowProperties() {
+		ArrowProperties arrowProperties = new ArrowProperties();
+
+		arrowProperties.visible = isVisible;
+		arrowProperties.color = color;
+		arrowProperties.stemWidth = stemWidth;
+		arrowProperties.tipLength = tipLength;
+		arrowProperties.tipWidth = tipWidth;
+		arrowProperties.priority = priority;
+
+		return arrowProperties;
 	}
 }

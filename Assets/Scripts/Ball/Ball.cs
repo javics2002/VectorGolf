@@ -1,11 +1,23 @@
 using System.Collections;
-
 using UnityEngine;
 
 public class Ball : InteractableObject {
-    new Rigidbody2D rigidbody;
+    [Header("Animation times")]
+    [SerializeField, Range(0f, 1f)]
+    float secondArrowTime;
+	[SerializeField, Range(0f, 1f)]
+	float resultArrowTime;
+	[SerializeField, Range(0f, 1f)]
+	float pauseAfterSecond, pauseAfterResult;
 
-    public VelocityArrow velocityArrow {get;set;}
+	[Header("References")]
+	[SerializeField]
+	Transform secondArrowTarget;
+
+	public VelocityArrow velocityArrow {get;set;}
+    InterfaceArrow firstVector, secondVector, resultVector;
+
+	new Rigidbody2D rigidbody;
 
     private void Start()
     {
@@ -18,30 +30,68 @@ public class Ball : InteractableObject {
         StartCoroutine(AddVectorsAnimation(force));
 	}
 
-    IEnumerator AddVectorsAnimation(Vector2 force) {
-        Time.timeScale = 0;
+    IEnumerator AddVectorsAnimation(Vector3 force) {
+        if (velocityArrow.IsLongEnoughToDraw(velocityArrow.GetVector())) {
+			Time.timeScale = 0;
 
-        if (velocityArrow.isVisible) {
-            velocityArrow.isVisible = false;
+			velocityArrow.isVisible = false;
 
+            firstVector = KinematicArrow.CreateArrow<InterfaceArrow>("First Vector", 
+                transform, velocityArrow.GetArrowProperties());
+            firstVector.SetInterfaceArrow(velocityArrow.GetVector());
+			firstVector.isVisible = true;
 
+			yield return MoveSecondVector(force);
+			yield return new WaitForSecondsRealtime(pauseAfterSecond);
 
-			yield return ShowSecondVector();
-			yield return ShowResultVector();
+			yield return GrowResultVector(force);
+			yield return new WaitForSecondsRealtime(pauseAfterResult);
+
+            Destroy(firstVector.gameObject);
+            Destroy(secondVector.gameObject);
+            Destroy(resultVector.gameObject);
 
             velocityArrow.isVisible = true;
+
+			Time.timeScale = 1;
 		}
-        
+
 		rigidbody.AddForce(force, ForceMode2D.Impulse);
-
-		Time.timeScale = 1;
     }
 
-    IEnumerator ShowSecondVector() {
-        yield return null;
-    }
+    IEnumerator MoveSecondVector(Vector3 force) {
+		secondVector = KinematicArrow.CreateArrow<InterfaceArrow>("Second Vector",
+				transform, velocityArrow.GetArrowProperties());
+		secondVector.SetInterfaceArrow(force);
+		secondVector.isVisible = true;
+		secondVector.target = secondArrowTarget;
 
-	IEnumerator ShowResultVector() {
-		yield return null;
+		float t = 0;
+        while(t < secondArrowTime) {
+			secondArrowTarget.position = Vector3.Lerp(transform.position, 
+                transform.position + velocityArrow.GetVector(), t / secondArrowTime);
+
+            yield return null;
+            t += Time.unscaledDeltaTime;
+        }
+
+		secondArrowTarget.position = transform.position + velocityArrow.GetVector();
+	}
+
+	IEnumerator GrowResultVector(Vector3 force) {
+		resultVector = KinematicArrow.CreateArrow<InterfaceArrow>("Result Vector",
+				transform, velocityArrow.GetArrowProperties());
+		resultVector.isVisible = true;
+
+		float t = 0;
+        while(t < resultArrowTime) {
+			resultVector.SetInterfaceArrow(Vector3.Lerp(Vector3.zero, 
+                velocityArrow.GetVector() + force, t / resultArrowTime));
+
+		    yield return null;
+			t += Time.unscaledDeltaTime;
+		}
+
+		resultVector.SetInterfaceArrow(velocityArrow.GetVector() + force);
 	}
 }

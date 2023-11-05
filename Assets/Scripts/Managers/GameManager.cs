@@ -24,8 +24,10 @@ public class GameManager : MonoBehaviour
 	[Header("Progression")]
     public LevelCompletion[] levelCompletion;
 
-	[Header("Settings")]
-	public float musicVolume, soundsVolume;
+    [Header("Settings"), Range(0,1)]
+    public float musicVolume;
+    [Range(0, 1)]
+	public float soundsVolume;
 
 #if UNITY_EDITOR
     [Header("Hacks")]
