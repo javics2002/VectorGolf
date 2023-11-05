@@ -2887,86 +2887,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.color.b
-      value: 0.9568628
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.color.g
-      value: 0.73333335
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.color.r
-      value: 0.41176474
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.visible
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.priority
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.tipWidth
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.stemWidth
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.tipLength
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: velocityArrowProperties.stemLength
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.color.b
-      value: 0.40000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.color.g
-      value: 0.9058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.color.r
-      value: 0.9568628
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.visible
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.tipWidth
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.stemWidth
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.tipLength
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939789818740057651, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: accelerationArrowProperties.stemLength
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 5993083973487568878, guid: ac794778abdd18a489834112eee7b18e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.76
@@ -3007,14 +2927,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7063746389938258982, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: resultArrowTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7063746389938258982, guid: ac794778abdd18a489834112eee7b18e, type: 3}
-      propertyPath: secondArrowTime
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3028,6 +2940,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 45923746330517582, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 45923746330517582, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 45923746330517582, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793353350717864389, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793353350717864389, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793353350717864389, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793353350717864389, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793353350717864389, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870797600911243518, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870797600911243518, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870797600911243518, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3939679369597934673, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_Camera
       value: 
@@ -3114,6 +3070,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261784234373324882, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261784234373324882, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261784234373324882, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261784234373324882, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261784234373324882, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

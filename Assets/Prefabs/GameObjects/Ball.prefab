@@ -165,22 +165,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocityArrowProperties:
-    visible: 0
-    priority: 0
-    color: {r: 0, g: 0, b: 0, a: 0}
-    stemLength: 0
-    stemWidth: 0
-    tipLength: 0
-    tipWidth: 0
+    visible: 1
+    priority: 2
+    color: {r: 0.41176474, g: 0.73333335, b: 0.9568628, a: 1}
+    stemLength: 0.1
+    stemWidth: 0.1
+    tipLength: 0.2
+    tipWidth: 0.2
     forceSmooth: 0
   accelerationArrowProperties:
-    visible: 0
-    priority: 0
-    color: {r: 0, g: 0, b: 0, a: 0}
-    stemLength: 0
-    stemWidth: 0
-    tipLength: 0
-    tipWidth: 0
+    visible: 1
+    priority: 1
+    color: {r: 0.9568628, g: 0.9058824, b: 0.40000004, a: 1}
+    stemLength: 0.1
+    stemWidth: 0.1
+    tipLength: 0.2
+    tipWidth: 0.2
     forceSmooth: 0
 --- !u!1 &5911104698774542964
 GameObject:
@@ -357,8 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60b7ca287ecff5469e9ef0f781875b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondArrowTime: 0.7
-  resultArrowTime: 0.7
+  secondArrowTime: 1
+  resultArrowTime: 1
   pauseAfterSecond: 0.2
   pauseAfterResult: 0.5
   secondArrowTarget: {fileID: 1155868442860031796}
