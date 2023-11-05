@@ -26,11 +26,15 @@ public class Ball : InteractableObject {
         rigidbody = GetComponentInParent<Rigidbody2D>();
     }
 
-    public void Hit(Vector2 force) {
-        StartCoroutine(AddVectorsAnimation(force));
+	public void Hit(Vector2 force) {
+		StartCoroutine(AddVectorsAnimation(force, rigidbody.transform));
 	}
 
-    IEnumerator AddVectorsAnimation(Vector3 force) {
+	public void Hit(Vector2 force, Transform secondVectorOrigin) {
+        StartCoroutine(AddVectorsAnimation(force, secondVectorOrigin));
+	}
+
+    IEnumerator AddVectorsAnimation(Vector3 force, Transform secondVectorOrigin) {
         if (velocityArrow.IsLongEnoughToDraw(velocityArrow.GetVector())) {
 			Time.timeScale = 0;
 
@@ -41,7 +45,7 @@ public class Ball : InteractableObject {
             firstVector.SetInterfaceArrow(velocityArrow.GetVector());
 			firstVector.isVisible = true;
 
-			yield return MoveSecondVector(force);
+			yield return MoveSecondVector(force, secondVectorOrigin);
 			yield return new WaitForSecondsRealtime(pauseAfterSecond);
 
 			yield return GrowResultVector(force);
@@ -59,7 +63,7 @@ public class Ball : InteractableObject {
 		rigidbody.AddForce(force, ForceMode2D.Impulse);
     }
 
-    IEnumerator MoveSecondVector(Vector3 force) {
+    IEnumerator MoveSecondVector(Vector3 force, Transform secondVectorOrigin) {
 		secondVector = KinematicArrow.CreateArrow<InterfaceArrow>("Second Vector",
 				transform, velocityArrow.GetArrowProperties());
 		secondVector.SetInterfaceArrow(force);
@@ -68,7 +72,7 @@ public class Ball : InteractableObject {
 
 		float t = 0;
         while(t < secondArrowTime) {
-			secondArrowTarget.position = Vector3.Lerp(transform.position, 
+			secondArrowTarget.position = Vector3.Lerp(secondVectorOrigin.position, 
                 transform.position + velocityArrow.GetVector(), t / secondArrowTime);
 
             yield return null;

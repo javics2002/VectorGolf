@@ -25,7 +25,7 @@ public class Spring : InteractableObject
         // prev force
         // Vector2 prevForce = -collision.gameObject.GetComponent<Rigidbody2D>().totalForce;
 
-        collision.gameObject.GetComponentInChildren<Ball>().Hit(transform.up * _springForce);
+        collision.gameObject.GetComponentInChildren<Ball>().Hit(transform.up * _springForce, transform);
     }
 
     public void setSpringForce(float springForce) { 
