@@ -9,6 +9,8 @@ public class Ball : InteractableObject {
 	float resultArrowTime;
 	[SerializeField, Range(0f, 1f)]
 	float pauseAfterSecond, pauseAfterResult;
+	[SerializeField]
+	EasingFunctions.InterpolationType secondEasingFunction, resultEasingFunction;
 
 	[Header("References")]
 	[SerializeField]
@@ -18,8 +20,9 @@ public class Ball : InteractableObject {
     InterfaceArrow firstVector, secondVector, resultVector;
 
 	new Rigidbody2D rigidbody;
+	
 
-    private void Start()
+	private void Start()
     {
         objectType = ObjectType.BALL;
 
@@ -27,14 +30,17 @@ public class Ball : InteractableObject {
     }
 
 	public void Hit(Vector2 force) {
-		StartCoroutine(AddVectorsAnimation(force, rigidbody.transform));
+		StartCoroutine(AddVectorsAnimation(force, rigidbody.transform, 
+			EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction)));
 	}
 
 	public void Hit(Vector2 force, Transform secondVectorOrigin) {
-        StartCoroutine(AddVectorsAnimation(force, secondVectorOrigin));
+        StartCoroutine(AddVectorsAnimation(force, secondVectorOrigin, 
+			EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction)));
 	}
 
-    IEnumerator AddVectorsAnimation(Vector3 force, Transform secondVectorOrigin) {
+	IEnumerator AddVectorsAnimation(Vector3 force, Transform secondVectorOrigin, 
+		EasingFunctions.Interpolation secondVectorInterpolation, EasingFunctions.Interpolation resultVectorInterpolation) {
         if (velocityArrow.IsLongEnoughToDraw(velocityArrow.GetVector())) {
 			Time.timeScale = 0;
 
@@ -45,10 +51,10 @@ public class Ball : InteractableObject {
             firstVector.SetInterfaceArrow(velocityArrow.GetVector());
 			firstVector.isVisible = true;
 
-			yield return MoveSecondVector(force, secondVectorOrigin);
+			yield return MoveSecondVector(force, secondVectorOrigin, secondVectorInterpolation);
 			yield return new WaitForSecondsRealtime(pauseAfterSecond);
 
-			yield return GrowResultVector(force);
+			yield return GrowResultVector(force, resultVectorInterpolation);
 			yield return new WaitForSecondsRealtime(pauseAfterResult);
 
             Destroy(firstVector.gameObject);
@@ -63,7 +69,7 @@ public class Ball : InteractableObject {
 		rigidbody.AddForce(force, ForceMode2D.Impulse);
     }
 
-    IEnumerator MoveSecondVector(Vector3 force, Transform secondVectorOrigin) {
+    IEnumerator MoveSecondVector(Vector3 force, Transform secondVectorOrigin, EasingFunctions.Interpolation interpolation) {
 		secondVector = KinematicArrow.CreateArrow<InterfaceArrow>("Second Vector",
 				transform, velocityArrow.GetArrowProperties());
 		secondVector.SetInterfaceArrow(force);
@@ -73,7 +79,7 @@ public class Ball : InteractableObject {
 		float t = 0;
         while(t < secondArrowTime) {
 			secondArrowTarget.position = Vector3.Lerp(secondVectorOrigin.position, 
-                transform.position + velocityArrow.GetVector(), t / secondArrowTime);
+                transform.position + velocityArrow.GetVector(), interpolation(t / secondArrowTime));
 
             yield return null;
             t += Time.unscaledDeltaTime;
@@ -82,7 +88,7 @@ public class Ball : InteractableObject {
 		secondArrowTarget.position = transform.position + velocityArrow.GetVector();
 	}
 
-	IEnumerator GrowResultVector(Vector3 force) {
+	IEnumerator GrowResultVector(Vector3 force, EasingFunctions.Interpolation interpolation) {
 		resultVector = KinematicArrow.CreateArrow<InterfaceArrow>("Result Vector",
 				transform, velocityArrow.GetArrowProperties());
 		resultVector.isVisible = true;
@@ -90,7 +96,7 @@ public class Ball : InteractableObject {
 		float t = 0;
         while(t < resultArrowTime) {
 			resultVector.SetInterfaceArrow(Vector3.Lerp(Vector3.zero, 
-                velocityArrow.GetVector() + force, t / resultArrowTime));
+                velocityArrow.GetVector() + force, interpolation(t / resultArrowTime)));
 
 		    yield return null;
 			t += Time.unscaledDeltaTime;

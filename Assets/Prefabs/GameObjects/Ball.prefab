@@ -361,6 +361,8 @@ MonoBehaviour:
   resultArrowTime: 1
   pauseAfterSecond: 0.2
   pauseAfterResult: 0.5
+  secondEasingFunction: 9
+  resultEasingFunction: 9
   secondArrowTarget: {fileID: 1155868442860031796}
 --- !u!1 &9051280204757795996
 GameObject:
