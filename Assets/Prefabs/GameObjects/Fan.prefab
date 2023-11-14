@@ -358,13 +358,17 @@ MonoBehaviour:
   _lastScalarForce: 0
   arrowProperties:
     visible: 1
+    labelVisible: 1
     priority: 2
     color: {r: 1, g: 0.94715035, b: 0, a: 1}
     stemLength: 1
     stemWidth: 0.2
-    tipLegth: 1
+    tipLength: 0.5
     tipWidth: 0.5
     forceSmooth: 1
+    name: 
+    labelSize: 6
+    labelSeparation: 1
   _isArrowActive: 0
   _isArrowVisible: 0
 --- !u!61 &7051980943930993278

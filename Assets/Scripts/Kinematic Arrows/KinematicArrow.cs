@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+
+using TMPro;
+
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -7,11 +10,15 @@ public abstract class KinematicArrow : MonoBehaviour {
 	[System.Serializable]
 	public class ArrowProperties {
 		public bool visible;
+		public bool labelVisible;
 		public int priority;
 		public Color color;
 		public float stemLength, stemWidth;
 		public float tipLength, tipWidth;
 		public bool forceSmooth;
+		public string name;
+		public float labelSize = 6;
+		public float labelSeparation = 1;
 	}
 
 	public static ArrowType CreateArrow<ArrowType>(string name, Transform target, ArrowProperties properties)
@@ -21,12 +28,16 @@ public abstract class KinematicArrow : MonoBehaviour {
 		ArrowType arrow = arrowGameObject.AddComponent<ArrowType>();
 
 		arrow.isVisible = properties.visible;
+		arrow.isLabelVisible = properties.labelVisible;
 		arrow.target = target;
 		arrow.color = properties.color;
 		arrow.stemWidth = properties.stemWidth;
 		arrow.tipLength = properties.tipLength;
 		arrow.tipWidth = properties.tipWidth;
 		arrow.priority = properties.priority;
+		arrow.vectorName = properties.name;
+		arrow.labelSize = properties.labelSize;
+		arrow.labelSeparation = properties.labelSeparation;
 
 		return arrow;
 	}
@@ -34,6 +45,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 	public bool isVisible { get; set; }
 	//Durante las animaciones no quiero mostrar la flecha real
 	public bool animating { get; set; } = false;
+	public bool isLabelVisible { get; set; }
 
 	public Transform target { get; set; }
 
@@ -44,6 +56,9 @@ public abstract class KinematicArrow : MonoBehaviour {
 
 	public Color color { get; set; }
 	public int priority { get; set; }
+	public string vectorName { get; set; }
+	public float labelSize { get; set; }
+	public float labelSeparation { get; set; }
 
 	[System.NonSerialized]
 	public List<Vector3> verticesList;
@@ -54,6 +69,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 	protected MeshRenderer meshRenderer;
 	protected MeshFilter meshFilter;
 	protected new Rigidbody2D rigidbody;
+	protected TextMeshPro labelText;
 
 	public Vector3 lastFrameVector;
 
@@ -75,6 +91,17 @@ public abstract class KinematicArrow : MonoBehaviour {
 		meshFilter = GetComponent<MeshFilter>();
 
 		lastFrameVector = Vector3.zero;
+
+		labelText = new GameObject(name + " Label").AddComponent<TextMeshPro>();
+		labelText.fontSize = 6;
+		labelText.rectTransform.sizeDelta = new Vector2(5, 2);
+		labelText.alignment = TextAlignmentOptions.Center;
+		labelText.color = color;
+	}
+
+	private void OnDestroy() {
+		if(labelText)
+			Destroy(labelText.gameObject);
 	}
 
 	void LateUpdate() {
@@ -84,6 +111,16 @@ public abstract class KinematicArrow : MonoBehaviour {
 		if (isVisible && !animating && IsLongEnoughToDraw(vector)) {
 			CreateArrowMesh(vector);
 
+			if (isLabelVisible) {
+				labelText.enabled = true;
+
+				labelText.rectTransform.position = target.position + vector / 2 
+					+ Vector3.Cross(vector, Vector3.back).normalized * labelSeparation + priority * Vector3.back * .1f;
+				labelText.text = (!vectorName.Equals("") ? vectorName + ": " : "") + vector.magnitude.ToString("0.0");
+			}
+			else
+				labelText.enabled = false;
+
 			meshRenderer.enabled = true;
 			vector.Normalize();
 
@@ -92,8 +129,10 @@ public abstract class KinematicArrow : MonoBehaviour {
 			else
 				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
 		}
-		else
+		else {
 			meshRenderer.enabled = false;
+			labelText.enabled = false;
+		}
 	}
 
 	private Vector3 SmoothIfSimilar(Vector3 vector, float threshold) {
@@ -167,6 +206,10 @@ public abstract class KinematicArrow : MonoBehaviour {
 		isVisible = !isVisible;
 	}
 
+	public void ToggleLabelVisible() {
+		isLabelVisible = !isLabelVisible;
+	}
+
 	public void SetForceSmooth(bool newValue) {
 		forceSmooth = newValue;
 	}
@@ -180,6 +223,10 @@ public abstract class KinematicArrow : MonoBehaviour {
 		arrowProperties.tipLength = tipLength;
 		arrowProperties.tipWidth = tipWidth;
 		arrowProperties.priority = priority;
+		arrowProperties.labelVisible = isLabelVisible;
+		arrowProperties.labelSeparation = labelSeparation;
+		arrowProperties.labelSize = labelSize;
+		arrowProperties.name = vectorName;
 
 		return arrowProperties;
 	}

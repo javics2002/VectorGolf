@@ -166,22 +166,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityArrowProperties:
     visible: 1
+    labelVisible: 1
     priority: 2
-    color: {r: 0.41176474, g: 0.73333335, b: 0.9568628, a: 1}
-    stemLength: 0.1
-    stemWidth: 0.1
-    tipLength: 0.2
-    tipWidth: 0.2
+    color: {r: 0, g: 0.6, b: 1, a: 1}
+    stemLength: 1
+    stemWidth: 0.2
+    tipLength: 0.5
+    tipWidth: 0.5
     forceSmooth: 0
+    name: v
+    labelSize: 6
+    labelSeparation: 1
   accelerationArrowProperties:
     visible: 1
+    labelVisible: 1
     priority: 1
-    color: {r: 0.9568628, g: 0.9058824, b: 0.40000004, a: 1}
-    stemLength: 0.1
-    stemWidth: 0.1
-    tipLength: 0.2
-    tipWidth: 0.2
+    color: {r: 1, g: 0.9490196, b: 0, a: 1}
+    stemLength: 1
+    stemWidth: 0.2
+    tipLength: 0.5
+    tipWidth: 0.5
     forceSmooth: 0
+    name: 
+    labelSize: 6
+    labelSeparation: 1
 --- !u!1 &5911104698774542964
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,13 +240,17 @@ MonoBehaviour:
   _lastScalarForce: 0
   arrowProperties:
     visible: 1
+    labelVisible: 1
     priority: 2
     color: {r: 0, g: 0.60024977, b: 1, a: 1}
     stemLength: 1
     stemWidth: 0.2
-    tipLength: 0
+    tipLength: 0.5
     tipWidth: 0.5
     forceSmooth: 1
+    name: 
+    labelSize: 6
+    labelSeparation: 1
   _isArrowActive: 0
   _isArrowVisible: 0
 --- !u!61 &3171165838429480283

@@ -13,4 +13,17 @@ public class ToggleArrows : MonoBehaviour
 		foreach (AccelerationArrow accelerationArrow in FindObjectsOfType<AccelerationArrow>())
 			accelerationArrow.ToggleVisible();
 	}
+
+	public void ToggleForceDecomposition() {
+
+	}
+
+	public void ToggleXYComponents() {
+
+	}
+
+	public void ToggleLabels() {
+		foreach (KinematicArrow kinematicArrow in FindObjectsOfType<KinematicArrow>())
+			kinematicArrow.ToggleLabelVisible();
+	}
 }

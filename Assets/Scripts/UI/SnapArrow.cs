@@ -76,10 +76,10 @@ public class SnapArrow : MonoBehaviour
     public void createVectorArrow()
     {
         // Reference
-        if (_interfaceArrow != null && !_interfaceArrow.enabled)
+        if (_interfaceArrow != null && !_interfaceArrow.isVisible)
             _interfaceArrow.enabled = true;
         else
-            _interfaceArrow = transform.gameObject.AddComponent<InterfaceArrow>();
+            _interfaceArrow = new GameObject(gameObject.name + " snap arrow").AddComponent<InterfaceArrow>();
 
         // Properties
         _interfaceArrow.target = transform.parent;
@@ -102,13 +102,13 @@ public class SnapArrow : MonoBehaviour
     public void createScalarArrow()
     {
         // Reference
-        if (_interfaceArrow != null && !_interfaceArrow.enabled)
+        if (_interfaceArrow != null && !_interfaceArrow.isVisible)
             _interfaceArrow.enabled = true;
         else
-            _interfaceArrow = transform.gameObject.AddComponent<InterfaceArrow>();
+            _interfaceArrow = new GameObject(gameObject.name + " snap arrow").AddComponent<InterfaceArrow>();
 
-        // Properties
-        _interfaceArrow.target = transform.parent;
+		// Properties
+		_interfaceArrow.target = transform.parent;
         _interfaceArrow.isVisible = arrowProperties.visible;
         _interfaceArrow.SetForceSmooth(arrowProperties.forceSmooth);
 
@@ -128,15 +128,10 @@ public class SnapArrow : MonoBehaviour
     public void deleteArrow()
     {
         if (_isArrowActive)
-        {
             _interfaceArrow.SetInterfaceArrow(transform.parent.up * _lastScalarForce);
-        }
         else
-        {
-            GetComponent<MeshFilter>().mesh = null;
-            _interfaceArrow.SetInterfaceArrow(Vector3.zero);
-            _interfaceArrow.enabled = false;   
-        }
+            _interfaceArrow.isVisible = false;
+        
         _isArrowVisible = false;
         GameManager.Instance.mouseOverObject = null;
     }
