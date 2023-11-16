@@ -864,9 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelButtonPrefab: {fileID: 8760819818350394661, guid: b10d85ba61e97d945ad9f55be82e9ec4, type: 3}
   lockedMaterial: {fileID: 2100000, guid: c7007fcad6f02fb4c93e81909099c5b8, type: 2}
-  completedColor: {r: 1, g: 0.107547104, b: 0.107547104, a: 1}
-  parColor: {r: 0.8490566, g: 0.6895016, b: 0.20345314, a: 1}
-  holeInOneColor: {r: 0.92046994, g: 0.9528302, b: 0.94942385, a: 1}
+  Atlas: {fileID: 100100200, guid: 1d68678a6cf8a734e8d589c8938b1d09, type: 3}
   levelImages:
   - {fileID: 21300000, guid: 7818799520e23a14e9111ae1eb334465, type: 3}
   - {fileID: 21300000, guid: 18d1fb7a4236c2841802e52ec4914b4e, type: 3}

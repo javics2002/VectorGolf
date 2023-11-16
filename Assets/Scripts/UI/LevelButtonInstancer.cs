@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.U2D;
 
 public class LevelButtonInstancer : MonoBehaviour
 {
@@ -10,42 +11,48 @@ public class LevelButtonInstancer : MonoBehaviour
 
 	[Header("Colors")]
 	public Material lockedMaterial;
-	public Color completedColor, parColor, holeInOneColor;
+	
+	[SerializeField]
+	public SpriteAtlas Atlas;
 
 	[Header("Level Images")]
 	public Sprite[] levelImages;
 
-	void Start()
+	private const string AtlasFlagRed = "flag-level-red";
+	private const string AtlasFlagGold = "flag-level-gold";
+	private const string AtlasFlagPlatinum = "flag-level-platinum";
+
+	private void Start()
     {
-		if(levelImages.Length != GameManager.numberOfLevels)
+		if (levelImages.Length != GameManager.numberOfLevels)
 			Debug.LogError("El numero de texturas para los niveles no coincide con el numero de niveles");
 
-        for(int level = 1; level <= GameManager.numberOfLevels; level++) {
-            LevelButton button = Instantiate(levelButtonPrefab, transform).GetComponent<LevelButton>();
+        for (var level = 1; level <= GameManager.numberOfLevels; level++) {
+            var button = Instantiate(levelButtonPrefab, transform).GetComponent<LevelButton>();
 
 			button.index = level;
 			button.completion = GameManager.Instance.levelCompletion[level - 1];
 
 			button.levelImage.sprite = levelImages[level - 1];
 
-			if(button.completion == GameManager.LevelCompletion.Locked)
+			if (button.completion == GameManager.LevelCompletion.Locked)
 				button.levelImage.material = lockedMaterial;
 
 			button.indexText.text = button.index.ToString();
-
+			
 			switch (button.completion) {
 				case GameManager.LevelCompletion.Locked:
 				case GameManager.LevelCompletion.Uncompleted:
 					button.flagImage.enabled = false;
 					break;
 				case GameManager.LevelCompletion.Completed:
-					button.flagImage.color = completedColor;
+					button.flagImage.sprite = Atlas.GetSprite(AtlasFlagRed);
 					break;
 				case GameManager.LevelCompletion.Par:
-					button.flagImage.color = parColor;
+					button.flagImage.sprite = Atlas.GetSprite(AtlasFlagGold);
 					break;
 				case GameManager.LevelCompletion.HoleInOne:
-					button.flagImage.color = holeInOneColor;
+					button.flagImage.sprite = Atlas.GetSprite(AtlasFlagPlatinum);
 					break;
 			}
 		}
