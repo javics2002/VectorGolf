@@ -11,7 +11,7 @@ public class KinematicViewer : MonoBehaviour
 		ball = GetComponentInChildren<Ball>();
 
 		ball.velocityArrow = 
-			KinematicArrow.CreateArrow<VelocityArrow>("Velocity Arrow", transform, velocityArrowProperties);
-		KinematicArrow.CreateArrow<AccelerationArrow>("Acceleration Arrow", transform, accelerationArrowProperties);
+			KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name + " Velocity Arrow", transform, velocityArrowProperties);
+		KinematicArrow.CreateArrow<AccelerationArrow>(gameObject.name + " Acceleration Arrow", transform, accelerationArrowProperties);
 	}
 }

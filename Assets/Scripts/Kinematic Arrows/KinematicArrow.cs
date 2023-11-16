@@ -9,8 +9,8 @@ using UnityEngine;
 public abstract class KinematicArrow : MonoBehaviour {
 	[System.Serializable]
 	public class ArrowProperties {
-		public bool visible;
-		public bool labelVisible;
+		public bool isVisible;
+		public bool isLabelVisible;
 		public int priority;
 		public Color color;
 		public float stemLength, stemWidth;
@@ -27,38 +27,16 @@ public abstract class KinematicArrow : MonoBehaviour {
 		arrowGameObject.layer = LayerMask.NameToLayer("UI");
 		ArrowType arrow = arrowGameObject.AddComponent<ArrowType>();
 
-		arrow.isVisible = properties.visible;
-		arrow.isLabelVisible = properties.labelVisible;
 		arrow.target = target;
-		arrow.color = properties.color;
-		arrow.stemWidth = properties.stemWidth;
-		arrow.tipLength = properties.tipLength;
-		arrow.tipWidth = properties.tipWidth;
-		arrow.priority = properties.priority;
-		arrow.vectorName = properties.name;
-		arrow.labelSize = properties.labelSize;
-		arrow.labelSeparation = properties.labelSeparation;
+		arrow.properties = properties;
 
 		return arrow;
 	}
 
-	public bool isVisible { get; set; }
+	public ArrowProperties properties { get; set; }
 	//Durante las animaciones no quiero mostrar la flecha real
 	public bool animating { get; set; } = false;
-	public bool isLabelVisible { get; set; }
-
 	public Transform target { get; set; }
-
-	public float stemLength { get; private set; }
-	public float stemWidth { get; set; }
-	public float tipLength { get; set; }
-	public float tipWidth { get; set; }
-
-	public Color color { get; set; }
-	public int priority { get; set; }
-	public string vectorName { get; set; }
-	public float labelSize { get; set; }
-	public float labelSeparation { get; set; }
 
 	[System.NonSerialized]
 	public List<Vector3> verticesList;
@@ -96,7 +74,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 		labelText.fontSize = 6;
 		labelText.rectTransform.sizeDelta = new Vector2(5, 2);
 		labelText.alignment = TextAlignmentOptions.Center;
-		labelText.color = color;
+		labelText.color = properties.color;
 	}
 
 	private void OnDestroy() {
@@ -106,17 +84,17 @@ public abstract class KinematicArrow : MonoBehaviour {
 
 	void LateUpdate() {
 		Vector3 vector = GetVector();
-		transform.position = target.position + priority * Vector3.back * .1f;
+		transform.position = target.position + properties.priority * Vector3.back * .1f;
 
-		if (isVisible && !animating && IsLongEnoughToDraw(vector)) {
+		if (properties.isVisible && !animating && IsLongEnoughToDraw(vector)) {
 			CreateArrowMesh(vector);
 
-			if (isLabelVisible) {
+			if (properties.isLabelVisible) {
 				labelText.enabled = true;
 
 				labelText.rectTransform.position = target.position + vector / 2 
-					+ Vector3.Cross(vector, Vector3.back).normalized * labelSeparation + priority * Vector3.back * .1f;
-				labelText.text = (!vectorName.Equals("") ? vectorName + ": " : "") + vector.magnitude.ToString("0.0");
+					+ Vector3.Cross(vector, Vector3.back).normalized * properties.labelSeparation + properties.priority * Vector3.back * .1f;
+				labelText.text = (!properties.name.Equals("") ? properties.name + ": " : "") + vector.magnitude.ToString("0.0");
 			}
 			else
 				labelText.enabled = false;
@@ -154,14 +132,14 @@ public abstract class KinematicArrow : MonoBehaviour {
 		trianglesList.Clear();
 
 		Vector3 stemOrigin = Vector3.zero;
-		float stemHalfWidth = stemWidth * .5f;
-		stemLength = vector.magnitude - tipLength;
+		float stemHalfWidth = properties.stemWidth * .5f;
+		properties.stemLength = vector.magnitude - properties.tipLength;
 
 		//Stem points
 		verticesList.Add(stemOrigin + stemHalfWidth * Vector3.down);
 		verticesList.Add(stemOrigin + stemHalfWidth * Vector3.up);
-		verticesList.Add(verticesList[0] + stemLength * Vector3.right);
-		verticesList.Add(verticesList[1] + stemLength * Vector3.right);
+		verticesList.Add(verticesList[0] + properties.stemLength * Vector3.right);
+		verticesList.Add(verticesList[1] + properties.stemLength * Vector3.right);
 
 		//Stem triangles
 		trianglesList.Add(0);
@@ -173,13 +151,13 @@ public abstract class KinematicArrow : MonoBehaviour {
 		trianglesList.Add(2);
 
 		//tip setup
-		Vector3 tipOrigin = stemOrigin + stemLength * Vector3.right;
-		float tipHalfWidth = tipWidth / 2;
+		Vector3 tipOrigin = stemOrigin + properties.stemLength * Vector3.right;
+		float tipHalfWidth = properties.tipWidth / 2;
 
 		//tip points
 		verticesList.Add(tipOrigin + tipHalfWidth * Vector3.up);
 		verticesList.Add(tipOrigin + tipHalfWidth * Vector3.down);
-		verticesList.Add(tipOrigin + tipLength * Vector3.right);
+		verticesList.Add(tipOrigin + properties.tipLength * Vector3.right);
 
 		//tip triangle
 		trianglesList.Add(4);
@@ -191,11 +169,11 @@ public abstract class KinematicArrow : MonoBehaviour {
 		mesh.triangles = trianglesList.ToArray();
 
 		meshFilter.mesh = mesh;
-		meshRenderer.material.color = color;
+		meshRenderer.material.color = properties.color;
 	}
 
 	public bool IsLongEnoughToDraw(Vector3 vector) {
-		return vector.magnitude - tipLength >= 0;
+		return vector.magnitude - properties.tipLength >= 0;
 	}
 
 	float ArrowRotation(Vector2 vector) => Mathf.Rad2Deg * Mathf.Atan2(vector.y, vector.x);
@@ -203,31 +181,14 @@ public abstract class KinematicArrow : MonoBehaviour {
 	public abstract Vector3 GetVector();
 
 	public void ToggleVisible() {
-		isVisible = !isVisible;
+		properties.isVisible = !properties.isVisible;
 	}
 
 	public void ToggleLabelVisible() {
-		isLabelVisible = !isLabelVisible;
+		properties.isLabelVisible = !properties.isLabelVisible;
 	}
 
 	public void SetForceSmooth(bool newValue) {
 		forceSmooth = newValue;
-	}
-
-	public ArrowProperties GetArrowProperties() {
-		ArrowProperties arrowProperties = new ArrowProperties();
-
-		arrowProperties.visible = isVisible;
-		arrowProperties.color = color;
-		arrowProperties.stemWidth = stemWidth;
-		arrowProperties.tipLength = tipLength;
-		arrowProperties.tipWidth = tipWidth;
-		arrowProperties.priority = priority;
-		arrowProperties.labelVisible = isLabelVisible;
-		arrowProperties.labelSeparation = labelSeparation;
-		arrowProperties.labelSize = labelSize;
-		arrowProperties.name = vectorName;
-
-		return arrowProperties;
 	}
 }

@@ -1,28 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditorInternal;
+
 using UnityEngine;
 
 public class SnapArrow : MonoBehaviour
 {
     [SerializeField]
-    private InterfaceArrow _interfaceArrow;
-
-    [SerializeField]
-    private float _lastScalarForce;
-
-    [SerializeField]
     KinematicArrow.ArrowProperties arrowProperties;
 
-    // For fan/springs
+    [SerializeField, Range(0f, 1f)]
+    float animationTime;
     [SerializeField]
-    private bool _isArrowActive;
+    EasingFunctions.InterpolationType interpolationType;
 
-    // For fan/springs
-    [SerializeField]
-    private bool _isArrowVisible;
+    public InterfaceArrow interfaceArrow { get; private set; }
+    private Vector2 currentForce, lastForce;
 
-	private void Start() {
+	private void Awake() {
+		interfaceArrow = new GameObject(gameObject.name + " snap arrow").AddComponent<InterfaceArrow>();
+        interfaceArrow.properties = arrowProperties;
+		interfaceArrow.target = transform.parent;
+
+        //TODO poner valor inicial de la flecha
+        currentForce = Vector2.zero;
+        lastForce = Vector2.zero;
 	}
 
 	private void OnMouseEnter()
@@ -30,26 +30,29 @@ public class SnapArrow : MonoBehaviour
         if (!GameManager.Instance.isDragging)
             return;
 
-        // Ball
-        if (GameManager.Instance.draggedObject.GetComponent<VectorForce>()
-            && transform.parent.gameObject.GetComponentInChildren<InteractableObject>().objectType == InteractableObject.ObjectType.BALL)
+		GameObject draggedObject = GameManager.Instance.draggedObject;
+		InteractableObject.ObjectType interactableObjectType = 
+            transform.parent.gameObject.GetComponentInChildren<InteractableObject>().objectType;
+
+		VectorForce vectorForce = draggedObject.GetComponent<VectorForce>();
+		ScalarForce scalarForce = draggedObject.GetComponent<ScalarForce>();
+		// Ball
+		if (vectorForce && interactableObjectType == InteractableObject.ObjectType.BALL)
         {
             // Show arrow
-            createVectorArrow();
+            CreateVectorArrow(vectorForce.GetVectorialForce());
 
-            // Invisible
-            GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
+			// Invisible
+			draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
         }
-
         // Spring/Fan
-        else if (GameManager.Instance.draggedObject.GetComponent<ScalarForce>() 
-            && transform.parent.gameObject.GetComponentInChildren<InteractableObject>().objectType != InteractableObject.ObjectType.BALL)
+        else if (scalarForce && interactableObjectType != InteractableObject.ObjectType.BALL)
         {
             // Show arrow
-            createScalarArrow();
+            CreateScalarArrow(scalarForce.GetScalarForce());
 
-            // Invisible
-            GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
+			// Invisible
+			draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
         }
     }
 
@@ -58,92 +61,73 @@ public class SnapArrow : MonoBehaviour
         if (!GameManager.Instance.isDragging)
             return;
 
-        if (transform.parent.GetComponentInChildren<InteractableObject>().objectType == InteractableObject.ObjectType.BALL &&
-            GameManager.Instance.draggedObject.GetComponent<VectorForce>() && _isArrowVisible)
+		GameObject draggedObject = GameManager.Instance.draggedObject;
+		InteractableObject.ObjectType interactableObjectType = 
+            transform.parent.GetComponentInChildren<InteractableObject>().objectType;
+		if (interactableObjectType == InteractableObject.ObjectType.BALL &&
+			draggedObject.GetComponent<VectorForce>() && interfaceArrow.properties.isVisible
+            || interactableObjectType != InteractableObject.ObjectType.BALL &&
+			draggedObject.GetComponent<ScalarForce>() && interfaceArrow.properties.isVisible)
         {
-            deleteArrow();
-            GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
-        }
-        else if (transform.parent.GetComponentInChildren<InteractableObject>().objectType != InteractableObject.ObjectType.BALL &&
-            GameManager.Instance.draggedObject.GetComponent<ScalarForce>() && _isArrowVisible)
-        {
-            deleteArrow();
-            GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
-        }
-
+			ReturnToOldArrow();
+		}
     }
 
-    public void createVectorArrow()
+    public void CreateVectorArrow(Vector2 force)
     {
-        // Reference
-        if (_interfaceArrow != null && !_interfaceArrow.isVisible)
-            _interfaceArrow.enabled = true;
-        else
-            _interfaceArrow = new GameObject(gameObject.name + " snap arrow").AddComponent<InterfaceArrow>();
+        interfaceArrow.properties.isVisible = true;
 
-        // Properties
-        _interfaceArrow.target = transform.parent;
-        _interfaceArrow.isVisible = arrowProperties.visible;
-        _interfaceArrow.SetForceSmooth(arrowProperties.forceSmooth);
+        currentForce = force;
+		StopAllCoroutines();
+		StartCoroutine(AnimateArrow(currentForce, animationTime, 
+            EasingFunctions.GetEasingFunction(interpolationType)));
 
-        _interfaceArrow.color = arrowProperties.color;
-        _interfaceArrow.stemWidth = arrowProperties.stemWidth;
-        _interfaceArrow.tipLength = arrowProperties.tipLength;
-        _interfaceArrow.tipWidth = arrowProperties.tipWidth;
-        _interfaceArrow.priority = arrowProperties.priority;
-
-        // Behaviour
-        _interfaceArrow.SetInterfaceArrow(GameManager.Instance.draggedObject.GetComponent<VectorForce>().getVectorialForce());
-
-        _isArrowVisible = true;
         GameManager.Instance.mouseOverObject = transform.parent.gameObject;
     }
 
-    public void createScalarArrow()
+    public void CreateScalarArrow(float force)
     {
-        // Reference
-        if (_interfaceArrow != null && !_interfaceArrow.isVisible)
-            _interfaceArrow.enabled = true;
-        else
-            _interfaceArrow = new GameObject(gameObject.name + " snap arrow").AddComponent<InterfaceArrow>();
+		interfaceArrow.properties.isVisible = true;
 
-		// Properties
-		_interfaceArrow.target = transform.parent;
-        _interfaceArrow.isVisible = arrowProperties.visible;
-        _interfaceArrow.SetForceSmooth(arrowProperties.forceSmooth);
+        currentForce = transform.parent.up * force;
+        StopAllCoroutines();
+		StartCoroutine(AnimateArrow(currentForce, animationTime, 
+            EasingFunctions.GetEasingFunction(interpolationType)));
 
-        _interfaceArrow.color = arrowProperties.color;
-        _interfaceArrow.stemWidth = arrowProperties.stemWidth;
-        _interfaceArrow.tipLength = arrowProperties.tipLength;
-        _interfaceArrow.tipWidth = arrowProperties.tipWidth;
-        _interfaceArrow.priority = arrowProperties.priority;
-
-        // Behaviour
-        _interfaceArrow.SetInterfaceArrow(transform.parent.up * GameManager.Instance.draggedObject.GetComponent<ScalarForce>().getScalarForce());
-
-        _isArrowVisible = true;
         GameManager.Instance.mouseOverObject = transform.parent.gameObject;
     }
 
-    public void deleteArrow()
+    public void ReturnToOldArrow()
     {
-        if (_isArrowActive)
-            _interfaceArrow.SetInterfaceArrow(transform.parent.up * _lastScalarForce);
-        else
-            _interfaceArrow.isVisible = false;
-        
-        _isArrowVisible = false;
-        GameManager.Instance.mouseOverObject = null;
-    }
+		StopAllCoroutines();
+		StartCoroutine(AnimateArrow(lastForce, animationTime,
+			EasingFunctions.GetEasingFunction(interpolationType)));
 
-    public void setArrowActive(bool active)
-    {
-        _isArrowActive = active;
-        _lastScalarForce = GameManager.Instance.draggedObject.GetComponent<ScalarForce>().getScalarForce();
-    }
+		GameManager.Instance.mouseOverObject = null;
+		GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
+	}
 
-    public void setArrowInvisible()
-    {
-        _isArrowVisible = false;
-    }
+	public void DeleteArrow() {
+        interfaceArrow.properties.isVisible = false;
+		GameManager.Instance.mouseOverObject = null;
+	}
+
+	public void SaveForce() {
+        lastForce = currentForce;
+	}
+
+	IEnumerator AnimateArrow(Vector2 newVector, float animationTime, EasingFunctions.Interpolation interpolation) {
+        Vector2 initialVector = interfaceArrow.GetVector();
+
+		float t = 0;
+		while (t < animationTime) {
+            interfaceArrow.SetInterfaceArrow(Vector3.Lerp(initialVector,
+                newVector, interpolation(t / animationTime)));
+
+			yield return null;
+			t += Time.unscaledDeltaTime;
+		}
+
+		interfaceArrow.SetInterfaceArrow(newVector);
+	}
 }

@@ -18,7 +18,7 @@ public class Fan : InteractableObject
         collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * _fanForce, ForceMode2D.Force);
     }
 
-    public void setFanForce(float fanForce)
+    public void SetFanForce(float fanForce)
     {
         _fanForce = fanForce;
     }

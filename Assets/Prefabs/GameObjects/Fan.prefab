@@ -354,11 +354,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a547376003952a4f87ebdb41a223dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interfaceArrow: {fileID: 0}
-  _lastScalarForce: 0
   arrowProperties:
-    visible: 1
-    labelVisible: 1
+    isVisible: 0
+    isLabelVisible: 0
     priority: 2
     color: {r: 1, g: 0.94715035, b: 0, a: 1}
     stemLength: 1
@@ -369,8 +367,8 @@ MonoBehaviour:
     name: 
     labelSize: 6
     labelSeparation: 1
-  _isArrowActive: 0
-  _isArrowVisible: 0
+  animationTime: 0.3
+  interpolationType: 18
 --- !u!61 &7051980943930993278
 BoxCollider2D:
   m_ObjectHideFlags: 0

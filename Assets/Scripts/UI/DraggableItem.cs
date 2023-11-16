@@ -63,11 +63,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 		// Apply vectorial force
 		if (vectorForce && isBall) {
-			mouseOverObject.GetComponentInChildren<Ball>().Hit(vectorForce.getVectorialForce());
+			mouseOverObject.GetComponentInChildren<Ball>().Hit(vectorForce.GetVectorialForce());
 			applyForce = true;
 
 			// Delete arrow
-			mouseOverObject.GetComponentInChildren<SnapArrow>().deleteArrow();
+			mouseOverObject.GetComponentInChildren<SnapArrow>().DeleteArrow();
 		}
 		// Apply scalar force
 		else if (scalarForce && !isBall) {
@@ -76,17 +76,16 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 			// Check if fan or spring
 			if (spring) {
-				spring.setSpringForce(scalarForce.getScalarForce());
+				spring.setSpringForce(scalarForce.GetScalarForce());
 			}
 			else if (fan) {
-				fan.setFanForce(scalarForce.getScalarForce());
+				fan.SetFanForce(scalarForce.GetScalarForce());
 			}
 
 			applyForce = true;
 
 			SnapArrow snapArrow = mouseOverObject.GetComponentInChildren<SnapArrow>();
-			snapArrow.setArrowActive(true);
-			snapArrow.setArrowInvisible();
+			snapArrow.SaveForce();
 		}
 
 		if (applyForce) {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spring : InteractableObject
@@ -25,7 +23,8 @@ public class Spring : InteractableObject
         // prev force
         // Vector2 prevForce = -collision.gameObject.GetComponent<Rigidbody2D>().totalForce;
 
-        collision.gameObject.GetComponentInChildren<Ball>().Hit(transform.up * _springForce, transform);
+        StartCoroutine(collision.gameObject.GetComponentInChildren<Ball>().Hit(transform.up * _springForce, 
+            transform.parent.GetComponentInChildren<SnapArrow>().interfaceArrow));
     }
 
     public void setSpringForce(float springForce) { 

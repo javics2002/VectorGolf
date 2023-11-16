@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ScalarForce : MonoBehaviour
 {
-    private int _scalarForce;
+    private float _scalarForce;
 
-    public void setScalarForce(int scalarForce)
+    public void SetScalarForce(float scalarForce)
     {
         _scalarForce = scalarForce;
-        GetComponentInChildren<TextMeshProUGUI>().text = _scalarForce.ToString();
+        GetComponentInChildren<TextMeshProUGUI>().text = _scalarForce.ToString("0.#");
     }
 
-    public int getScalarForce()
+    public float GetScalarForce()
     {
         return _scalarForce;
     }
