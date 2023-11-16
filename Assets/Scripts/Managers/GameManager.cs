@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    LoadManager loadManager;
+    public LoadManager LoadManager { get; private set; }
 
 	[Header("Gameplay State")]
 	public bool isArrowVisible;
@@ -55,9 +55,8 @@ public class GameManager : MonoBehaviour
 		draggedObject = null;
         mouseOverObject = null;
 
-        loadManager = gameObject.AddComponent<LoadManager>();
-
-		loadManager.Load();
+        LoadManager = gameObject.AddComponent<LoadManager>();
+		LoadManager.Load();
 
 #if UNITY_EDITOR
         if(unlockAllLevels)
@@ -69,9 +68,9 @@ public class GameManager : MonoBehaviour
 
     public void Save()
     {
-		loadManager.Save();
+		LoadManager.Save();
     }
-
+    
 	public void DragObject(GameObject dragObject)
 	{
         draggedObject = dragObject;
