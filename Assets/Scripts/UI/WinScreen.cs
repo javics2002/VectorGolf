@@ -38,17 +38,33 @@ public class WinScreen : MonoBehaviour
 			star.style.backgroundImage = background;
 		}
 
+		// buttons is a list with three elements:
+		// 0: Retry
+		// 1: Next Level
+		// 2: Main Menu
 		var buttons = root.Query<GroupBox>().Children<Button>().ToList();
+		RegisterUIMenuCallbacks(buttons[0], buttons[1], buttons[2]);
+	}
+	
+	private void RegisterUIMenuCallbacks(Button retry, Button goToNextLevel, Button goToMainMenu)
+	{
+		retry.clicked += OnClickedRetry;
+		goToMainMenu.clicked += OnClickedMainMenu;
+
 		if (NextLevelScene == -1)
 		{
-			buttons[0].SetEnabled(false);
+			goToNextLevel.SetEnabled(false);
 		}
 		else
 		{
-			buttons[0].clicked += OnClickedNextLevel;
+			goToNextLevel.clicked += OnClickedNextLevel;
 		}
 
-		buttons[1].clicked += OnClickedMainMenu;
+	}
+
+	private void OnClickedRetry()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	private void OnClickedNextLevel()
