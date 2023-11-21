@@ -1,0 +1,36 @@
+Button.button {
+    border-radius: 10px;
+    border-width: 0;
+    margin-top: 4px;
+    -unity-font-style: bold;
+}
+
+Button.success {
+    color: rgb(239, 239, 239);
+    background-color: rgb(0, 153, 0);
+}
+
+Button.success:hover {
+    background-color: rgb(4, 168, 4);
+}
+
+Button.danger {
+    color: rgb(239, 239, 239);
+    background-color: rgb(218, 14, 26);
+}
+
+Button.danger:hover {
+    background-color: rgb(246, 19, 35);
+}
+
+VisualElement.star {
+    flex: 1 0 auto;
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Images/star-empty.png');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+VisualElement.star.full {
+    background-image: url('project://database/Assets/Images/star-full.png');
+}
