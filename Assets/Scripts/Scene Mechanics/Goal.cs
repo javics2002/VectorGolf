@@ -23,17 +23,28 @@ public class Goal : MonoBehaviour
 	{
 		if (!collision.CompareTag("Player")) return;
 
+		var gm = GameManager.Instance;
+
+		var stars = 1;
+		var ball = collision.transform.GetComponentInChildren<Ball>();
+		if (ball is not null && gm.LevelData is not null)
+		{
+			if (ball.Hits <= gm.LevelData.Gold) stars++;
+			if (ball.Hits <= gm.LevelData.Platinum) stars++;
+		}
+
 		// Get the number of retries for this level:
-		var levelIndex = GameManager.Instance.Level.CurrentIndex;
-		var retries = GameManager.Instance.progress[levelIndex].Retries;
+		var levelIndex = gm.Level.CurrentIndex;
+		var retries = gm.progress[levelIndex].Retries;
 
 		// Save the level completion:
-		GameManager.Instance.LoadManager.Save(levelIndex, GameManager.LevelCompletionStatus.Completed, 0);
+		gm.LoadManager.Save(levelIndex, GetLevelCompletionStatus(stars), 0);
 
 		// Find the GameObject named "WinScreen":
 		var winScreen = FindObjectOfType<WinScreen>(true);
 		if (winScreen is null) return;
 
+		winScreen.Stars = stars;
 		winScreen.Retries = retries;
 		winScreen.gameObject.SetActive(true);
 	}
@@ -52,6 +63,17 @@ public class Goal : MonoBehaviour
 			GameManager.LevelCompletionStatus.Par => AtlasFlagGold,
 			GameManager.LevelCompletionStatus.Completed => AtlasFlagRed,
 			_ => AtlasFlagDefault
+		};
+	}
+
+	private static GameManager.LevelCompletionStatus GetLevelCompletionStatus(int stars)
+	{
+		return stars switch
+		{
+			1 => GameManager.LevelCompletionStatus.Completed,
+			2 => GameManager.LevelCompletionStatus.Par,
+			3 => GameManager.LevelCompletionStatus.HoleInOne,
+			_ => GameManager.LevelCompletionStatus.Uncompleted
 		};
 	}
 }

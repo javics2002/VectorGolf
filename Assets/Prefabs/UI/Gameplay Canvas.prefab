@@ -1697,8 +1697,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: 1cafc9f23ce5c584da4e22797ca21d4c, type: 2}
-  scalarPrefab: {fileID: 4562996286555279454, guid: f235498d087801b499351737091077a5, type: 3}
-  vectorialPrefab: {fileID: 4513758812377255076, guid: 0cffd93f3bd61d54292dd20f6733a7ac, type: 3}
+  ScalarPrefab: {fileID: 4562996286555279454, guid: f235498d087801b499351737091077a5, type: 3}
+  VectorPrefab: {fileID: 4513758812377255076, guid: 0cffd93f3bd61d54292dd20f6733a7ac, type: 3}
 --- !u!1 &7091245056383768368
 GameObject:
   m_ObjectHideFlags: 0

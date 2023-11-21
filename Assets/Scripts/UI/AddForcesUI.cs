@@ -1,32 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AddForcesUI : MonoBehaviour
 {
-    public LevelData levelData;
+	public LevelData levelData;
 
-    [SerializeField]
-    private GameObject scalarPrefab;
+	[FormerlySerializedAs("scalarPrefab")]
+	[SerializeField]
+	private GameObject ScalarPrefab;
 
-    [SerializeField]
-    private GameObject vectorialPrefab;
+	[FormerlySerializedAs("vectorialPrefab")]
+	[SerializeField]
+	private GameObject VectorPrefab;
 
-    void Start()
-    {
-        // Create prefabs
-        for (int i = 0; i < levelData.scalars.Count; i++)
-        {
-            // Instantiate object as children of this (canvas)
-            GameObject newObj = Instantiate(scalarPrefab, gameObject.transform);
-            newObj.GetComponent<ScalarForce>().SetScalarForce((int) levelData.scalars[i]);
-        }
+	private void Awake()
+	{
+		if (levelData is null)
+		{
+			throw new ArgumentNullException(nameof(levelData));
+		}
+	}
 
-        for (int i = 0; i < levelData.vectors.Count; i++)
-        {
-            // Instantiate object as children of this (canvas)
-            GameObject newObj = Instantiate(vectorialPrefab, gameObject.transform);
-            newObj.GetComponent<VectorForce>().SetVectorialForce(levelData.vectors[i]);
-        }
-    }
+	private void Start()
+	{
+		// Create prefabs
+		foreach (var scalar in levelData.Scalars)
+		{
+			// Instantiate object as children of this (canvas)
+			var newObj = Instantiate(ScalarPrefab, gameObject.transform);
+			newObj.GetComponent<ScalarForce>().SetScalarForce((int)scalar);
+		}
+
+		foreach (var vector in levelData.Vectors)
+		{
+			// Instantiate object as children of this (canvas)
+			var newObj = Instantiate(VectorPrefab, gameObject.transform);
+			newObj.GetComponent<VectorForce>().SetVectorialForce(vector);
+		}
+	}
 }

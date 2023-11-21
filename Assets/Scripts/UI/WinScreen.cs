@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class WinScreen : MonoBehaviour
 {
+	public int Stars { get; set; } = 1;
 	public int Retries { get; set; } = -1;
 
 	private static int MainMenuScene { get; set; } = -1;
@@ -22,11 +24,13 @@ public class WinScreen : MonoBehaviour
 	// Start is called before the first frame update
 	private void Start()
 	{
-		// TODO: Hook this to the GameManager
-		const int starCount = 1;
-
 		var root = GetComponent<UIDocument>().rootVisualElement;
-		var stars = root.Query<GroupBox>(name: "stars").Children<VisualElement>().ToList().Take(starCount);
+		if (root is null)
+		{
+			throw new NullReferenceException(nameof(root));
+		}
+
+		var stars = root.Query<GroupBox>(name: "stars").Children<VisualElement>().ToList().Take(Stars);
 		foreach (var star in stars)
 		{
 			star.AddToClassList("full");

@@ -1,13 +1,16 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     public LoadManager LoadManager { get; private set; }
+    
+    /// <summary>
+    /// The data for the current level.
+    /// </summary>
+    public LevelData LevelData;
     
     /// <summary>
     /// The level this goal is for, calculated from the scene name.
@@ -26,7 +29,7 @@ public class GameManager : MonoBehaviour
     public float minLinearValue = 0.0f; // Valor m�nimo del rango lineal
     public float maxLinearValue = 5.0f; // Valor m�ximo del rango lineal
     
-	public const int NumberOfLevels = 3;
+	public const int NumberOfLevels = 5;
 
     public enum LevelCompletionStatus { Locked, Uncompleted, Completed, Par, HoleInOne };
 
@@ -53,8 +56,9 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 		if (Instance is not null) {
-			Destroy(gameObject);
 			Instance.OnNewScene();
+			Instance.LevelData = LevelData;
+			Destroy(gameObject);
             return;
 		}
 

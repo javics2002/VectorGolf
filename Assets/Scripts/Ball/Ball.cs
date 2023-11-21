@@ -2,7 +2,10 @@ using System.Collections;
 
 using UnityEngine;
 
-public class Ball : InteractableObject {
+public class Ball : InteractableObject
+{
+	public int Hits { get; private set; } = 0;
+
 	[Header("Animation times")]
 	[SerializeField, Range(0f, 1f)]
 	float secondArrowTime;
@@ -25,11 +28,13 @@ public class Ball : InteractableObject {
 
 	private void Start() {
 		objectType = ObjectType.BALL;
-
 		rigidbody = GetComponentInParent<Rigidbody2D>();
 	}
 
-	public void Hit(Vector2 force) {
+	public void Hit(Vector2 force)
+	{
+		Hits++;
+
 		StartCoroutine(AddVectorsAnimation(force, rigidbody.transform,
 			EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction)));
 	}
