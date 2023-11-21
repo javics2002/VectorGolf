@@ -5,7 +5,7 @@
 Autores:
 * Javier Cano Salcedo, jacano01@ucm.es
 * José Miguel Villacañas, josemv03@ucm.es
-* Aura Román Cerezo,
+* Aura Román Cerezo, auraroman@ucm.es
 
 <table>
 <tr>
