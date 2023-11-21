@@ -345,7 +345,11 @@ https://www.youtube.com/watch?v=4Q55aLIZnwE
 https://www.youtube.com/playlist?list=OLAK5uy_k075Trz4q4Vv90OajKQ4tb87igK6XwQEc 
 
 ## 11. Juegos educativos similares <a name="juegoseducativos"></a>
-https://stemforall2020.videohall.com/presentations/1871
-https://www.physicsclassroom.com/Physics-Interactives/Vectors-and-Projectiles/Vector-Guessing-Game/Vector-Guessing-Game-Interactive
-https://www.physicsclassroom.com/Physics-Interactives/1-D-Kinematics
+En [the physics classroom](https://www.physicsclassroom.com/) hay disponibles una colección de juegos online que simulan un ejercicio físico. [Entre ellos](https://www.physicsclassroom.com/Physics-Interactives/1-D-Kinematics) encontramos juegos para determinar la relación entre espacio recorrido y tiempo, ya sea con el movimiento de un coche, una pelota que cae por una rampa o con gráficos posición-tiempo y velocidad-tiempo. [Otro gurpo de ellos](https://www.physicsclassroom.com/Physics-Interactives/Vectors-and-Projectiles) nos enseñan vectores, desde nombrar vectores y dibujarlos hasta sumarlos. Vector Golf pretende dar un paso más para convertir esta gamificación en un juego serio. Las siguientes capturas pertenecen a [Graphs and Ramps](https://www.physicsclassroom.com/Physics-Interactives/1-D-Kinematics/Graphs-and-Ramps/Graphs-and-Ramps-Interactive) y a [Vector Guessing Game](https://www.physicsclassroom.com/Physics-Interactives/Vectors-and-Projectiles/Vector-Guessing-Game/Vector-Guessing-Game-Interactive).
 
+![image](https://github.com/javics2002/JuegosSerios/assets/49459590/8bf3201a-95ab-45dd-86df-68d5d324cb7b)
+![image](https://github.com/javics2002/JuegosSerios/assets/49459590/0fb0f480-84c2-47e2-8ab6-a86c95ba52e7)
+
+[Vector Unknown](https://stemforall2020.videohall.com/presentations/1871) es un juego serio de puzzles en el que tenemos que encontrar la suma de vectores que lleva al conejo hacia la cesta en un tablero cuadriculado, arrastrando vectores predeterminados en la interfaz como lo hace Vector Golf.
+
+![image](https://github.com/javics2002/JuegosSerios/assets/49459590/83a8385d-fa19-47fb-af81-bc4889fd6925)
