@@ -1,20 +1,14 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class CompletionPercentage : MonoBehaviour
 {
-    TextMeshProUGUI text;
-
-    void Start()
-    {
-        text = GetComponent<TextMeshProUGUI>();
-
-        int completedLevels = 0;
-        for (int i = 0; i < GameManager.numberOfLevels; i++) {
-            if (GameManager.Instance.levelCompletion[i] >= GameManager.LevelCompletion.Completed)
-                completedLevels++;
-        }
-
-        text.text = (100 * (float) completedLevels / GameManager.numberOfLevels).ToString("0") + "% completed";
-    }
+	private void Start()
+	{
+		var progress = GameManager.Instance.progress;
+		var completedLevels = progress.Count(t => t.Status >= GameManager.LevelCompletionStatus.Completed);
+		GetComponent<TextMeshProUGUI>().text = $"{100 * (float)completedLevels / progress.Length:0}% completed";
+	}
 }

@@ -553,6 +553,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8745f204044d3a343a1d179bc0e15baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameLevels:
+  - Platinum: 1
+    Gold: 2
+  - Platinum: 1
+    Gold: 2
+  - Platinum: 1
+    Gold: 2
   isArrowVisible: 0
   isDragging: 0
   draggedObject: {fileID: 0}
@@ -561,10 +568,9 @@ MonoBehaviour:
   maxForce: 10
   minLinearValue: -3
   maxLinearValue: 3
-  levelCompletion: 
   musicVolume: 0
   soundsVolume: 0
-  unlockAllLevels: 0
+  unlockAllLevels: 1
 --- !u!4 &1667047451
 Transform:
   m_ObjectHideFlags: 0

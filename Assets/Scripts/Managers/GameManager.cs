@@ -1,10 +1,18 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     public LoadManager LoadManager { get; private set; }
+    
+    /// <summary>
+    /// The level this goal is for, calculated from the scene name.
+    /// </summary>
+    public GameLevel Level { get; private set; } = GameLevel.Invalid;
 
 	[Header("Gameplay State")]
 	public bool isArrowVisible;
@@ -18,34 +26,57 @@ public class GameManager : MonoBehaviour
     public float minLinearValue = 0.0f; // Valor m�nimo del rango lineal
     public float maxLinearValue = 5.0f; // Valor m�ximo del rango lineal
     
-	public const int numberOfLevels = 3;
-    public enum LevelCompletion { Locked, Uncompleted, Completed, Par, HoleInOne };
+	public const int NumberOfLevels = 3;
+
+    public enum LevelCompletionStatus { Locked, Uncompleted, Completed, Par, HoleInOne };
+
+    public struct LevelProgress
+    {
+	    public int Retries { get; set; }
+	    public LevelCompletionStatus Status { get; set; }
+    }
 
 	[Header("Progression")]
-    public LevelCompletion[] levelCompletion;
+    public readonly LevelProgress[] progress = new LevelProgress[NumberOfLevels];
 
-    [Header("Settings"), Range(0,1)]
-    public float musicVolume;
+    [Header("Settings")]
     [Range(0, 1)]
-	public float soundsVolume;
+    public float MusicVolume;
+    [Range(0, 1)]
+	public float SoundVolume;
 
 #if UNITY_EDITOR
     [Header("Hacks")]
-    public bool unlockAllLevels;
+    public bool UnlockAllLevels;
 #endif
 
 	private void Awake()
 	{
-		if (Instance != null) {
+		if (Instance is not null) {
 			Destroy(gameObject);
-
+			Instance.OnNewScene();
             return;
 		}
 
 		Instance = this;
 		DontDestroyOnLoad(gameObject);
 
+		Instance.OnNewScene();
 		Instance.Init();
+	}
+
+	private void OnNewScene()
+	{
+		// Get current scene name and verify it's formatted correctly with the format 'LevelN', where N is an integer:
+		var sceneName = SceneManager.GetActiveScene().name;
+		if (sceneName.Length > 5 && sceneName.StartsWith("Level") && int.TryParse(sceneName[5..], out var level))
+		{
+			Level = new GameLevel { Current = level };
+		}
+		else
+		{
+			Level = GameLevel.Invalid;
+		}
 	}
 
     private void Init()
@@ -57,12 +88,16 @@ public class GameManager : MonoBehaviour
 
         LoadManager = gameObject.AddComponent<LoadManager>();
 		LoadManager.Load();
-
+		        
 #if UNITY_EDITOR
-        if(unlockAllLevels)
-            for(int i = 0; i < numberOfLevels; i++)
-                if (levelCompletion[i] == LevelCompletion.Locked)
-                    levelCompletion[i] = LevelCompletion.Uncompleted;
+        if (UnlockAllLevels)
+        {
+	        for (var i = 0; i < NumberOfLevels; i++)
+	        {
+		        if (progress[i].Status == LevelCompletionStatus.Locked)
+			        progress[i].Status = LevelCompletionStatus.Uncompleted;
+	        }
+        }
 #endif
     }
 
@@ -105,7 +140,6 @@ public class GameManager : MonoBehaviour
 
         return new Vector3(scaleValueX, scaleValueY, scaleValueZ);
     }
-
 
     /// <summary>
     ///     Applies a force to the ball given a <paramref name="rotation" /> in degrees.

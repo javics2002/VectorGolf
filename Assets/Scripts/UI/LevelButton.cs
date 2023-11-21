@@ -1,13 +1,15 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
     [Header("Progress")]
     public int index;
-	public GameManager.LevelCompletion completion;
+	[FormerlySerializedAs("completion")]
+	public GameManager.LevelCompletionStatus CompletionStatus;
 
     //[Header("Flags")]
     //public Sprite completedFlag;
@@ -23,7 +25,7 @@ public class LevelButton : MonoBehaviour
 	private void Start() {
 		button = GetComponent<Button>();
 
-        if (completion == GameManager.LevelCompletion.Locked)
+        if (CompletionStatus == GameManager.LevelCompletionStatus.Locked)
             button.interactable = false;
 	}
 

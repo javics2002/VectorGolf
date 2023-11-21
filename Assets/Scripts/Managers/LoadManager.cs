@@ -3,22 +3,41 @@ using UnityEngine;
 
 public class LoadManager : MonoBehaviour
 {
+	private const int LoaderVersion = 1;
+	private const string VolumeMusicKey = "volume:music";
+	private const string VolumeSoundKey = "volume:sound";
+
 	public void Load()
 	{
-		// Añadir settings
-		GameManager.Instance.levelCompletion = new GameManager.LevelCompletion[GameManager.numberOfLevels];
+		if (PlayerPrefs.GetInt("version", 0) != LoaderVersion)
+		{
+			PlayerPrefs.DeleteAll();
+			PlayerPrefs.SetInt("version", LoaderVersion);
+		}
 
-		for (var level = 0; level < GameManager.numberOfLevels; level++)
-			GameManager.Instance.levelCompletion[level] =
-				(GameManager.LevelCompletion)PlayerPrefs.GetInt(MakeLevelKey(level),
-					(int)(level == 0 ? GameManager.LevelCompletion.Uncompleted : GameManager.LevelCompletion.Locked));
+		var gm = GameManager.Instance;
+		var progress = gm.progress;
+		for (var level = 0; level < progress.Length; level++)
+		{
+			progress[level].Status = (GameManager.LevelCompletionStatus)PlayerPrefs.GetInt(
+				MakeLevelCompletionKey(level),
+				(int)(level == 0
+					? GameManager.LevelCompletionStatus.Uncompleted
+					: GameManager.LevelCompletionStatus.Locked));
+			progress[level].Retries = PlayerPrefs.GetInt(MakeLevelRetryKey(level), 0);
+		}
+
+		gm.SoundVolume = PlayerPrefs.GetFloat(VolumeSoundKey, 1);
+		gm.MusicVolume = PlayerPrefs.GetFloat(VolumeMusicKey, 1);
 	}
 
 	public void Save()
 	{
-		for (var level = 0; level < GameManager.numberOfLevels; level++)
-			PlayerPrefs.SetInt(MakeLevelKey(level),
-				(int)GameManager.Instance.levelCompletion[level]);
+		var progress = GameManager.Instance.progress;
+		for (var level = 0; level < progress.Length; level++)
+		{
+			SaveLevelProgress(level, progress[level]);
+		}
 
 		PlayerPrefs.Save();
 	}
@@ -26,23 +45,59 @@ public class LoadManager : MonoBehaviour
 	/// <summary>
 	/// Saves the level completion for the given level.
 	/// </summary>
-	/// <remarks>
-	/// This method does not normalize 1-based level indices (1, 2, ...) to 0-based level indices (0, 1, ...).
-	/// </remarks>
 	/// <param name="level">The 0-based level index.</param>
-	/// <param name="completion">The completion progress for the level.</param>
-	/// <exception cref="IndexOutOfRangeException">If <c>level</c> is lower than zero or higher or equals than <see cref="GameManager.levelCompletion"/>.</exception>
-	public void Save(int level, GameManager.LevelCompletion completion)
+	/// <param name="completionStatus">The completion progress for the level.</param>
+	/// <param name="retries">The amount of retries.</param>
+	/// <exception cref="IndexOutOfRangeException">If <c>level</c> is lower than zero or higher or equals than <see cref="GameManager.progress"/>.</exception>
+	public void Save(int level, GameManager.LevelCompletionStatus completionStatus, int retries)
 	{
-		if (level < 0 || level >= GameManager.Instance.levelCompletion.Length)
-		{
-			throw new IndexOutOfRangeException("Cannot save to a level that does not exist");
-		}
+		CheckOutOfBounds(level);
 
-		GameManager.Instance.levelCompletion[level] = completion;
-		PlayerPrefs.SetInt(MakeLevelKey(level), (int)completion);
+		var progress = GameManager.Instance.progress;
+		progress[level].Status = completionStatus;
+		progress[level].Retries = retries;
+
+		SaveLevelProgress(level, progress[level]);
 		PlayerPrefs.Save();
 	}
 
-	private static string MakeLevelKey(int level) => $"level{level}completion";
+	public void SaveVolume(float musicVolume, float soundVolume)
+	{
+		PlayerPrefs.SetFloat(VolumeMusicKey, musicVolume);
+		PlayerPrefs.SetFloat(VolumeSoundKey, soundVolume);
+		PlayerPrefs.Save();
+	}
+
+	public void IncreaseRetries(int level)
+	{
+		CheckOutOfBounds(level);
+
+		var progress = GameManager.Instance.progress[level];
+		progress.Retries++;
+
+		PlayerPrefs.SetInt(MakeLevelRetryKey(level), progress.Retries);
+		PlayerPrefs.Save();
+	}
+
+	/// <summary>
+	/// Checks whether or not the given level is out of bounds.
+	/// </summary>
+	/// <param name="level">The 0-based level index to check.</param>
+	/// <exception cref="IndexOutOfRangeException">If <c>level</c> is lower than zero or higher or equals than <see cref="GameManager.progress"/>.</exception>
+	private static void CheckOutOfBounds(int level)
+	{
+		if (level < 0 || level >= GameManager.Instance.progress.Length)
+		{
+			throw new IndexOutOfRangeException("Cannot load a level that does not exist");
+		}
+	}
+
+	private static string MakeLevelRetryKey(int level) => $"level:{level}:retries";
+	private static string MakeLevelCompletionKey(int level) => $"level:{level}:completion";
+
+	private static void SaveLevelProgress(int level, GameManager.LevelProgress progress)
+	{
+		PlayerPrefs.SetInt(MakeLevelCompletionKey(level), (int)progress.Status);
+		PlayerPrefs.SetInt(MakeLevelRetryKey(level), progress.Retries);
+	}
 }

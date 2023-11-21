@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class WinScreen : MonoBehaviour
 {
-	public int NextLevelScene { get; set; } = -1;
+	public int Retries { get; set; } = -1;
 
 	private static int MainMenuScene { get; set; } = -1;
 
@@ -32,6 +32,9 @@ public class WinScreen : MonoBehaviour
 			star.AddToClassList("full");
 		}
 
+		var retries = root.Query<Label>(name: "retries").First();
+		retries.text = $"¡Te tomó {Retries} intentos!";
+
 		// buttons is a list with three elements:
 		// 0: Retry
 		// 1: Next Level
@@ -44,17 +47,21 @@ public class WinScreen : MonoBehaviour
 	{
 		retry.clicked += OnClickedRetry;
 		goToMainMenu.clicked += OnClickedMainMenu;
-		if (NextLevelScene != -1) goToNextLevel.clicked += OnClickedNextLevel;
+
+		if (GameManager.Instance.Level.HasNext()) goToNextLevel.clicked += OnClickedNextLevel;
+		else goToNextLevel.SetEnabled(false);
 	}
 
 	private void OnClickedRetry()
 	{
+		// TODO: Move this elsewhere
+		// GameManager.Instance.LoadManager.IncreaseRetries(GameManager.Instance.LevelIndex);
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	private void OnClickedNextLevel()
 	{
-		SceneManager.LoadScene(NextLevelScene);
+		SceneManager.LoadScene($"Level{GameManager.Instance.Level.Current + 1}");
 	}
 
 	private void OnClickedMainMenu()
