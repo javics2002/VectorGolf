@@ -36,11 +36,7 @@ public class Goal : MonoBehaviour
 		if (sceneName.Length > 5 && sceneName.StartsWith("Level") && int.TryParse(sceneName[5..], out var level))
 		{
 			Level = level;
-			NextScene = SceneUtility.GetBuildIndexByScenePath($"Assets/Scenes/Level{level + 1}.unity") switch
-			{
-				-1 => MainMenuScene,
-				var v => v
-			};
+			NextScene = SceneUtility.GetBuildIndexByScenePath($"Assets/Scenes/Level{level + 1}.unity");
 		}
 		else
 		{
@@ -61,11 +57,14 @@ public class Goal : MonoBehaviour
 		if (!collision.CompareTag("Player")) return;
 
 		// Save the level completion:
-		// TODO: Determine the correct level completion
 		GameManager.Instance.LoadManager.Save(LevelIndex, GameManager.LevelCompletion.Completed);
-		
-		// If the next level doesn't exist, go back to the main menu:
-		SceneManager.LoadScene(NextScene);
+
+		// Find the GameObject named "WinScreen":
+		var winScreen = FindObjectOfType<WinScreen>(true);
+		if (winScreen is null) return;
+
+		winScreen.NextLevelScene = NextScene;
+		winScreen.gameObject.SetActive(true);
 	}
 
 	private string GetGoalSpriteName()
