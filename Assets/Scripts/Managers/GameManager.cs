@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public float minLinearValue = 0.0f; // Valor m�nimo del rango lineal
     public float maxLinearValue = 5.0f; // Valor m�ximo del rango lineal
     
-	public const int NumberOfLevels = 5;
+	public const int NumberOfLevels = 12;
 
     public enum LevelCompletionStatus { Locked, Uncompleted, Completed, Par, HoleInOne };
 

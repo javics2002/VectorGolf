@@ -16,5 +16,7 @@ MonoBehaviour:
   Vectors:
   - {x: 2, y: 0}
   - {x: 0, y: -2}
+  - {x: 3, y: -5}
+  - {x: 6, y: 0}
   Platinum: 2
   Gold: 2
