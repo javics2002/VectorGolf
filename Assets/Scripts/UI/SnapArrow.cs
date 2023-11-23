@@ -1,11 +1,13 @@
 using System.Collections;
-
 using UnityEngine;
 
 public class SnapArrow : MonoBehaviour
 {
     [SerializeField]
     KinematicArrow.ArrowProperties arrowProperties;
+
+    [SerializeField, Range(0, 360)]
+    private float VectorDirection = 0f;
 
     [SerializeField, Range(0f, 1f)]
     float animationTime;
@@ -37,7 +39,7 @@ public class SnapArrow : MonoBehaviour
 		VectorForce vectorForce = draggedObject.GetComponent<VectorForce>();
 		ScalarForce scalarForce = draggedObject.GetComponent<ScalarForce>();
 		// Ball
-		if (vectorForce && interactableObjectType == InteractableObject.ObjectType.BALL)
+		if (vectorForce && interactableObjectType == InteractableObject.ObjectType.Ball)
         {
             // Show arrow
             CreateVectorArrow(vectorForce.GetVectorialForce());
@@ -46,7 +48,7 @@ public class SnapArrow : MonoBehaviour
 			draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
         }
         // Spring/Fan
-        else if (scalarForce && interactableObjectType != InteractableObject.ObjectType.BALL)
+        else if (scalarForce && interactableObjectType != InteractableObject.ObjectType.Ball)
         {
             // Show arrow
             CreateScalarArrow(scalarForce.GetScalarForce());
@@ -64,9 +66,9 @@ public class SnapArrow : MonoBehaviour
 		GameObject draggedObject = GameManager.Instance.draggedObject;
 		InteractableObject.ObjectType interactableObjectType = 
             transform.parent.GetComponentInChildren<InteractableObject>().objectType;
-		if (interactableObjectType == InteractableObject.ObjectType.BALL &&
+		if (interactableObjectType == InteractableObject.ObjectType.Ball &&
 			draggedObject.GetComponent<VectorForce>() && interfaceArrow.properties.isVisible
-            || interactableObjectType != InteractableObject.ObjectType.BALL &&
+            || interactableObjectType != InteractableObject.ObjectType.Ball &&
 			draggedObject.GetComponent<ScalarForce>() && interfaceArrow.properties.isVisible)
         {
 			ReturnToOldArrow();
@@ -89,7 +91,7 @@ public class SnapArrow : MonoBehaviour
     {
 		interfaceArrow.properties.isVisible = true;
 
-        currentForce = transform.parent.up * force;
+        currentForce = GetTransformedVector() * force;
         StopAllCoroutines();
 		StartCoroutine(AnimateArrow(currentForce, animationTime, 
             EasingFunctions.GetEasingFunction(interpolationType)));
@@ -129,5 +131,16 @@ public class SnapArrow : MonoBehaviour
 		}
 
 		interfaceArrow.SetInterfaceArrow(newVector);
+	}
+	
+	private Vector2 GetTransformedVector() {
+		// Rotate the vector by the parent's rotation:
+		//      0º
+		// 90º  x   270º
+		//     180º
+		//
+		// We use Quaternion.AngleAxis to rotate the vector and then we
+		// multiply it by the parent's up vector to get the final vector:
+		return Quaternion.AngleAxis(VectorDirection, Vector3.forward) * transform.parent.up;
 	}
 }

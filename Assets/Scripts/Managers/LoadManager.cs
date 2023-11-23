@@ -72,10 +72,9 @@ public class LoadManager : MonoBehaviour
 	/// <exception cref="IndexOutOfRangeException">If <c>level</c> is lower than zero or higher or equals than <see cref="GameManager.progress"/>.</exception>
 	private static void CheckOutOfBounds(int level)
 	{
-		if (level < 0 || level >= GameManager.Instance.progress.Length)
-		{
-			throw new IndexOutOfRangeException("Cannot load a level that does not exist");
-		}
+		if (level is >= 0 and < GameManager.NumberOfLevels) return;
+
+		throw new IndexOutOfRangeException("Cannot load a level that does not exist");
 	}
 
 	private static string MakeLevelCompletionKey(int level) => $"level:{level}:completion";

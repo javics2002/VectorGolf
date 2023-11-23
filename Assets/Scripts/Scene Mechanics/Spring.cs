@@ -7,7 +7,7 @@ public class Spring : InteractableObject
 
     void Start()
     {
-        objectType = ObjectType.SPRING;
+        objectType = ObjectType.Spring;
     }
 
     void Update()
