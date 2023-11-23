@@ -32,7 +32,6 @@ public class Goal : MonoBehaviour
 		Assert.IsNotNull(ball);
 
 		var stars = 1;
-		var ball = collision.transform.GetComponentInChildren<Ball>();
 		if (ball is not null && gm.LevelData is not null)
 		{
 			if (ball.hits <= gm.LevelData.Gold) stars++;
@@ -50,7 +49,7 @@ public class Goal : MonoBehaviour
 		if (winScreen is null) return;
 
 		winScreen.Stars = stars;
-		winScreen.Hits = ball.Hits;
+		winScreen.Hits = ball.hits;
 		winScreen.gameObject.SetActive(true);
 	}
 

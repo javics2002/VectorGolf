@@ -52,7 +52,7 @@ public class ToggleArrows : MonoBehaviour
 		gameManager.seeVectorValues = !gameManager.seeVectorValues;
 
 		foreach (KinematicArrow kinematicArrow in FindObjectsOfType<KinematicArrow>())
-			kinematicArrow.SetLabelVisible(gameManager.seeVectorValues);
+			kinematicArrow.SetValueVisible(gameManager.seeVectorValues);
 	}
 
 	public void ToggleAnimations() {
@@ -61,5 +61,8 @@ public class ToggleArrows : MonoBehaviour
 
 	public void ToggleVectorDecomposition() {
 		gameManager.vectorDecomposition = !gameManager.vectorDecomposition;
+
+		foreach (KinematicArrow kinematicArrow in FindObjectsOfType<KinematicArrow>())
+			kinematicArrow.SetDecomposition(gameManager.vectorDecomposition);
 	}
 }

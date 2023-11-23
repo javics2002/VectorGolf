@@ -76,7 +76,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 			// Check if fan or spring
 			if (spring) {
-				spring.setSpringForce(scalarForce.GetScalarForce());
+				spring.SetSpringForce(scalarForce.GetScalarForce());
 			}
 			else if (fan) {
 				fan.SetFanForce(scalarForce.GetScalarForce());

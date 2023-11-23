@@ -76,6 +76,7 @@ public class Ball : InteractableObject
 				transform, velocityArrow.properties);
 			firstVector.SetInterfaceArrow(velocityArrow.GetVector());
 			firstVector.properties.isVisible = true;
+			firstVector.canDecomposite = false;
 
 			yield return MoveSecondVector(force, secondVectorOrigin, secondVectorInterpolation);
 			yield return new WaitForSecondsRealtime(pauseAfterSecond);
@@ -100,6 +101,7 @@ public class Ball : InteractableObject
 		secondVector.SetInterfaceArrow(force);
 		secondVector.properties.isVisible = true;
 		secondVector.target = secondArrowTarget;
+		secondVector.canDecomposite = false;
 
 		float t = 0;
 		while (t < secondArrowTime) {
@@ -117,6 +119,7 @@ public class Ball : InteractableObject
 		resultVector = KinematicArrow.CreateArrow<InterfaceArrow>("Result Vector",
 				transform, velocityArrow.properties);
 		resultVector.properties.isVisible = true;
+		resultVector.canDecomposite = false;
 
 		float t = 0;
 		while (t < resultArrowTime) {

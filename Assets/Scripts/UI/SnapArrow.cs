@@ -17,8 +17,10 @@ public class SnapArrow : MonoBehaviour
 
 	private void Awake() {
 		interfaceArrow = new GameObject(gameObject.name + " snap arrow").AddComponent<InterfaceArrow>();
-        interfaceArrow.properties = arrowProperties;
+		interfaceArrow.properties = arrowProperties;
 		interfaceArrow.target = transform.parent;
+		interfaceArrow.gameObject.layer = LayerMask.NameToLayer("UI");
+        interfaceArrow.canDecomposite = false;
 
         //TODO poner valor inicial de la flecha
         currentForce = Vector2.zero;

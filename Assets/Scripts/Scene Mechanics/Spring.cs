@@ -27,7 +27,7 @@ public class Spring : InteractableObject
             transform.parent.GetComponentInChildren<SnapArrow>().interfaceArrow));
     }
 
-    public void setSpringForce(float springForce) { 
+    public void SetSpringForce(float springForce) { 
         _springForce = springForce;
     }
 }

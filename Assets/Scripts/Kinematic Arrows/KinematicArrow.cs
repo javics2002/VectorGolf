@@ -4,6 +4,8 @@ using TMPro;
 
 using UnityEngine;
 
+using static KinematicArrow;
+
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 public abstract class KinematicArrow : MonoBehaviour {
@@ -20,6 +22,22 @@ public abstract class KinematicArrow : MonoBehaviour {
 		public string name;
 		public float labelSize = 6;
 		public float labelSeparation = 1;
+
+		public ArrowProperties(ArrowProperties otherProperties) {
+			isVisible = otherProperties.isVisible;
+			isLabelVisible = otherProperties.isLabelVisible;
+			isValueVisible = otherProperties.isValueVisible;
+			priority = otherProperties.priority;
+			color = otherProperties.color;
+			stemLength = otherProperties.stemLength;
+			stemWidth = otherProperties.stemWidth;
+			tipLength = otherProperties.tipLength;
+			tipWidth = otherProperties.tipWidth;
+			forceSmooth = otherProperties.forceSmooth;
+			name = otherProperties.name;
+			labelSize = otherProperties.labelSize;
+			labelSeparation = otherProperties.labelSeparation;
+		}
 	}
 
 	public static ArrowType CreateArrow<ArrowType>(string name, Transform target, ArrowProperties properties)
@@ -35,8 +53,6 @@ public abstract class KinematicArrow : MonoBehaviour {
 	}
 
 	public ArrowProperties properties { get; set; }
-	//Durante las animaciones no quiero mostrar la flecha real
-	public bool animating { get; set; } = false;
 	public Transform target { get; set; }
 
 	[System.NonSerialized]
@@ -49,15 +65,21 @@ public abstract class KinematicArrow : MonoBehaviour {
 	protected MeshFilter meshFilter;
 	protected new Rigidbody2D rigidbody;
 	protected TextMeshPro labelText;
+	protected GameManager gameManager;
 
 	public Vector3 lastFrameVector;
-
 	protected bool forceSmooth;
-
 	protected float threshold = .5f;
 	protected float lerpFactor = .1f;
 
-	void Start() {
+	protected string unit = "";
+
+	public bool canDecomposite = true;
+	InterfaceArrow xComponent, yComponent;
+
+	protected virtual void Start() {
+		gameManager = GameManager.Instance;
+
 		verticesList = new List<Vector3>();
 		trianglesList = new List<int>();
 
@@ -76,6 +98,37 @@ public abstract class KinematicArrow : MonoBehaviour {
 		labelText.rectTransform.sizeDelta = new Vector2(5, 2);
 		labelText.alignment = TextAlignmentOptions.Center;
 		labelText.color = properties.color;
+		labelText.outlineColor = Color.black;
+		labelText.outlineWidth = .1f;
+
+		properties.isLabelVisible = gameManager.seeVectorLabels;
+		properties.isValueVisible = gameManager.seeVectorValues;
+
+		if(canDecomposite) {
+			xComponent = new GameObject(gameObject.name + " X component").AddComponent<InterfaceArrow>();
+			xComponent.canDecomposite = false;
+			xComponent.properties = new ArrowProperties(properties);
+			xComponent.properties.stemWidth = properties.stemWidth / 2;
+			xComponent.properties.tipWidth = properties.tipWidth / 2;
+			xComponent.properties.tipLength = properties.tipLength / 2;
+			xComponent.properties.labelSize = properties.labelSize * .8f;
+			xComponent.properties.isVisible = gameManager.vectorDecomposition;
+			xComponent.target = target;
+			xComponent.gameObject.layer = LayerMask.NameToLayer("UI");
+			xComponent.properties.name = properties.name + "<sub>x</sub>";
+
+			yComponent = new GameObject(gameObject.name + " Y component").AddComponent<InterfaceArrow>();
+			yComponent.canDecomposite = false;
+			yComponent.properties = new ArrowProperties(properties);
+			yComponent.properties.stemWidth = properties.stemWidth / 2;
+			yComponent.properties.tipWidth = properties.tipWidth / 2;
+			yComponent.properties.tipLength = properties.tipLength / 2;
+			yComponent.properties.labelSize = properties.labelSize * .8f;
+			yComponent.properties.isVisible = gameManager.vectorDecomposition;
+			yComponent.target = target;
+			yComponent.gameObject.layer = LayerMask.NameToLayer("UI");
+			yComponent.properties.name = properties.name + "<sub>y</sub>";
+		}
 	}
 
 	private void OnDestroy() {
@@ -87,7 +140,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 		Vector3 vector = GetVector();
 		transform.position = target.position + properties.priority * Vector3.back * .1f;
 
-		if (properties.isVisible && !animating && IsLongEnoughToDraw(vector)) {
+		if (properties.isVisible && IsLongEnoughToDraw(vector)) {
 			CreateArrowMesh(vector);
 
 			if (properties.isLabelVisible || properties.isValueVisible) {
@@ -96,18 +149,30 @@ public abstract class KinematicArrow : MonoBehaviour {
 				labelText.rectTransform.position = target.position + vector / 2 
 					+ Vector3.Cross(vector, Vector3.back).normalized * properties.labelSeparation + properties.priority * Vector3.back * .1f;
 				labelText.text = (properties.isLabelVisible ? (!properties.name.Equals("") ? properties.name + ": " : "") : "")
-					+ (properties.isValueVisible ? vector.magnitude.ToString("0.0") : "");
+					+ (properties.isValueVisible ? vector.magnitude.ToString("0.#") + " " + unit : "");
 			}
 			else
 				labelText.enabled = false;
 
 			meshRenderer.enabled = true;
+			
+			if(canDecomposite) {
+				xComponent.properties.isVisible = yComponent.properties.isVisible = 
+					gameManager.vectorDecomposition && !(Mathf.Abs(vector.x) < .1f || Mathf.Abs(vector.y) < .1f);
+
+				xComponent.SetInterfaceArrow(new Vector3(vector.x, 0, 0));
+				yComponent.SetInterfaceArrow(new Vector3(0, vector.y, 0));
+			}
+
 			vector.Normalize();
 
-			if (forceSmooth)
-				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
-			else
-				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
+			//if (forceSmooth)
+			//	transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
+			//else
+			//	transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
+
+			//TEMP: no smooth
+			transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(vector));
 		}
 		else {
 			meshRenderer.enabled = false;
@@ -192,6 +257,13 @@ public abstract class KinematicArrow : MonoBehaviour {
 
 	public void SetValueVisible(bool visible) {
 		properties.isValueVisible = visible;
+	}
+
+	public void SetDecomposition(bool decomposite) {
+		if (canDecomposite) {
+			xComponent.SetVisible(decomposite); 
+			yComponent.SetVisible(decomposite);
+		}
 	}
 
 	public void SetForceSmooth(bool newValue) {
