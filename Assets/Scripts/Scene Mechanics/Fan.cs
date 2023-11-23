@@ -10,7 +10,7 @@ public class Fan : InteractableObject
     
     void Start()
     {
-        objectType = ObjectType.FAN;
+        objectType = ObjectType.Fan;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

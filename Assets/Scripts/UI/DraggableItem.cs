@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+{
 	[SerializeField, Range(0f, 1f)]
 	float scaleWhenDrag;
 
@@ -11,15 +13,18 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 	private Vector2 initialPositon;
 
-	private void Awake() {
+	private void Awake()
+	{
 		rectTransform = GetComponent<RectTransform>();
 		canvas = GetComponentInParent<Canvas>();
 		canvasGroup = GetComponent<CanvasGroup>();
 	}
 
-	public void OnBeginDrag(PointerEventData eventData) {
+	public void OnBeginDrag(PointerEventData eventData)
+	{
 		// Dont pick invisible items
-		if (canvasGroup.alpha == 0f) {
+		if (canvasGroup.alpha == 0f)
+		{
 			return;
 		}
 
@@ -34,15 +39,18 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		rectTransform.localScale = new Vector3(scaleWhenDrag, scaleWhenDrag, scaleWhenDrag);
 	}
 
-	public void OnDrag(PointerEventData eventData) {
+	public void OnDrag(PointerEventData eventData)
+	{
 		rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
 	}
 
-	public void OnEndDrag(PointerEventData eventData) {
-		GameObject mouseOverObject = GameManager.Instance.mouseOverObject;
+	public void OnEndDrag(PointerEventData eventData)
+	{
+		var mouseOverObject = GameManager.Instance.mouseOverObject;
 
 		// When an object is not dropped inside a valid gameobject
-		if (!mouseOverObject) {
+		if (!mouseOverObject)
+		{
 			canvasGroup.alpha = 1f;
 
 			rectTransform.localScale = Vector3.one;
@@ -56,44 +64,66 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 			return;
 		}
 
-		bool applyForce = false;
-		VectorForce vectorForce = GetComponent<VectorForce>();
-		ScalarForce scalarForce = GetComponent<ScalarForce>();
-		bool isBall = mouseOverObject.GetComponentInChildren<InteractableObject>().objectType == InteractableObject.ObjectType.BALL;
+		var interactable = mouseOverObject.GetComponentInChildren<InteractableObject>();
+		if (interactable is null) return;
 
-		// Apply vectorial force
-		if (vectorForce && isBall) {
-			StartCoroutine(mouseOverObject.GetComponentInChildren<Ball>().Hit(vectorForce.GetVectorialForce()));
-			applyForce = true;
+		var arrow = mouseOverObject.GetComponentInChildren<SnapArrow>();
+		var applyForce = interactable.objectType switch
+		{
+			InteractableObject.ObjectType.Ball => ApplyForce(arrow, (Ball)interactable),
+			InteractableObject.ObjectType.Spring => ApplyForce(arrow, (Spring)interactable),
+			InteractableObject.ObjectType.Fan => ApplyForce(arrow, (Fan)interactable),
+			InteractableObject.ObjectType.Vehicle => ApplyForce(arrow, (Vehicle)interactable),
+			_ => throw new ArgumentOutOfRangeException()
+		};
 
-			// Delete arrow
-			mouseOverObject.GetComponentInChildren<SnapArrow>().DeleteArrow();
-		}
-		// Apply scalar force
-		else if (scalarForce && !isBall) {
-			Spring spring = mouseOverObject.GetComponentInChildren<Spring>();
-			Fan fan = mouseOverObject.GetComponentInChildren<Fan>();
+		if (!applyForce) return;
 
-			// Check if fan or spring
-			if (spring) {
-				spring.SetSpringForce(scalarForce.GetScalarForce());
-			}
-			else if (fan) {
-				fan.SetFanForce(scalarForce.GetScalarForce());
-			}
+		GameManager.Instance.isDragging = false;
+		GameManager.Instance.draggedObject = null;
+		GameManager.Instance.mouseOverObject = null;
+		canvasGroup.alpha = 0f;
+	}
 
-			applyForce = true;
+	private bool ApplyForce(SnapArrow arrow, Ball ball)
+	{
+		var vectorForce = GetComponent<VectorForce>();
+		if (vectorForce is null) return false;
 
-			SnapArrow snapArrow = mouseOverObject.GetComponentInChildren<SnapArrow>();
-			snapArrow.SaveForce();
-		}
+		StartCoroutine(ball.Hit(vectorForce.GetVectorialForce()));
 
-		if (applyForce) {
-			GameManager.Instance.isDragging = false;
-			GameManager.Instance.draggedObject = null;
-			GameManager.Instance.mouseOverObject = null;
+		// Delete arrow
+		arrow.DeleteArrow();
+		return true;
+	}
 
-			canvasGroup.alpha = 0f;
-		}
+	private bool ApplyForce(SnapArrow arrow, Spring spring)
+	{
+		var scalarForce = GetComponent<ScalarForce>();
+		if (scalarForce is null) return false;
+
+		spring.setSpringForce(scalarForce.GetScalarForce());
+		arrow.SaveForce();
+		return true;
+	}
+
+	private bool ApplyForce(SnapArrow arrow, Fan fan)
+	{
+		var scalarForce = GetComponent<ScalarForce>();
+		if (scalarForce is null) return false;
+
+		fan.SetFanForce(scalarForce.GetScalarForce());
+		arrow.SaveForce();
+		return true;
+	}
+
+	private bool ApplyForce(SnapArrow arrow, Vehicle vehicle)
+	{
+		var scalarForce = GetComponent<ScalarForce>();
+		if (scalarForce is null) return false;
+
+		vehicle.SetScalarForce(scalarForce.GetScalarForce());
+		arrow.SaveForce();
+		return true;
 	}
 }
