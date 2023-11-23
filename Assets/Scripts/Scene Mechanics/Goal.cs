@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.U2D;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -24,28 +26,27 @@ public class Goal : MonoBehaviour
 		if (!collision.CompareTag("Player")) return;
 
 		var gm = GameManager.Instance;
+		Assert.IsNotNull(gm);
+
+		var ball = collision.transform.GetComponentInChildren<Ball>();
+		Assert.IsNotNull(ball);
 
 		var stars = 1;
-		var ball = collision.transform.GetComponentInChildren<Ball>();
-		if (ball is not null && gm.LevelData is not null)
-		{
-			if (ball.Hits <= gm.LevelData.Gold) stars++;
-			if (ball.Hits <= gm.LevelData.Platinum) stars++;
-		}
+		if (ball.Hits <= gm.LevelData.Gold) stars++;
+		if (ball.Hits <= gm.LevelData.Platinum) stars++;
 
 		// Get the number of retries for this level:
 		var levelIndex = gm.Level.CurrentIndex;
-		var retries = gm.progress[levelIndex].Retries;
 
 		// Save the level completion:
-		gm.LoadManager.Save(levelIndex, GetLevelCompletionStatus(stars), 0);
+		gm.LoadManager.Save(levelIndex, GetLevelCompletionStatus(stars));
 
 		// Find the GameObject named "WinScreen":
 		var winScreen = FindObjectOfType<WinScreen>(true);
 		if (winScreen is null) return;
 
 		winScreen.Stars = stars;
-		winScreen.Retries = retries;
+		winScreen.Hits = ball.Hits;
 		winScreen.gameObject.SetActive(true);
 	}
 

@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     public struct LevelProgress
     {
-	    public int Retries { get; set; }
 	    public LevelCompletionStatus Status { get; set; }
     }
 

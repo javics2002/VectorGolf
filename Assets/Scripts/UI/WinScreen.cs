@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class WinScreen : MonoBehaviour
 {
 	public int Stars { get; set; } = 1;
-	public int Retries { get; set; } = -1;
+	public int Hits { get; set; } = 0;
 
 	private static int MainMenuScene { get; set; } = -1;
 
@@ -37,7 +37,11 @@ public class WinScreen : MonoBehaviour
 		}
 
 		var retries = root.Query<Label>(name: "retries").First();
-		retries.text = $"¡Te tomó {Retries} intentos!";
+		retries.text = Hits switch
+		{
+			1 => "¡Te tomó 1 golpe!",
+			_ => $"¡Te tomó {Hits} golpes!"
+		};
 
 		// buttons is a list with three elements:
 		// 0: Retry
