@@ -27,7 +27,7 @@ public sealed record GameLevel
 	/// Returns whether or not the current level is valid.
 	/// </summary>
 	/// <returns></returns>
-	public bool IsValid() => Current != -1;
+	public bool IsValid() => Current is -1 or > GameManager.NumberOfLevels;
 
 	public static GameLevel Invalid => new() { Current = -1 };
 }

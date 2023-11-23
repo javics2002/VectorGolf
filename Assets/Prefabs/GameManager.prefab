@@ -44,15 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8745f204044d3a343a1d179bc0e15baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelData: {fileID: 0}
   isArrowVisible: 0
   isDragging: 0
   draggedObject: {fileID: 0}
   mouseOverObject: {fileID: 0}
+  seeVelocity: 1
+  seeForces: 1
+  seeVectorLabels: 1
+  seeVectorValues: 1
+  seeAnimations: 1
+  vectorDecomposition: 1
   minForce: 1
   maxForce: 20
   minLinearValue: 0
   maxLinearValue: 5
-  levelCompletion: 
-  musicVolume: 1
-  soundsVolume: 1
-  unlockAllLevels: 0
+  MusicVolume: 1
+  SoundVolume: 1
+  UnlockAllLevels: 0

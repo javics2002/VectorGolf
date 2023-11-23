@@ -23,6 +23,14 @@ public class GameManager : MonoBehaviour
 	public GameObject draggedObject;
     public GameObject mouseOverObject;
 
+    [Header("Gameplay Settings")]
+    public bool seeVelocity;
+    public bool seeForces;
+    public bool seeVectorLabels;
+    public bool seeVectorValues;
+    public bool seeAnimations;
+    public bool vectorDecomposition;
+
     [Header("Force Limiters")]
     public float minForce = 1.0f; // Valor m�nimo de la fuerza original
     public float maxForce = 20.0f; // Valor m�ximo de la fuerza original
@@ -35,7 +43,6 @@ public class GameManager : MonoBehaviour
 
     public struct LevelProgress
     {
-	    public int Retries { get; set; }
 	    public LevelCompletionStatus Status { get; set; }
     }
 

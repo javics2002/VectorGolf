@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Ball : InteractableObject
 {
-	public int Hits { get; private set; } = 0;
+	public int hits { get; private set; } = 0;
+	public bool animating { get; private set; } = false;
 
 	[Header("Animation times")]
 	[SerializeField, Range(0f, 1f)]
@@ -24,26 +25,40 @@ public class Ball : InteractableObject
 	InterfaceArrow firstVector, secondVector, resultVector;
 
 	new Rigidbody2D rigidbody;
-
+	GameManager gameManager;
 
 	private void Start() {
 		objectType = ObjectType.BALL;
 		rigidbody = GetComponentInParent<Rigidbody2D>();
+
+		gameManager = GameManager.Instance;
 	}
 
-	public void Hit(Vector2 force)
+	public IEnumerator Hit(Vector2 force)
 	{
-		Hits++;
+		hits++;
 
-		StartCoroutine(AddVectorsAnimation(force, rigidbody.transform,
-			EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction)));
+		if(gameManager.seeAnimations)
+			yield return AddVectorsAnimation(force, rigidbody.transform,
+				EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction));
+
+		rigidbody.AddForce(force, ForceMode2D.Impulse);
 	}
 
 	public IEnumerator Hit(Vector2 force, InterfaceArrow secondArrow) {
+		hits++;
+
+		if (!gameManager.seeAnimations) {
+			rigidbody.AddForce(force, ForceMode2D.Impulse);
+			yield break;
+		}
+
 		secondArrow.properties.isVisible = false;
 
 		yield return AddVectorsAnimation(force, secondArrow.transform,
 			EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction));
+
+		rigidbody.AddForce(force, ForceMode2D.Impulse);
 
 		//TODO usar alpha para volver a verlo
 		secondArrow.properties.isVisible = true;
@@ -53,6 +68,7 @@ public class Ball : InteractableObject
 		EasingFunctions.Interpolation secondVectorInterpolation, EasingFunctions.Interpolation resultVectorInterpolation) {
 		if (velocityArrow.IsLongEnoughToDraw(velocityArrow.GetVector())) {
 			Time.timeScale = 0;
+			animating = true;
 
 			velocityArrow.properties.isVisible = false;
 
@@ -73,10 +89,9 @@ public class Ball : InteractableObject
 
 			velocityArrow.properties.isVisible = true;
 
+			animating = false;
 			Time.timeScale = 1;
 		}
-
-		rigidbody.AddForce(force, ForceMode2D.Impulse);
 	}
 
 	IEnumerator MoveSecondVector(Vector3 force, Transform secondVectorOrigin, EasingFunctions.Interpolation interpolation) {

@@ -24,7 +24,6 @@ public class LoadManager : MonoBehaviour
 				(int)(level == 0
 					? GameManager.LevelCompletionStatus.Uncompleted
 					: GameManager.LevelCompletionStatus.Locked));
-			progress[level].Retries = PlayerPrefs.GetInt(MakeLevelRetryKey(level), 0);
 		}
 
 		gm.SoundVolume = PlayerPrefs.GetFloat(VolumeSoundKey, 1);
@@ -47,15 +46,13 @@ public class LoadManager : MonoBehaviour
 	/// </summary>
 	/// <param name="level">The 0-based level index.</param>
 	/// <param name="completionStatus">The completion progress for the level.</param>
-	/// <param name="retries">The amount of retries.</param>
 	/// <exception cref="IndexOutOfRangeException">If <c>level</c> is lower than zero or higher or equals than <see cref="GameManager.progress"/>.</exception>
-	public void Save(int level, GameManager.LevelCompletionStatus completionStatus, int retries)
+	public void Save(int level, GameManager.LevelCompletionStatus completionStatus)
 	{
 		CheckOutOfBounds(level);
 
 		var progress = GameManager.Instance.progress;
 		progress[level].Status = completionStatus;
-		progress[level].Retries = retries;
 
 		SaveLevelProgress(level, progress[level]);
 		PlayerPrefs.Save();
@@ -65,17 +62,6 @@ public class LoadManager : MonoBehaviour
 	{
 		PlayerPrefs.SetFloat(VolumeMusicKey, musicVolume);
 		PlayerPrefs.SetFloat(VolumeSoundKey, soundVolume);
-		PlayerPrefs.Save();
-	}
-
-	public void IncreaseRetries(int level)
-	{
-		CheckOutOfBounds(level);
-
-		var progress = GameManager.Instance.progress[level];
-		progress.Retries++;
-
-		PlayerPrefs.SetInt(MakeLevelRetryKey(level), progress.Retries);
 		PlayerPrefs.Save();
 	}
 
@@ -92,12 +78,10 @@ public class LoadManager : MonoBehaviour
 		}
 	}
 
-	private static string MakeLevelRetryKey(int level) => $"level:{level}:retries";
 	private static string MakeLevelCompletionKey(int level) => $"level:{level}:completion";
 
 	private static void SaveLevelProgress(int level, GameManager.LevelProgress progress)
 	{
 		PlayerPrefs.SetInt(MakeLevelCompletionKey(level), (int)progress.Status);
-		PlayerPrefs.SetInt(MakeLevelRetryKey(level), progress.Retries);
 	}
 }

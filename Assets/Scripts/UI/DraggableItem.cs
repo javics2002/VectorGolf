@@ -63,7 +63,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 		// Apply vectorial force
 		if (vectorForce && isBall) {
-			mouseOverObject.GetComponentInChildren<Ball>().Hit(vectorForce.GetVectorialForce());
+			StartCoroutine(mouseOverObject.GetComponentInChildren<Ball>().Hit(vectorForce.GetVectorialForce()));
 			applyForce = true;
 
 			// Delete arrow
