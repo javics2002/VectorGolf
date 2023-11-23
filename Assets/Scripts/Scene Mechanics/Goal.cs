@@ -32,8 +32,12 @@ public class Goal : MonoBehaviour
 		Assert.IsNotNull(ball);
 
 		var stars = 1;
-		if (ball.Hits <= gm.LevelData.Gold) stars++;
-		if (ball.Hits <= gm.LevelData.Platinum) stars++;
+		var ball = collision.transform.GetComponentInChildren<Ball>();
+		if (ball is not null && gm.LevelData is not null)
+		{
+			if (ball.hits <= gm.LevelData.Gold) stars++;
+			if (ball.hits <= gm.LevelData.Platinum) stars++;
+		}
 
 		// Get the number of retries for this level:
 		var levelIndex = gm.Level.CurrentIndex;

@@ -11,6 +11,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 	public class ArrowProperties {
 		public bool isVisible;
 		public bool isLabelVisible;
+		public bool isValueVisible;
 		public int priority;
 		public Color color;
 		public float stemLength, stemWidth;
@@ -89,12 +90,13 @@ public abstract class KinematicArrow : MonoBehaviour {
 		if (properties.isVisible && !animating && IsLongEnoughToDraw(vector)) {
 			CreateArrowMesh(vector);
 
-			if (properties.isLabelVisible) {
+			if (properties.isLabelVisible || properties.isValueVisible) {
 				labelText.enabled = true;
 
 				labelText.rectTransform.position = target.position + vector / 2 
 					+ Vector3.Cross(vector, Vector3.back).normalized * properties.labelSeparation + properties.priority * Vector3.back * .1f;
-				labelText.text = (!properties.name.Equals("") ? properties.name + ": " : "") + vector.magnitude.ToString("0.0");
+				labelText.text = (properties.isLabelVisible ? (!properties.name.Equals("") ? properties.name + ": " : "") : "")
+					+ (properties.isValueVisible ? vector.magnitude.ToString("0.0") : "");
 			}
 			else
 				labelText.enabled = false;
@@ -180,12 +182,16 @@ public abstract class KinematicArrow : MonoBehaviour {
 
 	public abstract Vector3 GetVector();
 
-	public void ToggleVisible() {
-		properties.isVisible = !properties.isVisible;
+	public void SetVisible(bool visible) {
+		properties.isVisible = visible;
 	}
 
-	public void ToggleLabelVisible() {
-		properties.isLabelVisible = !properties.isLabelVisible;
+	public void SetLabelVisible(bool visible) {
+		properties.isLabelVisible = visible;
+	}
+
+	public void SetValueVisible(bool visible) {
+		properties.isValueVisible = visible;
 	}
 
 	public void SetForceSmooth(bool newValue) {

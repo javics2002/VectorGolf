@@ -553,24 +553,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8745f204044d3a343a1d179bc0e15baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameLevels:
-  - Platinum: 1
-    Gold: 2
-  - Platinum: 1
-    Gold: 2
-  - Platinum: 1
-    Gold: 2
+  LevelData: {fileID: 0}
   isArrowVisible: 0
   isDragging: 0
   draggedObject: {fileID: 0}
   mouseOverObject: {fileID: 0}
+  seeVelocity: 0
+  seeForces: 0
+  seeVectorLabels: 0
+  seeVectorValues: 0
+  seeAnimations: 0
+  vectorDecomposition: 0
   minForce: -10
   maxForce: 10
   minLinearValue: -3
   maxLinearValue: 3
-  musicVolume: 0
-  soundsVolume: 0
-  unlockAllLevels: 1
+  MusicVolume: 0
+  SoundVolume: 0
+  UnlockAllLevels: 0
 --- !u!4 &1667047451
 Transform:
   m_ObjectHideFlags: 0
@@ -3121,6 +3121,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2646167688664258278, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -35.66278
+      objectReference: {fileID: 0}
     - target: {fileID: 3793353350717864389, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3250,6 +3254,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7740173209320152322, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972814963647287527, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972814963647287527, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972814963647287527, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
