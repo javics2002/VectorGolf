@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 
@@ -31,7 +29,6 @@ public class Drone : InteractableObject
 
 	private SnapArrow _arrow;
 	private Rigidbody2D _rb;
-	private float _movementDuration;
 
 	/// <inheritdoc />
 	public override ObjectType Type => ObjectType.Drone;
@@ -70,17 +67,6 @@ public class Drone : InteractableObject
 
 	public void SetVectorForce(Vector2 vector)
 	{
-		_rb.velocity = vector.normalized * Speed;
-		_movementDuration = vector.magnitude / Speed;
-		StartCoroutine(nameof(RemoveForce));
-	}
-
-	private IEnumerator RemoveForce()
-	{
-		yield return new WaitForSeconds(_movementDuration);
-		_rb.velocity = Vector2.zero;
-
-		// TODO: Shrink the vector arrow
-		_arrow.DeleteArrow();
+		_rb.velocity = vector * Speed;
 	}
 }
