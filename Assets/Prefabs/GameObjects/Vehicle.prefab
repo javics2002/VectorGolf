@@ -660,7 +660,7 @@ MonoBehaviour:
     name: 
     labelSize: 6
     labelSeparation: 1
-  VectorDirection: 270
+  VectorDirection: 3
   animationTime: 0.3
   interpolationType: 18
 --- !u!50 &7616884626452189479

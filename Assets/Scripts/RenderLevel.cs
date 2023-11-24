@@ -1,25 +1,40 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Assertions;
+using static System.IO.File;
 
+[RequireComponent(typeof(Camera))]
 public class RenderLevel : MonoBehaviour
 {
 	public float timeToTakePicture = 1f;
 
-	public enum SaveTextureFileFormat {
-		EXR, JPG, PNG, TGA
+	private enum SaveTextureFileFormat
+	{
+		EXR,
+		JPG,
+		PNG,
+		TGA
 	};
 
-	private void Start() {
+	private void Start()
+	{
 #if UNITY_EDITOR
-		Invoke("SaveLevelImage", timeToTakePicture);
+		Invoke(nameof(SaveLevelImage), timeToTakePicture);
 #else
 		Destroy(gameObject);
 #endif
 	}
 
-	void SaveLevelImage() {
-		int levelIndex = SceneManager.GetActiveScene().name[5] - '0';
-		SaveRenderTextureToFile(GetComponent<Camera>().targetTexture, "Assets\\Sprites\\Levels\\Level " + levelIndex);
+	private void SaveLevelImage()
+	{
+		var level = GameManager.Instance.Level;
+		if (level.IsValid())
+		{
+			var camera = GetComponent<Camera>();
+			Assert.IsNotNull(camera);
+
+			SaveRenderTextureToFile(camera.targetTexture, $"Assets/Sprites/Levels/Level {level.Current}");
+		}
 
 		Destroy(gameObject);
 	}
@@ -31,20 +46,25 @@ public class RenderLevel : MonoBehaviour
 	/// <param name="filePath"></param>
 	/// <param name="fileFormat"></param>
 	/// <param name="jpgQuality"></param>
-	void SaveTexture2DToFile(Texture2D tex, string filePath, SaveTextureFileFormat fileFormat, int jpgQuality = 95) {
-		switch (fileFormat) {
+	private void SaveTexture2DToFile(Texture2D tex, string filePath, SaveTextureFileFormat fileFormat,
+		int jpgQuality = 95)
+	{
+		switch (fileFormat)
+		{
 			case SaveTextureFileFormat.EXR:
-				System.IO.File.WriteAllBytes(filePath + ".exr", tex.EncodeToEXR());
+				WriteAllBytes($"{filePath}.exr", tex.EncodeToEXR());
 				break;
 			case SaveTextureFileFormat.JPG:
-				System.IO.File.WriteAllBytes(filePath + ".jpg", tex.EncodeToJPG(jpgQuality));
+				WriteAllBytes($"{filePath}.jpg", tex.EncodeToJPG(jpgQuality));
 				break;
 			case SaveTextureFileFormat.PNG:
-				System.IO.File.WriteAllBytes(filePath + ".png", tex.EncodeToPNG());
+				WriteAllBytes($"{filePath}.png", tex.EncodeToPNG());
 				break;
 			case SaveTextureFileFormat.TGA:
-				System.IO.File.WriteAllBytes(filePath + ".tga", tex.EncodeToTGA());
+				WriteAllBytes($"{filePath}.tga", tex.EncodeToTGA());
 				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(fileFormat), fileFormat, null);
 		}
 	}
 
@@ -55,22 +75,22 @@ public class RenderLevel : MonoBehaviour
 	/// <param name="filePath"></param>
 	/// <param name="fileFormat"></param>
 	/// <param name="jpgQuality"></param>
-	void SaveRenderTextureToFile(RenderTexture renderTexture, string filePath, SaveTextureFileFormat fileFormat = SaveTextureFileFormat.PNG, int jpgQuality = 95) {
-		Texture2D tex;
-		if (fileFormat != SaveTextureFileFormat.EXR)
-			tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false, false);
-		else
-			tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBAFloat, false, true);
+	private void SaveRenderTextureToFile(RenderTexture renderTexture, string filePath,
+		SaveTextureFileFormat fileFormat = SaveTextureFileFormat.PNG, int jpgQuality = 95)
+	{
+		var texture = fileFormat != SaveTextureFileFormat.EXR
+			? new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false, false)
+			: new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBAFloat, false, true);
+
 		var oldRt = RenderTexture.active;
 		RenderTexture.active = renderTexture;
-		tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-		tex.Apply();
+		texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+		texture.Apply();
 		RenderTexture.active = oldRt;
-		SaveTexture2DToFile(tex, filePath, fileFormat, jpgQuality);
+		SaveTexture2DToFile(texture, filePath, fileFormat, jpgQuality);
 		if (Application.isPlaying)
-			Object.Destroy(tex);
+			Destroy(texture);
 		else
-			Object.DestroyImmediate(tex);
-
+			DestroyImmediate(texture);
 	}
 }

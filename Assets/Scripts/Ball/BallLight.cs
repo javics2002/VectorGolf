@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class BallLight : MonoBehaviour
 {
-    Transform target;
+	private Transform _target;
 
-    void Start()
-    {
-        target = GameObject.Find("Ball").transform;
-    }
+	private void Start()
+	{
+		_target = GameObject.Find("Ball").transform;
+	}
 
-    void Update()
-    {
-        transform.position = target.position;
-    }
+	private void Update()
+	{
+		transform.position = _target.position;
+	}
 }

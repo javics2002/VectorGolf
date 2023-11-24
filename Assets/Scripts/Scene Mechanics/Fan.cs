@@ -8,10 +8,8 @@ public class Fan : InteractableObject
     [SerializeField]
     private float _fanForce = 1f;
     
-    void Start()
-    {
-        objectType = ObjectType.Fan;
-    }
+    /// <inheritdoc />
+    public override ObjectType Type => ObjectType.Fan;
 
     private void OnTriggerStay2D(Collider2D collision)
     {

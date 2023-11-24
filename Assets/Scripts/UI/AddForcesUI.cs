@@ -29,14 +29,14 @@ public class AddForcesUI : MonoBehaviour
 		{
 			// Instantiate object as children of this (canvas)
 			var newObj = Instantiate(ScalarPrefab, gameObject.transform);
-			newObj.GetComponent<ScalarForce>().SetScalarForce((int)scalar);
+			newObj.GetComponent<ScalarForce>().Force = (int)scalar;
 		}
 
 		foreach (var vector in levelData.Vectors)
 		{
 			// Instantiate object as children of this (canvas)
 			var newObj = Instantiate(VectorPrefab, gameObject.transform);
-			newObj.GetComponent<VectorForce>().SetVectorialForce(vector);
+			newObj.GetComponent<VectorForce>().Force = vector;
 		}
 	}
 }

@@ -46,7 +46,7 @@ public class Goal : MonoBehaviour
 		if (winScreen is null) return;
 
 		winScreen.Stars = stars;
-		winScreen.Hits = ball.hits;
+		winScreen.Hits = ball.Hits;
 		winScreen.gameObject.SetActive(true);
 	}
 

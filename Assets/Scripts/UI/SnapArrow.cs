@@ -1,108 +1,131 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using static InteractableObject;
 
 public class SnapArrow : MonoBehaviour
 {
-    [SerializeField]
-    KinematicArrow.ArrowProperties arrowProperties;
+	[SerializeField]
+	KinematicArrow.ArrowProperties arrowProperties;
 
-    [SerializeField, Range(0, 360)]
-    private float VectorDirection = 0f;
+	[SerializeField]
+	public VectorDirection VectorDirection = 0f;
 
-    [SerializeField, Range(0f, 1f)]
-    float animationTime;
-    [SerializeField]
-    EasingFunctions.InterpolationType interpolationType;
+	[SerializeField, Range(0f, 1f)]
+	private float animationTime;
 
-    public InterfaceArrow interfaceArrow { get; private set; }
-    private Vector2 currentForce, lastForce;
+	[SerializeField]
+	EasingFunctions.InterpolationType interpolationType;
 
-	private void Awake() {
+	public InterfaceArrow interfaceArrow { get; private set; }
+	private Vector2 currentForce, lastForce;
+
+	private void Awake()
+	{
 		interfaceArrow = new GameObject(gameObject.name + " snap arrow").AddComponent<InterfaceArrow>();
 		interfaceArrow.properties = arrowProperties;
 		interfaceArrow.target = transform.parent;
 		interfaceArrow.gameObject.layer = LayerMask.NameToLayer("UI");
-        interfaceArrow.canDecomposite = false;
+		interfaceArrow.canDecomposite = false;
 
-        //TODO poner valor inicial de la flecha
-        currentForce = Vector2.zero;
-        lastForce = Vector2.zero;
+		//TODO poner valor inicial de la flecha
+		currentForce = Vector2.zero;
+		lastForce = Vector2.zero;
 	}
 
 	private void OnMouseEnter()
-    {
-        if (!GameManager.Instance.isDragging)
-            return;
+	{
+		if (!GameManager.Instance.isDragging)
+			return;
 
-		GameObject draggedObject = GameManager.Instance.draggedObject;
-		InteractableObject.ObjectType interactableObjectType = 
-            transform.parent.gameObject.GetComponentInChildren<InteractableObject>().objectType;
+		var draggedObject = GameManager.Instance.draggedObject;
+		var interactableObjectType =
+			transform.parent.gameObject.GetComponentInChildren<InteractableObject>().Type;
 
-		VectorForce vectorForce = draggedObject.GetComponent<VectorForce>();
-		ScalarForce scalarForce = draggedObject.GetComponent<ScalarForce>();
-		// Ball
-		if (vectorForce && interactableObjectType == InteractableObject.ObjectType.Ball)
-        {
-            // Show arrow
-            CreateVectorArrow(vectorForce.GetVectorialForce());
+		switch (interactableObjectType)
+		{
+			case ObjectType.Ball:
+			case ObjectType.Drone:
+				var vectorForce = draggedObject.GetComponent<VectorForce>();
+				if (vectorForce is null) return;
 
-			// Invisible
-			draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
-        }
-        // Spring/Fan
-        else if (scalarForce && interactableObjectType != InteractableObject.ObjectType.Ball)
-        {
-            // Show arrow
-            CreateScalarArrow(scalarForce.GetScalarForce());
+				// Show arrow and make the group invisible:
+				CreateVectorArrow(vectorForce.Force);
+				draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
+				break;
+			case ObjectType.Spring:
+			case ObjectType.Fan:
+			case ObjectType.Vehicle:
+				var scalarForce = draggedObject.GetComponent<ScalarForce>();
+				if (scalarForce is null) return;
 
-			// Invisible
-			draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
-        }
-    }
-
-    private void OnMouseExit()
-    {
-        if (!GameManager.Instance.isDragging)
-            return;
-
-		GameObject draggedObject = GameManager.Instance.draggedObject;
-		InteractableObject.ObjectType interactableObjectType = 
-            transform.parent.GetComponentInChildren<InteractableObject>().objectType;
-		if (interactableObjectType == InteractableObject.ObjectType.Ball &&
-			draggedObject.GetComponent<VectorForce>() && interfaceArrow.properties.isVisible
-            || interactableObjectType != InteractableObject.ObjectType.Ball &&
-			draggedObject.GetComponent<ScalarForce>() && interfaceArrow.properties.isVisible)
-        {
-			ReturnToOldArrow();
+				// Show arrow and make the group invisible:
+				CreateScalarArrow(scalarForce.Force);
+				draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
 		}
-    }
+	}
 
-    public void CreateVectorArrow(Vector2 force)
-    {
-        interfaceArrow.properties.isVisible = true;
+	private void OnMouseExit()
+	{
+		if (!GameManager.Instance.isDragging || !interfaceArrow.properties.isVisible)
+			return;
 
-        currentForce = force;
-		StopAllCoroutines();
-		StartCoroutine(AnimateArrow(currentForce, animationTime, 
-            EasingFunctions.GetEasingFunction(interpolationType)));
+		var draggedObject = GameManager.Instance.draggedObject;
+		var type =
+			transform.parent.GetComponentInChildren<InteractableObject>().Type;
 
-        GameManager.Instance.mouseOverObject = transform.parent.gameObject;
-    }
+		var shouldReturn = type switch
+		{
+			ObjectType.Ball or ObjectType.Drone
+				=> draggedObject.GetComponent<VectorForce>() is not null,
+			ObjectType.Spring or ObjectType.Fan or ObjectType.Vehicle
+				=> draggedObject.GetComponent<ScalarForce>() is not null,
+			_ => throw new ArgumentOutOfRangeException()
+		};
 
-    public void CreateScalarArrow(float force)
-    {
+		if (shouldReturn) ReturnToOldArrow();
+	}
+
+	public void DeleteArrow()
+	{
+		interfaceArrow.properties.isVisible = false;
+		GameManager.Instance.mouseOverObject = null;
+	}
+
+	public void SaveForce()
+	{
+		lastForce = currentForce;
+	}
+
+	private void CreateVectorArrow(Vector2 force)
+	{
 		interfaceArrow.properties.isVisible = true;
 
-        currentForce = GetTransformedVector() * force;
-        StopAllCoroutines();
-		StartCoroutine(AnimateArrow(currentForce, animationTime, 
-            EasingFunctions.GetEasingFunction(interpolationType)));
+		currentForce = force;
+		StopAllCoroutines();
+		StartCoroutine(AnimateArrow(currentForce, animationTime,
+			EasingFunctions.GetEasingFunction(interpolationType)));
 
-        GameManager.Instance.mouseOverObject = transform.parent.gameObject;
-    }
+		GameManager.Instance.mouseOverObject = transform.parent.gameObject;
+	}
 
-    public void ReturnToOldArrow()
-    {
+	private void CreateScalarArrow(float force)
+	{
+		interfaceArrow.properties.isVisible = true;
+
+		currentForce = transform.parent.ToDirection(VectorDirection) * force;
+		StopAllCoroutines();
+		StartCoroutine(AnimateArrow(currentForce, animationTime,
+			EasingFunctions.GetEasingFunction(interpolationType)));
+
+		GameManager.Instance.mouseOverObject = transform.parent.gameObject;
+	}
+
+	private void ReturnToOldArrow()
+	{
 		StopAllCoroutines();
 		StartCoroutine(AnimateArrow(lastForce, animationTime,
 			EasingFunctions.GetEasingFunction(interpolationType)));
@@ -111,38 +134,21 @@ public class SnapArrow : MonoBehaviour
 		GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
 	}
 
-	public void DeleteArrow() {
-        interfaceArrow.properties.isVisible = false;
-		GameManager.Instance.mouseOverObject = null;
-	}
-
-	public void SaveForce() {
-        lastForce = currentForce;
-	}
-
-	IEnumerator AnimateArrow(Vector2 newVector, float animationTime, EasingFunctions.Interpolation interpolation) {
-        Vector2 initialVector = interfaceArrow.GetVector();
+	private IEnumerator AnimateArrow(Vector2 newVector, float animationTime,
+		EasingFunctions.Interpolation interpolation)
+	{
+		Vector2 initialVector = interfaceArrow.GetVector();
 
 		float t = 0;
-		while (t < animationTime) {
-            interfaceArrow.SetInterfaceArrow(Vector3.Lerp(initialVector,
-                newVector, interpolation(t / animationTime)));
+		while (t < animationTime)
+		{
+			interfaceArrow.SetInterfaceArrow(Vector3.Lerp(initialVector,
+				newVector, interpolation(t / animationTime)));
 
 			yield return null;
 			t += Time.unscaledDeltaTime;
 		}
 
 		interfaceArrow.SetInterfaceArrow(newVector);
-	}
-	
-	private Vector2 GetTransformedVector() {
-		// Rotate the vector by the parent's rotation:
-		//      0º
-		// 90º  x   270º
-		//     180º
-		//
-		// We use Quaternion.AngleAxis to rotate the vector and then we
-		// multiply it by the parent's up vector to get the final vector:
-		return Quaternion.AngleAxis(VectorDirection, Vector3.forward) * transform.parent.up;
 	}
 }

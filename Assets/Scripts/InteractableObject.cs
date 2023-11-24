@@ -1,7 +1,11 @@
 using UnityEngine;
 
-public class InteractableObject : MonoBehaviour
+public abstract class InteractableObject : MonoBehaviour
 {
-    public enum ObjectType { Ball, Spring, Fan, Vehicle }
-    public ObjectType objectType { get; protected set; }
+    public enum ObjectType { Ball, Spring, Fan, Vehicle, Drone }
+    
+    /// <summary>
+    /// The type of the object, used to identify the object.
+    /// </summary>
+    public abstract ObjectType Type { get; }
 }

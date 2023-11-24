@@ -26,9 +26,11 @@ public class Ball : InteractableObject
 
 	new Rigidbody2D rigidbody;
 	GameManager gameManager;
+	
+	/// <inheritdoc />
+	public override ObjectType Type => ObjectType.Ball;
 
 	private void Start() {
-		objectType = ObjectType.Ball;
 		rigidbody = GetComponentInParent<Rigidbody2D>();
 
 		gameManager = GameManager.Instance;

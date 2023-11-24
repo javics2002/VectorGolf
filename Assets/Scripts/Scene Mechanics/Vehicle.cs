@@ -18,13 +18,14 @@ public class Vehicle : InteractableObject
 
 	private JointMotor2D _motor;
 	private Rigidbody2D _rb;
+	
+	/// <inheritdoc />
+	public override ObjectType Type => ObjectType.Vehicle;
 
 	private void Awake()
 	{
 		Assert.IsNotNull(BackWheel);
 		Assert.IsNotNull(FrontWheel);
-
-		objectType = ObjectType.Vehicle;
 	}
 
 	private void Start()

@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class BallControl : MonoBehaviour
 {
-    new Rigidbody2D rigidbody;
+	private Rigidbody2D _rb;
 
 	[SerializeField, Range(.1f, 10f)]
-	float speed;
+	private float speed;
 
 #if UNITY_EDITOR
-	private void Start() {
-		rigidbody = GetComponent<Rigidbody2D>();
+	private void Start()
+	{
+		_rb = GetComponent<Rigidbody2D>();
 	}
 
-	private void Update() {
-		rigidbody.velocity = new Vector3(Input.GetAxis("Horizontal"), rigidbody.velocity.y, 0) * speed;
+	private void Update()
+	{
+		_rb.velocity = new Vector2(Input.GetAxis("Horizontal"), _rb.velocity.y) * speed;
 	}
 #endif
 }

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static InteractableObject;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
@@ -68,12 +69,13 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		if (interactable is null) return;
 
 		var arrow = mouseOverObject.GetComponentInChildren<SnapArrow>();
-		var applyForce = interactable.objectType switch
+		var applyForce = interactable.Type switch
 		{
-			InteractableObject.ObjectType.Ball => ApplyForce(arrow, (Ball)interactable),
-			InteractableObject.ObjectType.Spring => ApplyForce(arrow, (Spring)interactable),
-			InteractableObject.ObjectType.Fan => ApplyForce(arrow, (Fan)interactable),
-			InteractableObject.ObjectType.Vehicle => ApplyForce(arrow, (Vehicle)interactable),
+			ObjectType.Ball => ApplyForce(arrow, (Ball)interactable),
+			ObjectType.Spring => ApplyForce(arrow, (Spring)interactable),
+			ObjectType.Fan => ApplyForce(arrow, (Fan)interactable),
+			ObjectType.Vehicle => ApplyForce(arrow, (Vehicle)interactable),
+			ObjectType.Drone => ApplyForce(arrow, (Drone)interactable),
 			_ => throw new ArgumentOutOfRangeException()
 		};
 
@@ -90,7 +92,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		var vectorForce = GetComponent<VectorForce>();
 		if (vectorForce is null) return false;
 
-		StartCoroutine(ball.Hit(vectorForce.GetVectorialForce()));
+		StartCoroutine(ball.Hit(vectorForce.Force));
 
 		// Delete arrow
 		arrow.DeleteArrow();
@@ -102,7 +104,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		var scalarForce = GetComponent<ScalarForce>();
 		if (scalarForce is null) return false;
 
-		spring.setSpringForce(scalarForce.GetScalarForce());
+		spring.SetSpringForce(scalarForce.Force);
 		arrow.SaveForce();
 		return true;
 	}
@@ -112,7 +114,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		var scalarForce = GetComponent<ScalarForce>();
 		if (scalarForce is null) return false;
 
-		fan.SetFanForce(scalarForce.GetScalarForce());
+		fan.SetFanForce(scalarForce.Force);
 		arrow.SaveForce();
 		return true;
 	}
@@ -122,7 +124,17 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		var scalarForce = GetComponent<ScalarForce>();
 		if (scalarForce is null) return false;
 
-		vehicle.SetScalarForce(scalarForce.GetScalarForce());
+		vehicle.SetScalarForce(scalarForce.Force);
+		arrow.SaveForce();
+		return true;
+	}
+	
+	private bool ApplyForce(SnapArrow arrow, Drone drone)
+	{
+		var vectorForce = GetComponent<VectorForce>();
+		if (vectorForce is null) return false;
+
+		drone.SetVectorForce(vectorForce.Force);
 		arrow.SaveForce();
 		return true;
 	}

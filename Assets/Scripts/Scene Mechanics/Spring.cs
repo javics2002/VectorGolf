@@ -5,10 +5,8 @@ public class Spring : InteractableObject
     [SerializeField]
     private float _springForce = 1f;
 
-    void Start()
-    {
-        objectType = ObjectType.Spring;
-    }
+    /// <inheritdoc />
+    public override ObjectType Type => ObjectType.Spring;
 
     void Update()
     {
