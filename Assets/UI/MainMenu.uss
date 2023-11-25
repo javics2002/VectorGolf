@@ -1,0 +1,46 @@
+#container {
+    flex: 1 1 auto;
+    width: 30%;
+    max-width: 400px;
+    margin: 50px 0 0 10%;
+}
+
+#logo {
+    flex: 0 1 auto;
+    background-image: url('project://database/Assets/Images/logo.png');
+    height: 40%;
+    margin-bottom: 20px;
+    -unity-font-style: bold;
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.7);
+}
+
+#logo-title {
+    font-size: 60px;
+    height: 172px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: -35px;
+    bottom: -40px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(255, 255, 255);
+    -unity-paragraph-spacing: -30px;
+}
+
+.menu-button {
+    font-size: 20px;
+    color: rgb(19, 19, 19);
+    background-color: rgb(252, 252, 242);
+    border-color: rgb(222, 220, 209);
+    border-width: 2px;
+    border-radius: 4px;
+    margin-top: 10px;
+    align-self: stretch;
+    -unity-font-style: bold;
+}
+
+.menu-button:hover {
+    background-color: rgb(252, 252, 252);
+    border-color: rgb(222, 221, 217);
+}

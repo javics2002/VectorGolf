@@ -1,38 +1,48 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
+[RequireComponent(typeof(UIDocument))]
 public class MainMenu : MonoBehaviour
 {
-    CanvasGroup mainMenuElements;
+	private UIDocument _document;
 
-	private void Start() {
-		mainMenuElements = GetComponentInChildren<CanvasGroup>();
+	private void Awake()
+	{
+		_document = GetComponent<UIDocument>();
 
-        SceneManager.sceneUnloaded += ShowMainMenu;
+		var root = _document.rootVisualElement;
+		root.Q<Button>("button-play").clicked += OnClickedButtonPlay;
+		root.Q<Button>("button-settings").clicked += OnClickedButtonSettings;
+		root.Q<Button>("button-exit").clicked += OnClickedButtonExit;
+
+		SceneManager.sceneUnloaded += OnSceneUnloaded;
 	}
 
-	void OnDestroy() {
-		SceneManager.sceneUnloaded -= ShowMainMenu;
+	private void OnDestroy()
+	{
+		SceneManager.sceneUnloaded -= OnSceneUnloaded;
 	}
 
-	public void Play() {
-        SceneManager.LoadScene("Level Selection");
-    }
+	private void OnClickedButtonPlay()
+	{
+		SceneManager.LoadScene("Level Selection");
+	}
 
-    public void Settings() {
-        mainMenuElements.alpha = 0;
-        mainMenuElements.blocksRaycasts = false;
+	private void OnClickedButtonSettings()
+	{
+		_document.rootVisualElement.style.display = DisplayStyle.None;
 		SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
 	}
 
-    public void Exit() {
-        Application.Quit();
-    }
+	private void OnClickedButtonExit()
+	{
+		Application.Quit();
+	}
 
-    void ShowMainMenu(Scene unloadedScene) {
-		if(unloadedScene.name == "Settings") {
-			mainMenuElements.alpha = 1;
-			mainMenuElements.blocksRaycasts = true;
-		}
+	private void OnSceneUnloaded(Scene unloadedScene)
+	{
+		_document.rootVisualElement.style.display =
+			unloadedScene.name == "Settings" ? DisplayStyle.Flex : DisplayStyle.None;
 	}
 }
