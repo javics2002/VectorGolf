@@ -55,10 +55,9 @@ public class GameManager : MonoBehaviour
     [Range(0, 1)]
 	public float SoundVolume;
 
-#if UNITY_EDITOR
-    [Header("Hacks")]
-    public bool UnlockAllLevels;
-#endif
+	public Color BallColour;
+	public Color SpeedColour;
+	public Color ForcesColour;
 
 	private void Awake()
 	{
@@ -99,17 +98,6 @@ public class GameManager : MonoBehaviour
 
         LoadManager = gameObject.AddComponent<LoadManager>();
 		LoadManager.Load();
-		        
-#if UNITY_EDITOR
-        if (UnlockAllLevels)
-        {
-	        for (var i = 0; i < NumberOfLevels; i++)
-	        {
-		        if (progress[i].Status == LevelCompletionStatus.Locked)
-			        progress[i].Status = LevelCompletionStatus.Uncompleted;
-	        }
-        }
-#endif
     }
 
     public void Save()

@@ -61,4 +61,6 @@ MonoBehaviour:
   maxLinearValue: 5
   MusicVolume: 1
   SoundVolume: 1
-  UnlockAllLevels: 0
+  BallColour: {r: 1, g: 1, b: 1, a: 1}
+  SpeedColour: {r: 0, g: 0.6, b: 1, a: 1}
+  ForcesColour: {r: 1, g: 0.9490196, b: 0, a: 1}

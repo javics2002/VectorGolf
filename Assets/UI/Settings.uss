@@ -1,0 +1,99 @@
+.title {
+    -unity-text-align: upper-center;
+    -unity-font-style: bold;
+    -unity-font: url('project://database/Assets/Fonts/Gilgan.otf?fileID=12800000&guid=468308c3f2b6e9146b20b26d62e40c37&type=3#Gilgan');
+    font-size: 30px;
+    color: rgb(233, 233, 233);
+    padding-bottom: 20px;
+}
+
+.slider {
+    color: rgb(233, 233, 233);
+}
+
+.slider:focus > Label {
+    color: rgb(255, 140, 46);
+}
+
+.foldout {
+    padding-top: 10px;
+    color: rgb(233, 233, 233);
+}
+
+.foldout #unity-checkmark {
+    -unity-background-image-tint-color: rgb(233, 233, 233);
+}
+
+.colour-group {
+    flex-shrink: 1;
+    flex-direction: row;
+}
+
+.colour-input {
+    width: 20%;
+    border-radius: 10px;
+    background-color: rgb(21, 21, 21);
+    border-bottom-width: 2px;
+    padding: 0;
+    margin: 0 0 0 4px;
+}
+
+.colour-input-red {
+    border-bottom-color: red;
+}
+
+.colour-input-green {
+    border-bottom-color: green;
+}
+
+.colour-input-blue {
+    border-bottom-color: blue;
+}
+
+.colour-input > #unity-text-input {
+    color: rgb(233, 233, 233);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.colour-label {
+    color: rgb(233, 233, 233);
+    flex-grow: 1;
+}
+
+.button-unlock-all {
+    margin-bottom: 6px;
+    margin-top: auto;
+}
+
+.button-list {
+    flex-shrink: 1;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    justify-content: space-between;
+}
+
+.button-icon {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+    height: 80%;
+    width: 80%;
+    flex-shrink: 0;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.button-icon#delete-progress-icon {
+    background-image: url('project://database/Assets/Images/Icons/SolidTrashCan.png');
+}
+
+.button-icon#unlock-all-icon {
+    background-image: url('project://database/Assets/Images/Icons/SolidLockOpen.png');
+}
+
+.button-back {
+    padding: 6px;
+    flex-grow: 1;
+}
