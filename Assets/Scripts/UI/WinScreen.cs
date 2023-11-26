@@ -43,21 +43,12 @@ public class WinScreen : MonoBehaviour
 			_ => $"¡Te tomó {Hits} golpes!"
 		};
 
-		// buttons is a list with three elements:
-		// 0: Retry
-		// 1: Next Level
-		// 2: Main Menu
-		var buttons = root.Query<GroupBox>().Children<Button>().ToList();
-		RegisterUIMenuCallbacks(buttons[0], buttons[1], buttons[2]);
-	}
-
-	private void RegisterUIMenuCallbacks(Button retry, Button goToNextLevel, Button goToMainMenu)
-	{
-		retry.clicked += OnClickedRetry;
-		goToMainMenu.clicked += OnClickedMainMenu;
-
-		if (GameManager.Instance.Level.HasNext()) goToNextLevel.clicked += OnClickedNextLevel;
-		else goToNextLevel.SetEnabled(false);
+		root.Q<Button>("button-retry").clicked += OnClickedRetry;
+		root.Q<Button>("button-menu").clicked += OnClickedMainMenu;
+		
+		var buttonNext = root.Q<Button>("button-next");
+		if (GameManager.Instance.Level.HasNext()) buttonNext.clicked += OnClickedNextLevel;
+		else buttonNext.SetEnabled(false);
 	}
 
 	private void OnClickedRetry()

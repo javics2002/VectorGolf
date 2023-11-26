@@ -1,27 +1,3 @@
-.title {
-    color: rgb(233, 233, 233);
-    font-size: 30px;
-    -unity-text-align: upper-center;
-    -unity-font-style: bold;
-    -unity-font: url('project://database/Assets/Fonts/Gilgan.otf?fileID=12800000&guid=468308c3f2b6e9146b20b26d62e40c37&type=3#Gilgan');
-}
-
-.subtitle {
-    color: rgb(233, 233, 233);
-    font-size: 20px;
-    -unity-font-style: bold;
-    -unity-font: url('project://database/Assets/Fonts/Gilgan.otf?fileID=12800000&guid=468308c3f2b6e9146b20b26d62e40c37&type=3#Gilgan');
-}
-
-.divider {
-    flex-grow: 0;
-    background-color: rgba(255, 255, 255, 0.2);
-    flex-shrink: 0;
-    height: 1px;
-    margin: 24px 0 0 0;
-    align-self: stretch;
-}
-
 .slider {
     color: rgb(233, 233, 233);
     margin: 8px 12px 0 12px;
@@ -97,23 +73,12 @@
     justify-content: space-between;
 }
 
-.button-icon {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    -unity-background-scale-mode: scale-to-fit;
-    height: 80%;
-    width: 80%;
-    flex-shrink: 0;
-    min-width: 20px;
-    min-height: 20px;
-}
-
 .button-icon#delete-progress-icon {
-    background-image: url('project://database/Assets/Images/Icons/SolidTrashCan.png');
+    background-image: url('project://database/Assets/Images/Icons/SolidTrashCan.png?fileID=21300000&guid=c79b7c7a977cf9c4c8b2d102408bb478&type=3#SolidTrashCan');
 }
 
 .button-icon#unlock-all-icon {
-    background-image: url('project://database/Assets/Images/Icons/SolidLockOpen.png');
+    background-image: url('project://database/Assets/Images/Icons/SolidLockOpen.png?fileID=21300000&guid=13440bd589b0c3c49ac01fa7b06fc790&type=3#SolidLockOpen');
 }
 
 .button-back {

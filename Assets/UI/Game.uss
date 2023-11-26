@@ -1,15 +1,3 @@
-.button-icon {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    -unity-background-scale-mode: scale-to-fit;
-    height: 80%;
-    width: 80%;
-    flex-shrink: 0;
-    min-width: 20px;
-    min-height: 20px;
-    -unity-background-image-tint-color: rgb(35, 35, 35);
-}
-
 .button-icon#exit {
     background-image: url('project://database/Assets/Images/Icons/SolidDoorOpen.png');
     -unity-background-image-tint-color: rgb(233, 233, 233);
@@ -17,8 +5,10 @@
 
 .button-icon#settings {
     background-image: url('project://database/Assets/Images/Icons/SolidGear.png');
+    -unity-background-image-tint-color: rgb(35, 35, 35);
 }
 
 .button-icon#restart {
     background-image: url('project://database/Assets/Images/Icons/SolidArrowRotateLeft.png');
+    -unity-background-image-tint-color: rgb(35, 35, 35);
 }

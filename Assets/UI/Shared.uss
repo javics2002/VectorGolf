@@ -1,0 +1,77 @@
+﻿.container {
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    align-self: center;
+    width: 40%;
+    max-width: 400px;
+    height: 80%;
+    max-height: 600px;
+    margin: auto 0;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.title {
+    color: rgb(233, 233, 233);
+    font-size: 30px;
+    -unity-text-align: upper-center;
+    -unity-font-style: bold;
+    -unity-font: url('project://database/Assets/Fonts/Gilgan.otf?fileID=12800000&guid=468308c3f2b6e9146b20b26d62e40c37&type=3#Gilgan');
+}
+
+.subtitle {
+    color: rgb(233, 233, 233);
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-font: url('project://database/Assets/Fonts/Gilgan.otf?fileID=12800000&guid=468308c3f2b6e9146b20b26d62e40c37&type=3#Gilgan');
+}
+
+.divider {
+    flex-grow: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    height: 1px;
+    margin: 24px 0 0 0;
+    align-self: stretch;
+}
+
+.button {
+    border-radius: 10px;
+    border-width: 0;
+    margin-top: 4px;
+    -unity-font-style: bold;
+    background-color: rgb(188, 188, 188);
+}
+
+.button:hover {
+    background-color: rgb(210, 210, 210);
+}
+
+.button.success {
+    color: rgb(239, 239, 239);
+    background-color: rgb(0, 153, 0);
+}
+
+.button.success:hover {
+    background-color: rgb(4, 168, 4);
+}
+
+.button.danger {
+    color: rgb(239, 239, 239);
+    background-color: rgb(208, 32, 43);
+}
+
+.button.danger:hover {
+    background-color: rgb(217, 41, 53);
+}
+
+.button-icon {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+    height: 80%;
+    width: 80%;
+    flex-shrink: 0;
+    min-width: 20px;
+    min-height: 20px;
+}

@@ -1,17 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/WinPanel.uss?fileID=7433441132597879392&amp;guid=5b49d6b975ae7274a86d8c61e31e0fc5&amp;type=3#WinPanel" />
-    <ui:GroupBox name="root" style="background-color: rgba(51, 51, 51, 0.86); align-items: center; justify-content: flex-start; align-self: center; height: 100%; padding-left: 0; padding-right: 0; padding-top: 10px; padding-bottom: 10px; margin-left: 0; margin-right: 0; margin-top: 30px; margin-bottom: 30px; flex-shrink: 1; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
-        <ui:Label tabindex="-1" text="VICTORIA" display-tooltip-when-elided="true" name="title" style="-unity-font: url(&apos;project://database/Assets/Fonts/Gilgan.otf?fileID=12800000&amp;guid=468308c3f2b6e9146b20b26d62e40c37&amp;type=3#Gilgan&apos;); -unity-font-style: bold; font-size: 40px; color: rgb(219, 219, 219); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 10px;" />
-        <ui:GroupBox name="stars" style="flex-direction: row; align-self: stretch;">
+    <Style src="project://database/Assets/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
+    <ui:GroupBox name="container" class="container">
+        <ui:Label tabindex="-1" text="VICTORIA" display-tooltip-when-elided="true" name="title" class="title" />
+        <ui:VisualElement name="divider" class="divider" />
+        <ui:GroupBox name="stars" class="stars">
             <ui:VisualElement name="star-1" class="star" />
             <ui:VisualElement name="star-2" class="star" />
             <ui:VisualElement name="star-3" class="star" />
         </ui:GroupBox>
-        <ui:Label tabindex="-1" text="¡Te tomó X intentos!" display-tooltip-when-elided="true" name="retries" style="flex-grow: 1; color: rgb(219, 219, 219); margin-top: 20px;" />
-        <ui:GroupBox name="buttons" style="flex-direction: column; align-self: stretch; justify-content: center; padding-bottom: 0; margin-bottom: 0; padding-top: 0; padding-left: 0; margin-top: 0; margin-left: 6px; margin-right: 6px;">
-            <ui:Button text="Volver a Jugar" name="retry" class="button" />
-            <ui:Button text="Siguiente Nivel" name="next-level" class="button success" />
-            <ui:Button text="Volver al Menú" name="back-to-menu" class="button danger" />
-        </ui:GroupBox>
+        <ui:Label tabindex="-1" text="¡Te tomó X intentos!" display-tooltip-when-elided="true" name="retries" class="subtitle retries-text" />
+        <ui:Button text="Volver a Jugar" name="button-retry" class="button" />
+        <ui:Button text="Siguiente Nivel" name="button-next" class="button success" />
+        <ui:Button text="Volver al Menú" name="button-menu" class="button danger" />
     </ui:GroupBox>
 </ui:UXML>

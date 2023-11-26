@@ -1,41 +1,27 @@
-.button {
-    border-radius: 10px;
-    border-width: 0;
-    margin-top: 4px;
-    -unity-font-style: bold;
-    background-color: rgb(188, 188, 188);
+.stars {
+    flex-direction: row;
+    align-self: center;
+    padding: 0;
+    margin: 10px 0 0 0;
 }
 
-.button:hover {
-    background-color: rgb(210, 210, 210);
-}
-
-.success {
-    color: rgb(239, 239, 239);
-    background-color: rgb(0, 153, 0);
-}
-
-.success:hover {
-    background-color: rgb(4, 168, 4);
-}
-
-.danger {
-    color: rgb(239, 239, 239);
-    background-color: rgb(208, 32, 43);
-}
-
-.danger:hover {
-    background-color: rgb(217, 41, 53);
-}
-
-VisualElement.star {
+.star {
     flex: 1 0 auto;
     width: 50px;
     height: 50px;
-    background-image: url('project://database/Assets/Images/star-empty.png');
+    margin: 0 10px 0 10px;
+    background-image: url('project://database/Assets/Images/star-empty.png?fileID=21300000&guid=6f796be6194c1014f9261224d178936f&type=3#star-empty');
     -unity-background-scale-mode: scale-to-fit;
 }
 
-VisualElement.star.full {
-    background-image: url('project://database/Assets/Images/star-full.png');
+.star.full {
+    background-image: url('project://database/Assets/Images/star-full.png?fileID=21300000&guid=983287f385255904e94349b4d0b570da&type=3#star-full');
+}
+
+.retries-text {
+    flex-grow: 1;
+    align-self: center;
+    padding: 0;
+    margin: 40px 0 0 0;
+    -unity-text-align: upper-center;
 }

@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Settings.uss?fileID=7433441132597879392&amp;guid=8e9998c6f10adc34491d131133dbf8ee&amp;type=3#Settings" />
-    <Style src="project://database/Assets/UI/WinPanel.uss?fileID=7433441132597879392&amp;guid=5b49d6b975ae7274a86d8c61e31e0fc5&amp;type=3#WinPanel" />
-    <ui:VisualElement name="container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0.8); width: 40%; align-self: center; height: 80%; max-width: 400px; max-height: 600px; margin-top: auto; margin-bottom: auto; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; padding-right: 10px;">
+    <Style src="project://database/Assets/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
+    <ui:VisualElement name="container" class="container">
         <ui:Label tabindex="-1" text="Settings" display-tooltip-when-elided="true" name="title" class="title" />
         <ui:VisualElement name="volume-divider" class="divider" />
         <ui:Label tabindex="-1" text="Volume" display-tooltip-when-elided="true" name="volume-subtitle" class="subtitle" />
