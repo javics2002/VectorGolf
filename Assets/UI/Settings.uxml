@@ -3,30 +3,33 @@
     <Style src="project://database/Assets/UI/WinPanel.uss?fileID=7433441132597879392&amp;guid=5b49d6b975ae7274a86d8c61e31e0fc5&amp;type=3#WinPanel" />
     <ui:VisualElement name="container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0.8); width: 40%; align-self: center; height: 80%; max-width: 400px; max-height: 600px; margin-top: auto; margin-bottom: auto; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; padding-right: 10px;">
         <ui:Label tabindex="-1" text="Settings" display-tooltip-when-elided="true" name="title" class="title" />
-        <ui:Slider label="Music Volume" name="music-volume" high-value="1" binding-path="MusicVolume" class="slider" />
-        <ui:Slider label="Sound Volume" name="sound-volume" high-value="1" binding-path="SoundVolume" class="slider" />
-        <ui:Foldout text="Colours" name="colors" class="foldout">
-            <ui:ScrollView>
-                <ui:GroupBox name="colour-ball" class="colour-group">
-                    <ui:Label tabindex="-1" text="Ball" display-tooltip-when-elided="true" name="label" class="colour-label" />
-                    <ui:IntegerField name="red" binding-path="ColourBallRed" class="colour-input colour-input-red" />
-                    <ui:IntegerField name="green" binding-path="ColourBallGreen" class="colour-input colour-input-green" />
-                    <ui:IntegerField name="blue" binding-path="ColourBallBlue" class="colour-input colour-input-blue" />
-                </ui:GroupBox>
-                <ui:GroupBox name="colour-speed" style="flex-shrink: 1; flex-direction: row;">
-                    <ui:Label tabindex="-1" text="Speed" display-tooltip-when-elided="true" name="label" class="colour-label" />
-                    <ui:IntegerField name="red" binding-path="ColourSpeedRed" class="colour-input colour-input-red" />
-                    <ui:IntegerField name="green" binding-path="ColourSpeedGreen" class="colour-input colour-input-green" />
-                    <ui:IntegerField name="blue" binding-path="ColourSpeedBlue" class="colour-input colour-input-blue" />
-                </ui:GroupBox>
-                <ui:GroupBox name="colour-forces" style="flex-shrink: 1; flex-direction: row;">
-                    <ui:Label tabindex="-1" text="Forces" display-tooltip-when-elided="true" name="label" class="colour-label" />
-                    <ui:IntegerField name="red" binding-path="ColourForcesRed" class="colour-input colour-input-red" />
-                    <ui:IntegerField name="green" binding-path="ColourForcesGreen" class="colour-input colour-input-green" />
-                    <ui:IntegerField name="blue" binding-path="ColourForcesBlue" class="colour-input colour-input-blue" />
-                </ui:GroupBox>
-            </ui:ScrollView>
-        </ui:Foldout>
+        <ui:VisualElement name="volume-divider" class="divider" />
+        <ui:Label tabindex="-1" text="Volume" display-tooltip-when-elided="true" name="volume-subtitle" class="subtitle" />
+        <ui:Slider label="Music" name="volume-music" high-value="1" class="slider" />
+        <ui:Slider label="Sound Effects" name="volume-sound" high-value="1" class="slider" />
+        <ui:VisualElement name="colours-divider" class="divider" />
+        <ui:Label tabindex="-1" text="Colours" display-tooltip-when-elided="true" name="colours-subtitle" class="subtitle" />
+        <ui:GroupBox name="colour-ball" class="colour-group">
+            <ui:Label tabindex="-1" text="Ball" display-tooltip-when-elided="true" name="label" class="colour-label" />
+            <ui:VisualElement name="preview" class="colour-preview" />
+            <ui:IntegerField name="red" class="colour-input" />
+            <ui:IntegerField name="green" class="colour-input" />
+            <ui:IntegerField name="blue" class="colour-input" />
+        </ui:GroupBox>
+        <ui:GroupBox name="colour-speed" class="colour-group" style="flex-shrink: 1; flex-direction: row;">
+            <ui:Label tabindex="-1" text="Speed" display-tooltip-when-elided="true" name="label" class="colour-label" />
+            <ui:VisualElement name="preview" class="colour-preview" />
+            <ui:IntegerField name="red" class="colour-input" />
+            <ui:IntegerField name="green" class="colour-input" />
+            <ui:IntegerField name="blue" class="colour-input" />
+        </ui:GroupBox>
+        <ui:GroupBox name="colour-forces" class="colour-group" style="flex-shrink: 1; flex-direction: row;">
+            <ui:Label tabindex="-1" text="Forces" display-tooltip-when-elided="true" name="label" class="colour-label" />
+            <ui:VisualElement name="preview" class="colour-preview" />
+            <ui:IntegerField name="red" class="colour-input" />
+            <ui:IntegerField name="green" class="colour-input" />
+            <ui:IntegerField name="blue" class="colour-input" />
+        </ui:GroupBox>
         <ui:GroupBox name="buttons" class="button-list" style="margin-top: auto;">
             <ui:Button display-tooltip-when-elided="true" tooltip="Erase Progress" name="delete-progress" class="button danger">
                 <ui:VisualElement tabindex="-1" name="delete-progress-icon" class="button-icon" />

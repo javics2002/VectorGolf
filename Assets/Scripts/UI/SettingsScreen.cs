@@ -13,25 +13,9 @@ public class SettingsScreen : MonoBehaviour
 	private float _musicVolume;
 	private float _soundVolume;
 
-	private class Color255
-	{
-		public int Red { get; set; }
-		public int Green { get; set; }
-		public int Blue { get; set; }
-
-		public Color255(Color color)
-		{
-			Red = (int) (color.r * 255);
-			Green = (int) (color.g * 255);
-			Blue = (int) (color.b * 255);
-		}
-		
-		public Color Color => new(Red / 255f, Green / 255f, Blue / 255f);
-	}
-
-	private Color255 _colourBall;
-	private Color255 _colourSpeed;
-	private Color255 _colourForces;
+	private UIColor255 _colourBall;
+	private UIColor255 _colourSpeed;
+	private UIColor255 _colourForces;
 
 	private void Start()
 	{
@@ -44,9 +28,9 @@ public class SettingsScreen : MonoBehaviour
 		var gm = GameManager.Instance;
 		_musicVolume = gm.MusicVolume;
 		_soundVolume = gm.SoundVolume;
-		_colourBall = new Color255(gm.BallColour);
-		_colourSpeed = new Color255(gm.SpeedColour);
-		_colourForces = new Color255(gm.ForcesColour);
+		_colourBall = new UIColor255(gm.BallColour);
+		_colourSpeed = new UIColor255(gm.SpeedColour);
+		_colourForces = new UIColor255(gm.ForcesColour);
 
 		SetUpVolumeSliders(root);
 		SetUpColours(root);
@@ -55,11 +39,11 @@ public class SettingsScreen : MonoBehaviour
 
 	private void SetUpVolumeSliders(VisualElement root)
 	{
-		var musicVolume = root.Q<Slider>("music-volume");
+		var musicVolume = root.Q<Slider>("volume-music");
 		musicVolume.value = _musicVolume;
 		musicVolume.RegisterValueChangedCallback(OnMusicVolumeChange);
 
-		var soundVolume = root.Q<Slider>("sound-volume");
+		var soundVolume = root.Q<Slider>("volume-sound");
 		soundVolume.value = _soundVolume;
 		soundVolume.RegisterValueChangedCallback(OnSoundVolumeChange);
 	}
@@ -71,7 +55,7 @@ public class SettingsScreen : MonoBehaviour
 		SetUpColour(_colourForces, root.Q("colour-forces"));
 	}
 
-	private void SetUpColour(Color255 color, VisualElement root)
+	private void SetUpColour(UIColor255 color, VisualElement root)
 	{
 		var red = root.Q<IntegerField>("red");
 		red.value = color.Red;
@@ -84,6 +68,8 @@ public class SettingsScreen : MonoBehaviour
 		var blue = root.Q<IntegerField>("blue");
 		blue.value = color.Blue;
 		blue.RegisterValueChangedCallback(@event => color.Blue = @event.newValue);
+
+		color.Element = root.Q<VisualElement>("preview");
 	}
 
 	private void SetUpButtons(VisualElement root)
@@ -130,7 +116,7 @@ public class SettingsScreen : MonoBehaviour
 		gm.BallColour = _colourBall.Color;
 		gm.SpeedColour = _colourSpeed.Color;
 		gm.ForcesColour = _colourForces.Color;
-		
+
 		gm.LoadManager.Save();
 		SceneManager.UnloadSceneAsync("Settings");
 	}

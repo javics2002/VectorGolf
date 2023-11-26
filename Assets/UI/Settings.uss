@@ -1,32 +1,60 @@
 .title {
+    color: rgb(233, 233, 233);
+    font-size: 30px;
     -unity-text-align: upper-center;
     -unity-font-style: bold;
     -unity-font: url('project://database/Assets/Fonts/Gilgan.otf?fileID=12800000&guid=468308c3f2b6e9146b20b26d62e40c37&type=3#Gilgan');
-    font-size: 30px;
+}
+
+.subtitle {
     color: rgb(233, 233, 233);
-    padding-bottom: 20px;
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-font: url('project://database/Assets/Fonts/Gilgan.otf?fileID=12800000&guid=468308c3f2b6e9146b20b26d62e40c37&type=3#Gilgan');
+}
+
+.divider {
+    flex-grow: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    height: 1px;
+    margin: 24px 0 0 0;
+    align-self: stretch;
 }
 
 .slider {
     color: rgb(233, 233, 233);
+    margin: 8px 12px 0 12px;
 }
 
 .slider:focus > Label {
-    color: rgb(255, 140, 46);
-}
-
-.foldout {
-    padding-top: 10px;
-    color: rgb(233, 233, 233);
-}
-
-.foldout #unity-checkmark {
-    -unity-background-image-tint-color: rgb(233, 233, 233);
+    color: rgb(208, 208, 208);
 }
 
 .colour-group {
     flex-shrink: 1;
     flex-direction: row;
+    margin: 8px 12px 0 12px;
+    padding: 0;
+}
+
+.colour-label {
+    color: rgb(233, 233, 233);
+    flex-grow: 1;
+    align-self: center;
+    padding: 0 0 0 4px;
+    margin: 0;
+}
+
+.colour-preview {
+    flex-grow: 0;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-shrink: 0;
+    border-radius: 5px;
 }
 
 .colour-input {
@@ -38,15 +66,15 @@
     margin: 0 0 0 4px;
 }
 
-.colour-input-red {
+.colour-input#red {
     border-bottom-color: red;
 }
 
-.colour-input-green {
+.colour-input#green {
     border-bottom-color: green;
 }
 
-.colour-input-blue {
+.colour-input#blue {
     border-bottom-color: blue;
 }
 
@@ -54,11 +82,6 @@
     color: rgb(233, 233, 233);
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
-}
-
-.colour-label {
-    color: rgb(233, 233, 233);
-    flex-grow: 1;
 }
 
 .button-unlock-all {
