@@ -6,6 +6,9 @@ public class LoadManager : MonoBehaviour
 	private const int LoaderVersion = 1;
 	private const string VolumeMusicKey = "volume:music";
 	private const string VolumeSoundKey = "volume:sound";
+	private const string ColourBallKey = "colour:ball";
+	private const string ColourSpeedKey = "colour:speed";
+	private const string ColourForcesKey = "colour:forces";
 
 	public void Load()
 	{
@@ -26,17 +29,29 @@ public class LoadManager : MonoBehaviour
 					: GameManager.LevelCompletionStatus.Locked));
 		}
 
-		gm.SoundVolume = PlayerPrefs.GetFloat(VolumeSoundKey, 1);
-		gm.MusicVolume = PlayerPrefs.GetFloat(VolumeMusicKey, 1);
+		gm.SoundVolume = PlayerPrefs.GetFloat(VolumeSoundKey, 1f);
+		gm.MusicVolume = PlayerPrefs.GetFloat(VolumeMusicKey, 1f);
+
+		gm.BallColour = GetColour(ColourBallKey, gm.BallColour);
+		gm.SpeedColour = GetColour(ColourSpeedKey, gm.SpeedColour);
+		gm.ForcesColour = GetColour(ColourForcesKey, gm.ForcesColour);
 	}
 
 	public void Save()
 	{
-		var progress = GameManager.Instance.progress;
+		var gm = GameManager.Instance;
+		var progress = gm.progress;
 		for (var level = 0; level < progress.Length; level++)
 		{
 			SaveLevelProgress(level, progress[level]);
 		}
+
+		PlayerPrefs.SetFloat(VolumeSoundKey, gm.SoundVolume);
+		PlayerPrefs.SetFloat(VolumeMusicKey, gm.MusicVolume);
+
+		SetColour(ColourBallKey, gm.BallColour);
+		SetColour(ColourSpeedKey, gm.SpeedColour);
+		SetColour(ColourForcesKey, gm.ForcesColour);
 
 		PlayerPrefs.Save();
 	}
@@ -58,13 +73,6 @@ public class LoadManager : MonoBehaviour
 		PlayerPrefs.Save();
 	}
 
-	public void SaveVolume(float musicVolume, float soundVolume)
-	{
-		PlayerPrefs.SetFloat(VolumeMusicKey, musicVolume);
-		PlayerPrefs.SetFloat(VolumeSoundKey, soundVolume);
-		PlayerPrefs.Save();
-	}
-
 	/// <summary>
 	/// Checks whether or not the given level is out of bounds.
 	/// </summary>
@@ -82,5 +90,20 @@ public class LoadManager : MonoBehaviour
 	private static void SaveLevelProgress(int level, GameManager.LevelProgress progress)
 	{
 		PlayerPrefs.SetInt(MakeLevelCompletionKey(level), (int)progress.Status);
+	}
+
+	private static void SetColour(string name, Color colour)
+	{
+		PlayerPrefs.SetFloat($"{name}:r", colour.r);
+		PlayerPrefs.SetFloat($"{name}:g", colour.g);
+		PlayerPrefs.SetFloat($"{name}:b", colour.b);
+	}
+
+	private static Color GetColour(string name, Color defaultValue)
+	{
+		return new Color(
+			PlayerPrefs.GetFloat($"{name}:r", defaultValue.r),
+			PlayerPrefs.GetFloat($"{name}:g", defaultValue.g),
+			PlayerPrefs.GetFloat($"{name}:b", defaultValue.b));
 	}
 }
