@@ -59,6 +59,10 @@ public class GameManager : MonoBehaviour
 	public Color SpeedColour;
 	public Color ForcesColour;
 
+    [Header("References")]
+	[SerializeField]
+	public GameObject linePrefab;
+
 	private void Awake()
 	{
 		if (Instance is not null) {

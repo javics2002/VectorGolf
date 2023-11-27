@@ -64,3 +64,4 @@ MonoBehaviour:
   BallColour: {r: 1, g: 1, b: 1, a: 1}
   SpeedColour: {r: 0, g: 0.6, b: 1, a: 1}
   ForcesColour: {r: 1, g: 0.9490196, b: 0, a: 1}
+  linePrefab: {fileID: 3375924588649957342, guid: 900de0be61190d14b86d4d38a04d72ac, type: 3}

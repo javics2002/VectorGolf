@@ -1,10 +1,6 @@
 using System.Collections.Generic;
-
 using TMPro;
-
 using UnityEngine;
-
-using static KinematicArrow;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
@@ -76,6 +72,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 
 	public bool canDecomposite = true;
 	InterfaceArrow xComponent, yComponent;
+	LineRenderer xLine, yLine;
 
 	protected virtual void Start() {
 		gameManager = GameManager.Instance;
@@ -128,6 +125,14 @@ public abstract class KinematicArrow : MonoBehaviour {
 			yComponent.target = target;
 			yComponent.gameObject.layer = LayerMask.NameToLayer("UI");
 			yComponent.properties.name = properties.name + "<sub>y</sub>";
+
+			xLine = Instantiate(gameManager.linePrefab).GetComponent<LineRenderer>();
+			xLine.startColor = properties.color;
+			xLine.endColor = properties.color;
+
+			yLine = Instantiate(gameManager.linePrefab).GetComponent<LineRenderer>();
+			yLine.startColor = properties.color;
+			yLine.endColor = properties.color;
 		}
 	}
 
@@ -146,10 +151,12 @@ public abstract class KinematicArrow : MonoBehaviour {
 			if (properties.isLabelVisible || properties.isValueVisible) {
 				labelText.enabled = true;
 
-				labelText.rectTransform.position = target.position + vector / 2 
+				if(canDecomposite) {
+					labelText.rectTransform.position = target.position + vector / 2
 					+ Vector3.Cross(vector, Vector3.back).normalized * properties.labelSeparation + properties.priority * Vector3.back * .1f;
-				labelText.text = (properties.isLabelVisible ? (!properties.name.Equals("") ? properties.name + ": " : "") : "")
-					+ (properties.isValueVisible ? vector.magnitude.ToString("0.#") + " " + unit : "");
+					labelText.text = (properties.isLabelVisible ? (!properties.name.Equals("") ? properties.name + ": " : "") : "")
+						+ (properties.isValueVisible ? vector.magnitude.ToString("0.#") + " " + unit : "");
+				}
 			}
 			else
 				labelText.enabled = false;
@@ -158,25 +165,96 @@ public abstract class KinematicArrow : MonoBehaviour {
 			
 			if(canDecomposite) {
 				xComponent.properties.isVisible = yComponent.properties.isVisible = 
-					gameManager.vectorDecomposition && !(Mathf.Abs(vector.x) < .1f || Mathf.Abs(vector.y) < .1f);
+					xLine.enabled = yLine.enabled =
+					gameManager.vectorDecomposition && !(Mathf.Abs(vector.x) < 1f || Mathf.Abs(vector.y) < 1f);
 
-				xComponent.SetInterfaceArrow(new Vector3(vector.x, 0, 0));
-				yComponent.SetInterfaceArrow(new Vector3(0, vector.y, 0));
+				Vector3 x = new Vector3(vector.x, 0, 0);
+				Vector3 y = new Vector3(0, vector.y, 0);
+
+				xComponent.SetInterfaceArrow(x);
+				yComponent.SetInterfaceArrow(y);
+
+				xLine.SetPosition(0, target.position + y);
+				xLine.SetPosition(1, target.position + x + y);
+
+				yLine.SetPosition(0, target.position + x);
+				yLine.SetPosition(1, target.position + x + y);
+
+				labelText.ForceMeshUpdate();
+				xComponent.labelText.ForceMeshUpdate();
+				yComponent.labelText.ForceMeshUpdate();
+
+				if (xComponent.properties.isLabelVisible || xComponent.properties.isValueVisible) {
+					xComponent.labelText.enabled = true;
+
+					xComponent.labelText.rectTransform.position = xComponent.target.position + x / 2
+						+ Vector3.Cross(x, Vector3.back).normalized * xComponent.properties.labelSeparation + xComponent.properties.priority * Vector3.back * .1f;
+					xComponent.labelText.text = (xComponent.properties.isLabelVisible ? (!xComponent.properties.name.Equals("") ? xComponent.properties.name + ": " : "") : "")
+							+ (xComponent.properties.isValueVisible ? x.magnitude.ToString("0.#") + " " + unit : "");
+				}
+				else
+					xComponent.labelText.enabled = false;
+
+				if (yComponent.properties.isLabelVisible || yComponent.properties.isValueVisible) {
+					yComponent.labelText.enabled = true;
+
+					yComponent.labelText.rectTransform.position = yComponent.target.position + y / 2
+						+ Vector3.Cross(y, Vector3.back).normalized * yComponent.properties.labelSeparation + yComponent.properties.priority * Vector3.back * .1f;
+					yComponent.labelText.text = (yComponent.properties.isLabelVisible ? (!yComponent.properties.name.Equals("") ? yComponent.properties.name + ": " : "") : "")
+							+ (yComponent.properties.isValueVisible ? y.magnitude.ToString("0.#") + " " + unit : "");
+				}
+				else
+					yComponent.labelText.enabled = false;
+
+				Bounds labelBounds = labelText.textBounds;
+				labelBounds.center = labelText.rectTransform.position;
+				Bounds xBounds = xComponent.labelText.textBounds;
+				xBounds.center = xComponent.labelText.rectTransform.position;
+				Bounds yBounds = yComponent.labelText.textBounds;
+				yBounds.center = yComponent.labelText.rectTransform.position;
+
+				//Debug.Log(xComponent.labelText.rectTransform.position - labelText.rectTransform.position);
+
+				int intentos = 10000;
+				while(xBounds.Intersects(labelBounds) && intentos>0){
+					xBounds.center = xComponent.labelText.rectTransform.position = xComponent.labelText.rectTransform.position
+						+ (xComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
+					intentos--;
+				}
+
+				while (yBounds.Intersects(labelBounds) && intentos > 0) {
+					yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
+						+ (yComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
+					intentos--;
+				}
+
+				while (yBounds.Intersects(xBounds) && intentos > 0) {
+					yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
+						+ (yComponent.labelText.rectTransform.position - xComponent.labelText.rectTransform.position).normalized * .1f;
+					intentos--;
+				}
+
+				Debug.Log((intentos != 10000) + " " + (intentos == 0));
 			}
 
 			vector.Normalize();
 
-			//if (forceSmooth)
-			//	transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
+			if (forceSmooth)
+				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
 			//else
 			//	transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
 
 			//TEMP: no smooth
-			transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(vector));
+			else
+				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(vector));
 		}
 		else {
 			meshRenderer.enabled = false;
 			labelText.enabled = false;
+
+			if(canDecomposite) 
+				xComponent.properties.isVisible = yComponent.properties.isVisible =
+					xLine.enabled = yLine.enabled = false;
 		}
 	}
 
@@ -238,6 +316,35 @@ public abstract class KinematicArrow : MonoBehaviour {
 		meshFilter.mesh = mesh;
 		meshRenderer.material.color = properties.color;
 	}
+
+	private void PositionLabelTextToAvoidOverlap(RectTransform label, RectTransform labelX, RectTransform labelY) {
+		MoveLabelToAvoidOverlap(labelX, label);
+		MoveLabelToAvoidOverlap(label, labelX);
+		MoveLabelToAvoidOverlap(labelY, label);
+	}
+
+	private void MoveLabelToAvoidOverlap(RectTransform labelToMove, RectTransform referenceLabel) {
+		Vector3 labelToMovePosition = labelToMove.position;
+		Vector3 referenceLabelPosition = referenceLabel.position;
+
+		Vector3 moveDirection = labelToMovePosition - referenceLabelPosition;
+		Vector3 labelToMoveExtents = GetRectTransformExtents(labelToMove);
+
+		float distanceToMove = CalculateDistanceToAvoidOverlap(labelToMoveExtents, moveDirection);
+
+		labelToMove.position += moveDirection.normalized * distanceToMove;
+	}
+
+	private float CalculateDistanceToAvoidOverlap(Vector3 extents, Vector3 moveDirection) {
+		float extentAlongMoveDirection = Vector3.Dot(extents, moveDirection.normalized);
+		return Mathf.Max(0f, extentAlongMoveDirection);
+	}
+
+	private Vector3 GetRectTransformExtents(RectTransform rectTransform) {
+		Vector2 size = rectTransform.rect.size * 0.5f;
+		return new Vector3(size.x, size.y, 0f);
+	}
+
 
 	public bool IsLongEnoughToDraw(Vector3 vector) {
 		return vector.magnitude - properties.tipLength >= 0;
