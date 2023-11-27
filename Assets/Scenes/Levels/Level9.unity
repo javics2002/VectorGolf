@@ -2522,6 +2522,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5002756065262131773, guid: 8dba12400e66f8c4a9731fc499074c21, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
+      value: -6.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002756065262131773, guid: 8dba12400e66f8c4a9731fc499074c21, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
+      value: 0.28726098
+      objectReference: {fileID: 0}
     - target: {fileID: 9218583449916478384, guid: 8dba12400e66f8c4a9731fc499074c21, type: 3}
       propertyPath: m_Name
       value: Drone Platform
