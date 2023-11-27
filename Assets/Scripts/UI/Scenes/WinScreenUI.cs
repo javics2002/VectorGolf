@@ -45,7 +45,7 @@ public class WinScreen : MonoBehaviour
 
 		root.Q<Button>("button-retry").clicked += OnClickedRetry;
 		root.Q<Button>("button-menu").clicked += OnClickedMainMenu;
-		
+
 		var buttonNext = root.Q<Button>("button-next");
 		if (GameManager.Instance.Level.HasNext()) buttonNext.clicked += OnClickedNextLevel;
 		else buttonNext.SetEnabled(false);

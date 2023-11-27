@@ -40,6 +40,7 @@ public class Goal : MonoBehaviour
 
 		// Save the level completion:
 		gm.LoadManager.Save(levelIndex, GetLevelCompletionStatus(stars));
+		UnlockNextLevel();
 
 		// Find the GameObject named "WinScreen":
 		var winScreen = FindObjectOfType<WinScreen>(true);
@@ -48,6 +49,18 @@ public class Goal : MonoBehaviour
 		winScreen.Stars = stars;
 		winScreen.Hits = ball.Hits;
 		winScreen.gameObject.SetActive(true);
+	}
+	
+	private void UnlockNextLevel()
+	{
+		var gm = GameManager.Instance;
+		if (!gm.Level.HasNext()) return;
+
+		var nextIndex = gm.Level.CurrentIndex + 1;
+		if (gm.progress[nextIndex].Status == GameManager.LevelCompletionStatus.Locked)
+		{
+			gm.LoadManager.Save(nextIndex, GameManager.LevelCompletionStatus.Uncompleted);
+		}
 	}
 
 	private static string GetGoalSpriteName()
