@@ -35,6 +35,12 @@ public class SettingsScreen : MonoBehaviour
 		SetUpVolumeSliders(root);
 		SetUpColours(root);
 		SetUpButtons(root);
+
+		Time.timeScale = 0f;
+	}
+
+	private void OnDestroy() {
+		Time.timeScale = 1f;
 	}
 
 	private void SetUpVolumeSliders(VisualElement root)

@@ -5,6 +5,8 @@ using static InteractableObject;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+	public bool canDrag { get; set; } = true;
+
 	[SerializeField, Range(0f, 1f)]
 	float scaleWhenDrag;
 
@@ -24,7 +26,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
 		// Dont pick invisible items
-		if (canvasGroup.alpha == 0f)
+		if (canvasGroup.alpha == 0f || !canDrag)
 		{
 			return;
 		}
@@ -42,11 +44,17 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 	public void OnDrag(PointerEventData eventData)
 	{
+		if (!canDrag)
+			return;
+
 		rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
+		if (!canDrag)
+			return;
+
 		var mouseOverObject = GameManager.Instance.mouseOverObject;
 
 		// When an object is not dropped inside a valid gameobject

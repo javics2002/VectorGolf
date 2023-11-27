@@ -64,8 +64,11 @@ public class GameManager : MonoBehaviour
     public Animator left;
     public Animator right;
     public Animator icon;
-
     public float transitionTime;
+    
+    [Header("References")]
+	[SerializeField]
+	public GameObject linePrefab;
 
 	private void Awake()
 	{
@@ -81,6 +84,25 @@ public class GameManager : MonoBehaviour
 
 		Instance.OnNewScene();
 		Instance.Init();
+	}
+
+	private void LateUpdate() {
+        KinematicArrow[] arrows = FindObjectsOfType<KinematicArrow>();
+
+        for(int i = 0; i < arrows.Length; i++) {
+			Bounds iBounds = arrows[i].labelText.textBounds;
+			iBounds.center = arrows[i].labelText.rectTransform.position;
+
+			for (int j = i + 1; j < arrows.Length; j++) {
+				Bounds jBounds = arrows[j].labelText.textBounds;
+				jBounds.center = arrows[j].labelText.rectTransform.position;
+
+				while (jBounds.Intersects(iBounds) && arrows[j].labelText.rectTransform.position != arrows[i].labelText.rectTransform.position) {
+					jBounds.center = arrows[j].labelText.rectTransform.position = arrows[j].labelText.rectTransform.position
+						+ (arrows[j].labelText.rectTransform.position - arrows[i].labelText.rectTransform.position).normalized * .1f;
+				}
+			}
+        }
 	}
 
 	private void OnNewScene()

@@ -464,3 +464,4 @@ MonoBehaviour:
   right: {fileID: 3062801294302215218}
   icon: {fileID: 757564310039029955}
   transitionTime: 1
+  linePrefab: {fileID: 3375924588649957342, guid: 900de0be61190d14b86d4d38a04d72ac, type: 3}
