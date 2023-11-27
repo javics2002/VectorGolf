@@ -58,17 +58,10 @@ public class WinScreen : MonoBehaviour
 
 	private IEnumerator FillStars(IEnumerable<VisualElement> stars)
 	{
-		foreach (var star in stars.Select(GetStarFill).ToArray().Take(Stars))
+		foreach (var star in stars.Select(star => star.Q<ToggleableVisualElement>()).Take(Stars))
 		{
 			yield return new WaitForSeconds(0.5f);
-			star.SetEnabled(true);
+			star.Enabled = true;
 		}
-	}
-
-	private VisualElement GetStarFill(VisualElement parent)
-	{
-		var fill = parent.Q<VisualElement>();
-		fill.SetEnabled(false);
-		return fill;
 	}
 }
