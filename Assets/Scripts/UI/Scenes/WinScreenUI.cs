@@ -41,19 +41,18 @@ public class WinScreen : MonoBehaviour
 
 	private void OnClickedRetry()
 	{
-        GameManager.Instance.changeScene(SceneManager.GetActiveScene().buildIndex);
-    }
+		GameManager.Instance.ChangeScene(GameScene.Current);
+	}
 
 	private void OnClickedNextLevel()
 	{
-		GameManager.Instance.changeScene(SceneManager.GetActiveScene().buildIndex + 1);
-
-    }
+		GameManager.Instance.ChangeScene(GameScene.NextLevel);
+	}
 
 	private void OnClickedMainMenu()
 	{
-        GameManager.Instance.changeScene(0);
-    }
+		GameManager.Instance.ChangeScene(GameScene.Id.MainMenu);
+	}
 
 	private IEnumerator FillStars(IEnumerable<VisualElement> stars)
 	{

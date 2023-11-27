@@ -70,6 +70,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	public GameObject linePrefab;
 
+	private static readonly int End = Animator.StringToHash("End");
+	private static readonly int Start = Animator.StringToHash("Start");
+
 	private void Awake()
 	{
 		if (Instance is not null) {
@@ -182,32 +185,32 @@ public class GameManager : MonoBehaviour
     //}
 
 
-    public void changeScene(int sceneBuildIndex)
+    public void ChangeScene(GameScene.Id id)
     {
-        StartCoroutine(loadLevel(sceneBuildIndex));
+        StartCoroutine(LoadLevel(id));
     }
 
-    IEnumerator loadLevel(int sceneBuildIndex)
+    private IEnumerator LoadLevel(GameScene.Id id)
     {
         // Play anim
-        left.SetBool("End", false);
-        right.SetBool("End", false);
-        icon.SetBool("End", false);
+        left.SetBool(End, false);
+        right.SetBool(End, false);
+        icon.SetBool(End, false);
 
-        left.SetBool("Start", true);
-        right.SetBool("Start", true);
-        icon.SetBool("Start", true);
+        left.SetBool(Start, true);
+        right.SetBool(Start, true);
+        icon.SetBool(Start, true);
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(sceneBuildIndex);
+        SceneManager.LoadScene((int) id);
 
-        left.SetBool("Start", false);
-        right.SetBool("Start", false);
-        icon.SetBool("Start", false);
+        left.SetBool(Start, false);
+        right.SetBool(Start, false);
+        icon.SetBool(Start, false);
 
-        left.SetBool("End", true);
-        right.SetBool("End", true);
-        icon.SetBool("End", true);
+        left.SetBool(End, true);
+        right.SetBool(End, true);
+        icon.SetBool(End, true);
     }
 }

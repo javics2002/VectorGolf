@@ -76,7 +76,7 @@ public class DialogueBox : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.changeScene(SceneManager.GetActiveScene().buildIndex + 1);
+            GameManager.Instance.ChangeScene(GameScene.NextLevel);
         }
     }
 }

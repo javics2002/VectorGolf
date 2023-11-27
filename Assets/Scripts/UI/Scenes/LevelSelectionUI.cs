@@ -109,5 +109,5 @@ public class LevelSelectionUI : MonoBehaviour
 		return root;
 	}
 
-	private static Action OnLevelSelected(int level) => () => SceneManager.LoadScene($"Level{level}");
+	private static Action OnLevelSelected(int level) => () => GameManager.Instance.ChangeScene(GameScene.Level(level));
 }

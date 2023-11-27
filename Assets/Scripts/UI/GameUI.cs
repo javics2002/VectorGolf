@@ -44,8 +44,8 @@ public class UIGame : MonoBehaviour
 
 	private void OnButtonExit()
 	{
-        GameManager.Instance.changeScene(0);
-    }
+		GameManager.Instance.ChangeScene(GameScene.Id.MainMenu);
+	}
 
 	private void OnButtonSettings()
 	{
@@ -55,6 +55,6 @@ public class UIGame : MonoBehaviour
 
 	private void OnButtonRestart()
 	{
-        GameManager.Instance.changeScene(SceneManager.GetActiveScene().buildIndex);
-    }
+		GameManager.Instance.ChangeScene(GameScene.Current);
+	}
 }

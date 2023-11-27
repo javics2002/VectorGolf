@@ -96,6 +96,10 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.level-button:disabled .level-thumbnail {
+    -unity-background-image-tint-color: rgb(77, 77, 77);
+}
+
 .level-number {
     margin: 0;
     padding: 6px;
