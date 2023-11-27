@@ -10,8 +10,8 @@
             <ui:VisualElement name="star-3" class="star" />
         </ui:GroupBox>
         <ui:Label tabindex="-1" text="¡Te tomó X intentos!" display-tooltip-when-elided="true" name="retries" class="subtitle retries-text" />
-        <ui:Button text="Volver a Jugar" name="button-retry" class="button" />
-        <ui:Button text="Siguiente Nivel" name="button-next" class="button success" />
-        <ui:Button text="Volver al Menú" name="button-menu" class="button danger" />
+        <ui:Button text="Volver a Jugar" name="button-retry" class="button animate-scale" />
+        <ui:Button text="Siguiente Nivel" name="button-next" class="button success animate-scale" />
+        <ui:Button text="Volver al Menú" name="button-menu" class="button danger animate-scale" />
     </ui:GroupBox>
 </ui:UXML>

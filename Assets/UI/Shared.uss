@@ -43,7 +43,7 @@
     background-color: rgb(188, 188, 188);
 }
 
-.button:hover {
+.button:active:hover {
     background-color: rgb(210, 210, 210);
 }
 
@@ -52,7 +52,7 @@
     background-color: rgb(0, 153, 0);
 }
 
-.button.success:hover {
+.button.success:active:hover {
     background-color: rgb(4, 168, 4);
 }
 
@@ -61,7 +61,7 @@
     background-color: rgb(208, 32, 43);
 }
 
-.button.danger:hover {
+.button.danger:active:hover {
     background-color: rgb(217, 41, 53);
 }
 
@@ -74,4 +74,17 @@
     flex-shrink: 0;
     min-width: 20px;
     min-height: 20px;
+}
+
+.animate-scale {
+    transition-property: scale;
+    transition-duration: 0.3s;
+}
+
+.animate-scale:enabled:hover {
+    scale: 1.05;
+}
+
+.animate-scale:focus {
+    scale: 0.95;
 }

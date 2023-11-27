@@ -83,6 +83,7 @@ public class LevelSelectionUI : MonoBehaviour
 	{
 		var root = new Button { name = $"level-{level}" };
 		root.AddToClassList("level-button");
+		root.AddToClassList("animate-scale");
 
 		switch (progress.Status)
 		{

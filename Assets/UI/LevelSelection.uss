@@ -61,13 +61,6 @@
     border-radius: 10px;
     align-self: stretch;
     align-items: stretch;
-
-    transition-property: scale;
-    transition-duration: 0.3s;
-}
-
-.level-button:enabled:hover {
-    scale: 1.05;
 }
 
 .level-button.red {
