@@ -45,13 +45,13 @@
     flex-direction: row;
     align-self: stretch;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 16px;
 }
 
 .level-button {
     flex: 1 1 auto;
     margin: 0 16px;
-    padding: 8px 8px 8px 20px;
+    padding: 4px;
     overflow: visible;
     border-left-width: 2px;
     border-right-width: 0;

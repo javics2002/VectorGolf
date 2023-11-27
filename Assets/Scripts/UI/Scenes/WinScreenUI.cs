@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,17 +12,6 @@ public class WinScreen : MonoBehaviour
 	public int Stars { get; set; } = 1;
 	public int Hits { get; set; } = 0;
 
-	private static int MainMenuScene { get; set; } = -1;
-
-	private void Awake()
-	{
-		// Get the build index for the main menu scene if it hasn't been loaded yet:
-		if (MainMenuScene == -1)
-		{
-			MainMenuScene = SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/Main Menu.unity");
-		}
-	}
-
 	// Start is called before the first frame update
 	private void Start()
 	{
@@ -30,11 +21,8 @@ public class WinScreen : MonoBehaviour
 			throw new NullReferenceException(nameof(root));
 		}
 
-		var stars = root.Query<GroupBox>(name: "stars").Children<VisualElement>().ToList().Take(Stars);
-		foreach (var star in stars)
-		{
-			star.AddToClassList("full");
-		}
+		var stars = root.Query<GroupBox>(name: "stars").Children<VisualElement>().ToList();
+		StartCoroutine(FillStars(stars));
 
 		var retries = root.Query<Label>(name: "retries").First();
 		retries.text = Hits switch
@@ -65,6 +53,22 @@ public class WinScreen : MonoBehaviour
 
 	private void OnClickedMainMenu()
 	{
-		SceneManager.LoadScene(MainMenuScene);
+		SceneManager.LoadScene("Main Menu");
+	}
+
+	private IEnumerator FillStars(IEnumerable<VisualElement> stars)
+	{
+		foreach (var star in stars.Select(GetStarFill).ToArray().Take(Stars))
+		{
+			yield return new WaitForSeconds(0.5f);
+			star.SetEnabled(true);
+		}
+	}
+
+	private VisualElement GetStarFill(VisualElement parent)
+	{
+		var fill = parent.Q<VisualElement>();
+		fill.SetEnabled(false);
+		return fill;
 	}
 }

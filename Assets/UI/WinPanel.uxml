@@ -5,9 +5,15 @@
         <ui:Label tabindex="-1" text="VICTORIA" display-tooltip-when-elided="true" name="title" class="title" />
         <ui:VisualElement name="divider" class="divider" />
         <ui:GroupBox name="stars" class="stars">
-            <ui:VisualElement name="star-1" class="star" />
-            <ui:VisualElement name="star-2" class="star" />
-            <ui:VisualElement name="star-3" class="star" />
+            <ui:VisualElement name="star-1" class="star">
+                <ui:VisualElement name="fill" class="star-base" />
+            </ui:VisualElement>
+            <ui:VisualElement name="star-2" class="star">
+                <ui:VisualElement name="fill" class="star-base" />
+            </ui:VisualElement>
+            <ui:VisualElement name="star-3" class="star">
+                <ui:VisualElement name="fill" class="star-base" />
+            </ui:VisualElement>
         </ui:GroupBox>
         <ui:Label tabindex="-1" text="¡Te tomó X intentos!" display-tooltip-when-elided="true" name="retries" class="subtitle retries-text" />
         <ui:Button text="Volver a Jugar" name="button-retry" class="button animate-scale" />
