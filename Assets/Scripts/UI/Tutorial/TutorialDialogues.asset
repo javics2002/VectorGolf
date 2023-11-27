@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8afbc616b960842b0268b4af506ab4, type: 3}
+  m_Name: TutorialDialogues
+  m_EditorClassIdentifier: 
+  lines:
+  - "Bienvenido a Vector Golf! En este juego aprender\xE1s todo sobre los vectores
+    y sobre las leyes de la f\xEDsica."
+  - "El primer elemento del juego que has de entender es la pelota. Para moverse
+    has de darle una direcci\xF3n y una fuerza, una _magnitud vectorial_"
+  - "Este elemento es la bandera. el objetivo de todos los niveles ser\xE1 meter
+    la pelota en el agujero de la bandera."
+  - "Este es el men\xFA de magnitudes. Aqu\xED encontrar\xE1s tanto magnitudes escalares
+    como magnitudes vectoriales que podr\xE1s arrastrar a todos los elementos interactuables
+    del juego."
+  - "Por ejemplo, para darle un golpe a la pelota, deber\xE1s arrastrar una magnitud
+    vectorial hacia ella y soltarla una vez veas la flecha de previsualizaci\xF3n."
+  - 
+  - "De esta forma, la pelota se movera hacia la direccion que indique la flecha.
+    Ten en cuenta que en la mayor\xEDa de niveles existe la gravedad y las flechas
+    de previsualizaci\xF3n no la tienen en cuenta!"
+  - 'Espero que disfrutes de la experiencia y el aprendizaje con Vector Golf! '
+  textSpeed: 0.05

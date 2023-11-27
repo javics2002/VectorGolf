@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Settings.unity
     guid: fdff805a62d424d40aca9f3c6112d870
   - enabled: 1
+    path: Assets/Scenes/Levels/TutorialDrag.unity
+    guid: bdb31a2d0f3fb7d4da10cef2145136a3
+  - enabled: 1
     path: Assets/Scenes/Levels/Level1.unity
     guid: c1f170ef329d18a47af0b2369693ec68
   - enabled: 1

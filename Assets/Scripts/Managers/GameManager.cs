@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -58,6 +59,13 @@ public class GameManager : MonoBehaviour
 	public Color BallColour;
 	public Color SpeedColour;
 	public Color ForcesColour;
+
+    [Header("Transitions")]
+    public Animator left;
+    public Animator right;
+    public Animator icon;
+
+    public float transitionTime;
 
 	private void Awake()
 	{
@@ -150,4 +158,34 @@ public class GameManager : MonoBehaviour
     //	var radians = rotation * Mathf.Deg2Rad;
     //	_playerRigidBody.AddForce(new Vector2(Mathf.Cos(radians) * force, Mathf.Sin(radians) * force));
     //}
+
+
+    public void changeScene(int sceneBuildIndex)
+    {
+        StartCoroutine(loadLevel(sceneBuildIndex));
+    }
+
+    IEnumerator loadLevel(int sceneBuildIndex)
+    {
+        // Play anim
+        left.SetBool("End", false);
+        right.SetBool("End", false);
+        icon.SetBool("End", false);
+
+        left.SetBool("Start", true);
+        right.SetBool("Start", true);
+        icon.SetBool("Start", true);
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(sceneBuildIndex);
+
+        left.SetBool("Start", false);
+        right.SetBool("Start", false);
+        icon.SetBool("Start", false);
+
+        left.SetBool("End", true);
+        right.SetBool("End", true);
+        icon.SetBool("End", true);
+    }
 }

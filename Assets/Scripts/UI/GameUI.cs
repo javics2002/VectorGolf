@@ -16,8 +16,8 @@ public class UIGame : MonoBehaviour
 
 	private void OnButtonExit()
 	{
-		SceneManager.LoadScene("Main Menu");
-	}
+        GameManager.Instance.changeScene(0);
+    }
 
 	private void OnButtonSettings()
 	{
@@ -26,6 +26,6 @@ public class UIGame : MonoBehaviour
 
 	private void OnButtonRestart()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-	}
+        GameManager.Instance.changeScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

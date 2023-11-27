@@ -36,6 +36,16 @@ public class Ball : InteractableObject
 		gameManager = GameManager.Instance;
 	}
 
+	public void ShowTutorialArrow(Vector2 force)
+	{
+        firstVector = KinematicArrow.CreateArrow<InterfaceArrow>("First Vector",
+                transform, velocityArrow.properties);
+
+        firstVector.SetInterfaceArrow(force);
+        firstVector.properties.isVisible = true;
+        firstVector.canDecomposite = false;
+    }
+
 	public IEnumerator Hit(Vector2 force)
 	{
 		Hits++;
