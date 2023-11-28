@@ -17,16 +17,6 @@ namespace UI.Elements
 		private readonly Label _message;
 
 		/// <summary>
-		/// The button for cancelling the dialog
-		/// </summary>
-		private readonly Button _cancelButton;
-
-		/// <summary>
-		/// The button for confirming the dialog
-		/// </summary>
-		private readonly Button _confirmButton;
-
-		/// <summary>
 		/// The text to be displayed in the dialog's title field.
 		/// </summary>
 		public string Title
@@ -47,20 +37,12 @@ namespace UI.Elements
 		/// <summary>
 		/// The event to be invoked when the confirm button is clicked.
 		/// </summary>
-		public event Action OnConfirm
-		{
-			add => _confirmButton.clicked += value;
-			remove => _confirmButton.clicked -= value;
-		}
+		public event Action OnConfirm;
 
 		/// <summary>
 		/// The event to be invoked when the cancel button is clicked.
 		/// </summary>
-		public event Action OnCancel
-		{
-			add => _cancelButton.clicked += value;
-			remove => _cancelButton.clicked -= value;
-		}
+		public event Action OnCancel;
 
 		/// <summary>
 		/// Constructor for the ConfirmationDialog class.
@@ -86,14 +68,14 @@ namespace UI.Elements
 			buttons.AddToClassList("dialog-buttons");
 			Add(buttons);
 
-			_cancelButton = new Button { name = "cancel-button", text = "Cancel" };
-			_cancelButton.AddToClassList("button");
-			buttons.Add(_cancelButton);
+			var cancelButton = new Button(() => OnConfirm?.Invoke()) { name = "cancel-button", text = "Cancel" };
+			cancelButton.AddToClassList("button");
+			buttons.Add(cancelButton);
 
-			_confirmButton = new Button { name = "confirm-button", text = "Confirm" };
-			_confirmButton.AddToClassList("button");
-			_confirmButton.AddToClassList("danger");
-			buttons.Add(_confirmButton);
+			var confirmButton = new Button(() => OnCancel?.Invoke()) { name = "confirm-button", text = "Confirm" };
+			confirmButton.AddToClassList("button");
+			confirmButton.AddToClassList("danger");
+			buttons.Add(confirmButton);
 		}
 
 		/// <summary>

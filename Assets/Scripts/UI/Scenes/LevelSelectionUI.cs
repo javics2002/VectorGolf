@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
@@ -17,7 +16,17 @@ public class LevelSelectionUI : MonoBehaviour
 
 		StartRows(root);
 		StartProgress(root);
-		root.Q<Button>("button-back").clicked += () => GameScene.LoadScene(GameScene.Id.MainMenu);
+		root.Q<Button>("button-back").clicked += OnButtonBack;
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape)) OnButtonBack();
+	}
+
+	private void OnButtonBack()
+	{
+		GameScene.LoadScene(GameScene.Id.MainMenu);
 	}
 
 	private static void StartProgress(VisualElement root)

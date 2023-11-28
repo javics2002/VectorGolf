@@ -25,6 +25,14 @@ public class UIGame : MonoBehaviour
 		SceneManager.sceneUnloaded -= OnSceneUnloaded;
 	}
 
+	private void Update()
+	{
+		if (_buttonExit.enabledSelf && Input.GetKeyDown(KeyCode.Escape))
+		{
+			OnButtonSettings();
+		}
+	}
+
 	private void OnSceneUnloaded(Scene scene)
 	{
 		EnableUI(scene.buildIndex == (int)GameScene.Id.Settings);

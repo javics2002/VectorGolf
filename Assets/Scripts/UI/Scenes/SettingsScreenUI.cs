@@ -1,5 +1,4 @@
-﻿using System;
-using UI.Elements;
+﻿using UI.Elements;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -43,15 +42,34 @@ public class SettingsScreenUI : MonoBehaviour
 		Time.timeScale = 1f;
 	}
 
-    private void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.Escape))
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape)) OnKeyDownCancel();
+		else if (Input.GetKeyDown(KeyCode.Return)) OnKeyDownSubmit();
+	}
+
+	private void OnKeyDownCancel()
+	{
+		if (_deleteProgressBackdrop.Enabled)
+		{
+			_deleteProgressBackdrop.Enabled = false;
+			OnDeleteProgressCancel();
+		}
+		else
 		{
 			OnBackAndSave();
 		}
-    }
+	}
 
-    private void SetUpVolumeSliders(VisualElement root)
+	private void OnKeyDownSubmit()
+	{
+		if (_deleteProgressBackdrop.Enabled)
+		{
+			OnDeleteProgressConfirm();
+		}
+	}
+
+	private void SetUpVolumeSliders(VisualElement root)
 	{
 		var musicVolume = root.Q<Slider>("volume-music");
 		musicVolume.value = _musicVolume;

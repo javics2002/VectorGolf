@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
 
         LoadManager = gameObject.AddComponent<LoadManager>();
 		LoadManager.Load();
-    }
+	}
 
     public void Save()
     {

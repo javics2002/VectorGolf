@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.Port;
 
 public class CursorAnimation : MonoBehaviour
 {
@@ -98,10 +97,10 @@ public class CursorAnimation : MonoBehaviour
         // Play animation
         if (!_isDragging)
         {
-            // Calcula el desplazamiento en función del tiempo y la amplitud
+            // Calcula el desplazamiento en funciï¿½n del tiempo y la amplitud
             float offset = amplitude * Mathf.Sin(Time.time * speed);
 
-            // Aplica el desplazamiento en la dirección diagonal
+            // Aplica el desplazamiento en la direcciï¿½n diagonal
             Vector3 offsetVector = direction.normalized * offset;
             transform.position = position + offsetVector;
         }
