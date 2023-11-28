@@ -17,7 +17,7 @@ public class LevelSelectionUI : MonoBehaviour
 
 		StartRows(root);
 		StartProgress(root);
-		root.Q<Button>("button-back").clicked += () => SceneManager.LoadScene("Main Menu");
+		root.Q<Button>("button-back").clicked += () => GameScene.LoadScene(GameScene.Id.MainMenu);
 	}
 
 	private static void StartProgress(VisualElement root)

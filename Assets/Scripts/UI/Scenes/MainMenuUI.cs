@@ -26,13 +26,13 @@ public class MainMenu : MonoBehaviour
 
 	private void OnClickedButtonPlay()
 	{
-		SceneManager.LoadScene("Level Selection");
+		GameScene.LoadScene(GameScene.Id.LevelSelection);
 	}
 
 	private void OnClickedButtonSettings()
 	{
 		_document.rootVisualElement.style.display = DisplayStyle.None;
-		SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+		GameScene.LoadScene(GameScene.Id.Settings, LoadSceneMode.Additive);
 	}
 
 	private void OnClickedButtonExit()
@@ -42,7 +42,7 @@ public class MainMenu : MonoBehaviour
 
 	private void OnSceneUnloaded(Scene unloadedScene)
 	{
-		_document.rootVisualElement.style.display =
-			unloadedScene.name == "Settings" ? DisplayStyle.Flex : DisplayStyle.None;
+		var display = unloadedScene.buildIndex == (int)GameScene.Id.Settings ? DisplayStyle.Flex : DisplayStyle.None;
+		_document.rootVisualElement.style.display = display;
 	}
 }

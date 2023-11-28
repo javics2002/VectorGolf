@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene((int) id);
+        GameScene.LoadScene(id);
 
         left.SetBool(Start, false);
         right.SetBool(Start, false);

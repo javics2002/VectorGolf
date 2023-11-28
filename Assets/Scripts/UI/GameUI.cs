@@ -27,7 +27,7 @@ public class UIGame : MonoBehaviour
 
 	private void OnSceneUnloaded(Scene scene)
 	{
-		EnableUI(scene.name == "Settings");
+		EnableUI(scene.buildIndex == (int)GameScene.Id.Settings);
 	}
 
 	private void EnableUI(bool value)
@@ -49,7 +49,7 @@ public class UIGame : MonoBehaviour
 
 	private void OnButtonSettings()
 	{
-		SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+		GameScene.LoadScene(GameScene.Id.Settings, LoadSceneMode.Additive);
 		EnableUI(false);
 	}
 

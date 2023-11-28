@@ -42,6 +42,6 @@ public class LifeZone : MonoBehaviour
 		if (!scene.isLoaded) return;
 
 		Debug.Log("Player left the visible area! Restarting level...", this);
-		SceneManager.LoadScene(scene.buildIndex);
+		GameManager.Instance.ChangeScene((GameScene.Id)scene.buildIndex);
 	}
 }

@@ -69,6 +69,7 @@ namespace UI.Elements
 		{
 			// Load the stylesheet
 			styleSheets.Add(Resources.Load<StyleSheet>("UI/ConfirmationDialog"));
+			this.AddManipulator(new ClickInterceptor());
 
 			// Add the styles to the elements
 			AddToClassList("confirmation-dialog");

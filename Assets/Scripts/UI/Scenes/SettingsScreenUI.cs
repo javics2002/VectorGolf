@@ -146,7 +146,7 @@ public class SettingsScreenUI : MonoBehaviour
 		gm.ForcesColour = _colourForces.Color;
 
 		gm.LoadManager.Save();
-		SceneManager.UnloadSceneAsync("Settings");
+		SceneManager.UnloadSceneAsync((int)GameScene.Id.Settings);
 	}
 
 	private void OnMusicVolumeChange(ChangeEvent<float> @event)
