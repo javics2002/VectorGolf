@@ -177,7 +177,7 @@ MonoBehaviour:
     forceSmooth: 0
     name: v<sub>P</sub>
     labelSize: 6
-    labelSeparation: 1
+    labelSeparation: 0.4
   accelerationArrowProperties:
     isVisible: 0
     isLabelVisible: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
     forceSmooth: 0
     name: F<sub>P</sub>
     labelSize: 6
-    labelSeparation: 1
+    labelSeparation: 0.4
 --- !u!1 &5911104698774542964
 GameObject:
   m_ObjectHideFlags: 0

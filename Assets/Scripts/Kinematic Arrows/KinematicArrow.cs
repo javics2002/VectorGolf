@@ -152,8 +152,14 @@ public abstract class KinematicArrow : MonoBehaviour {
 				labelText.enabled = true;
 
 				if(canDecomposite) {
-					labelText.rectTransform.position = target.position + vector / 2
-					+ Vector3.Cross(vector, Vector3.back).normalized * properties.labelSeparation + properties.priority * Vector3.back * .1f;
+					Bounds labelBounds = labelText.bounds;
+					labelBounds.center = labelText.rectTransform.position;
+					labelBounds.ClosestPoint(target.position);
+					Vector3 offset = labelBounds.center - labelBounds.ClosestPoint(target.position);
+
+					labelText.rectTransform.position = target.position 
+						+ vector + vector.normalized * properties.labelSeparation + offset
+						+ properties.priority * Vector3.back * .1f;
 					labelText.text = (properties.isLabelVisible ? (!properties.name.Equals("") ? properties.name + ": " : "") : "")
 						+ (properties.isValueVisible ? vector.magnitude.ToString("0.#") + " " + unit : "");
 				}
@@ -187,9 +193,16 @@ public abstract class KinematicArrow : MonoBehaviour {
 				if (xComponent.properties.isLabelVisible || xComponent.properties.isValueVisible) {
 					xComponent.labelText.enabled = true;
 
-					xComponent.labelText.rectTransform.position = xComponent.target.position + x / 2
-						+ Vector3.Cross(x, Vector3.back).normalized * xComponent.properties.labelSeparation + xComponent.properties.priority * Vector3.back * .1f;
-					xComponent.labelText.text = (xComponent.properties.isLabelVisible ? (!xComponent.properties.name.Equals("") ? xComponent.properties.name + ": " : "") : "")
+					Bounds bounds = xComponent.labelText.bounds;
+					bounds.center = xComponent.labelText.rectTransform.position;
+					bounds.ClosestPoint(target.position);
+					Vector3 xOffset = bounds.center - bounds.ClosestPoint(xComponent.target.position);
+
+					xComponent.labelText.rectTransform.position = xComponent.target.position 
+						+ x + x.normalized * xComponent.properties.labelSeparation + xOffset
+						+ xComponent.properties.priority * Vector3.back * .1f;
+					xComponent.labelText.text = (xComponent.properties.isLabelVisible ? 
+						(!xComponent.properties.name.Equals("") ? xComponent.properties.name + ": " : "") : "")
 							+ (xComponent.properties.isValueVisible ? x.magnitude.ToString("0.#") + " " + unit : "");
 				}
 				else
@@ -198,43 +211,47 @@ public abstract class KinematicArrow : MonoBehaviour {
 				if (yComponent.properties.isLabelVisible || yComponent.properties.isValueVisible) {
 					yComponent.labelText.enabled = true;
 
-					yComponent.labelText.rectTransform.position = yComponent.target.position + y / 2
-						+ Vector3.Cross(y, Vector3.back).normalized * yComponent.properties.labelSeparation + yComponent.properties.priority * Vector3.back * .1f;
-					yComponent.labelText.text = (yComponent.properties.isLabelVisible ? (!yComponent.properties.name.Equals("") ? yComponent.properties.name + ": " : "") : "")
+					Bounds bounds = yComponent.labelText.bounds;
+					bounds.center = yComponent.labelText.rectTransform.position;
+					bounds.ClosestPoint(target.position);
+					Vector3 yOffset = bounds.center - bounds.ClosestPoint(yComponent.target.position);
+
+					yComponent.labelText.rectTransform.position = yComponent.target.position 
+						+ y + y.normalized* yComponent.properties.labelSeparation + yOffset
+						+ yComponent.properties.priority * Vector3.back * .1f;
+					yComponent.labelText.text = (yComponent.properties.isLabelVisible ? 
+						(!yComponent.properties.name.Equals("") ? yComponent.properties.name + ": " : "") : "")
 							+ (yComponent.properties.isValueVisible ? y.magnitude.ToString("0.#") + " " + unit : "");
 				}
 				else
 					yComponent.labelText.enabled = false;
 
-				Bounds labelBounds = labelText.textBounds;
-				labelBounds.center = labelText.rectTransform.position;
-				Bounds xBounds = xComponent.labelText.textBounds;
-				xBounds.center = xComponent.labelText.rectTransform.position;
-				Bounds yBounds = yComponent.labelText.textBounds;
-				yBounds.center = yComponent.labelText.rectTransform.position;
+				//Evitar superposicion con los componentes x e y
+				//Bounds labelBounds = labelText.textBounds;
+				//labelBounds.center = labelText.rectTransform.position;
+				//Bounds xBounds = xComponent.labelText.textBounds;
+				//xBounds.center = xComponent.labelText.rectTransform.position;
+				//Bounds yBounds = yComponent.labelText.textBounds;
+				//yBounds.center = yComponent.labelText.rectTransform.position;
 
-				//Debug.Log(xComponent.labelText.rectTransform.position - labelText.rectTransform.position);
+				//int intentos = 10000;
+				//while(xBounds.Intersects(labelBounds) && intentos > 0){
+				//	xBounds.center = xComponent.labelText.rectTransform.position = xComponent.labelText.rectTransform.position
+				//		+ (xComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
+				//	intentos--;
+				//}
 
-				int intentos = 10000;
-				while(xBounds.Intersects(labelBounds) && intentos>0){
-					xBounds.center = xComponent.labelText.rectTransform.position = xComponent.labelText.rectTransform.position
-						+ (xComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
-					intentos--;
-				}
+				//while (yBounds.Intersects(labelBounds) && intentos > 0) {
+				//	yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
+				//		+ (yComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
+				//	intentos--;
+				//}
 
-				while (yBounds.Intersects(labelBounds) && intentos > 0) {
-					yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
-						+ (yComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
-					intentos--;
-				}
-
-				while (yBounds.Intersects(xBounds) && intentos > 0) {
-					yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
-						+ (yComponent.labelText.rectTransform.position - xComponent.labelText.rectTransform.position).normalized * .1f;
-					intentos--;
-				}
-
-				Debug.Log((intentos != 10000) + " " + (intentos == 0));
+				//while (yBounds.Intersects(xBounds) && intentos > 0) {
+				//	yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
+				//		+ (yComponent.labelText.rectTransform.position - xComponent.labelText.rectTransform.position).normalized * .1f;
+				//	intentos--;
+				//}
 			}
 
 			vector.Normalize();
@@ -316,35 +333,6 @@ public abstract class KinematicArrow : MonoBehaviour {
 		meshFilter.mesh = mesh;
 		meshRenderer.material.color = properties.color;
 	}
-
-	private void PositionLabelTextToAvoidOverlap(RectTransform label, RectTransform labelX, RectTransform labelY) {
-		MoveLabelToAvoidOverlap(labelX, label);
-		MoveLabelToAvoidOverlap(label, labelX);
-		MoveLabelToAvoidOverlap(labelY, label);
-	}
-
-	private void MoveLabelToAvoidOverlap(RectTransform labelToMove, RectTransform referenceLabel) {
-		Vector3 labelToMovePosition = labelToMove.position;
-		Vector3 referenceLabelPosition = referenceLabel.position;
-
-		Vector3 moveDirection = labelToMovePosition - referenceLabelPosition;
-		Vector3 labelToMoveExtents = GetRectTransformExtents(labelToMove);
-
-		float distanceToMove = CalculateDistanceToAvoidOverlap(labelToMoveExtents, moveDirection);
-
-		labelToMove.position += moveDirection.normalized * distanceToMove;
-	}
-
-	private float CalculateDistanceToAvoidOverlap(Vector3 extents, Vector3 moveDirection) {
-		float extentAlongMoveDirection = Vector3.Dot(extents, moveDirection.normalized);
-		return Mathf.Max(0f, extentAlongMoveDirection);
-	}
-
-	private Vector3 GetRectTransformExtents(RectTransform rectTransform) {
-		Vector2 size = rectTransform.rect.size * 0.5f;
-		return new Vector3(size.x, size.y, 0f);
-	}
-
 
 	public bool IsLongEnoughToDraw(Vector3 vector) {
 		return vector.magnitude - properties.tipLength >= 0;
