@@ -43,7 +43,15 @@ public class SettingsScreenUI : MonoBehaviour
 		Time.timeScale = 1f;
 	}
 
-	private void SetUpVolumeSliders(VisualElement root)
+    private void Update()
+    {
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			OnBackAndSave();
+		}
+    }
+
+    private void SetUpVolumeSliders(VisualElement root)
 	{
 		var musicVolume = root.Q<Slider>("volume-music");
 		musicVolume.value = _musicVolume;
