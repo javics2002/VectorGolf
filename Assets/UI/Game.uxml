@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Game.uss?fileID=7433441132597879392&amp;guid=f6baab18f36c2b04dbff09fb389d4c7a&amp;type=3#Game" />
-    <Style src="project://database/Assets/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
+    <Style src="project://database/Assets/Resources/UI/Game.uss?fileID=7433441132597879392&amp;guid=f6baab18f36c2b04dbff09fb389d4c7a&amp;type=3#Game" />
+    <Style src="project://database/Assets/Resources/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
     <ui:GroupBox name="buttons" style="flex-direction: row; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-top: 4px; margin-right: 0; margin-bottom: 0; align-self: flex-start;">
         <ui:Button name="button-exit" tooltip="Exit to main menu" class="button danger animate-scale">
             <ui:VisualElement name="exit" class="button-icon BUTTON-ICON-EXIT" />

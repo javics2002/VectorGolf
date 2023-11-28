@@ -1,0 +1,36 @@
+﻿.confirmation-dialog {
+    position: absolute;
+    max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.98);
+    border-radius: 10px;
+    padding: 10px;
+    align-self: center;
+    top: 50%;
+    left: 50%;
+    translate: -50%;
+}
+
+.confirmation-dialog:disabled {
+    display: none;
+}
+
+.confirmation-dialog .title {
+    -unity-text-align: initial;
+}
+
+.dialog-text {
+    color: rgb(233, 233, 233);
+    white-space: normal;
+}
+
+.dialog-buttons {
+    margin: 20px 0 4px 0;
+    padding: 0;
+    align-self: flex-end;
+    flex-direction: row;
+}
+
+.dialog-buttons .button {
+    flex: 1 0 auto;
+    min-width: 20%;
+}

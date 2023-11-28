@@ -1,11 +1,12 @@
 ﻿using System;
+using UI.Elements;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
-public class SettingsScreen : MonoBehaviour
+public class SettingsScreenUI : MonoBehaviour
 {
 	[Header("Audio")]
 	public AudioMixer Mixer;
@@ -17,14 +18,11 @@ public class SettingsScreen : MonoBehaviour
 	private UIColor255 _colourSpeed;
 	private UIColor255 _colourForces;
 
+	private Backdrop _deleteProgressBackdrop;
+
 	private void Start()
 	{
 		var root = GetComponent<UIDocument>().rootVisualElement;
-		if (root is null)
-		{
-			throw new NullReferenceException(nameof(root));
-		}
-
 		var gm = GameManager.Instance;
 		_musicVolume = gm.MusicVolume;
 		_soundVolume = gm.SoundVolume;
@@ -35,11 +33,13 @@ public class SettingsScreen : MonoBehaviour
 		SetUpVolumeSliders(root);
 		SetUpColours(root);
 		SetUpButtons(root);
+		SetUpModal(root);
 
 		Time.timeScale = 0f;
 	}
 
-	private void OnDestroy() {
+	private void OnDestroy()
+	{
 		Time.timeScale = 1f;
 	}
 
@@ -93,6 +93,26 @@ public class SettingsScreen : MonoBehaviour
 
 	private void OnDeleteProgress()
 	{
+		_deleteProgressBackdrop.Enabled = true;
+	}
+
+	private void SetUpModal(VisualElement root)
+	{
+		_deleteProgressBackdrop = root.Q<Backdrop>("delete-progress-backdrop");
+		_deleteProgressBackdrop.OnClick += OnDeleteProgressCancel;
+
+		var dialog = _deleteProgressBackdrop.Q<ConfirmationDialog>("dialog");
+		dialog.OnConfirm += OnDeleteProgressConfirm;
+		dialog.OnCancel += OnDeleteProgressCancel;
+	}
+
+	private void OnDeleteProgressCancel()
+	{
+		_deleteProgressBackdrop.Enabled = false;
+	}
+
+	private void OnDeleteProgressConfirm()
+	{
 		var progress = GameManager.Instance.progress;
 		for (var i = 0; i < GameManager.NumberOfLevels; i++)
 		{
@@ -100,6 +120,8 @@ public class SettingsScreen : MonoBehaviour
 				? GameManager.LevelCompletionStatus.Uncompleted
 				: GameManager.LevelCompletionStatus.Locked;
 		}
+
+		_deleteProgressBackdrop.Enabled = false;
 	}
 
 #if UNITY_EDITOR

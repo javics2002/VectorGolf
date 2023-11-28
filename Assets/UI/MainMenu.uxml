@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=d88dcdaf5f1f82144938daa5b3fab5d6&amp;type=3#MainMenu" />
-    <Style src="project://database/Assets/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
+    <Style src="project://database/Assets/Resources/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=d88dcdaf5f1f82144938daa5b3fab5d6&amp;type=3#MainMenu" />
+    <Style src="project://database/Assets/Resources/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
     <ui:VisualElement name="container">
         <ui:VisualElement name="logo" style="transform-origin: center; translate: -40px 0; align-self: stretch;">
             <ui:Label tabindex="-1" text="VECTOR&#10;GOLF" name="logo-title" />

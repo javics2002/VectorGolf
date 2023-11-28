@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Settings.uss?fileID=7433441132597879392&amp;guid=8e9998c6f10adc34491d131133dbf8ee&amp;type=3#Settings" />
-    <Style src="project://database/Assets/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
+    <Style src="project://database/Assets/Resources/UI/Settings.uss?fileID=7433441132597879392&amp;guid=8e9998c6f10adc34491d131133dbf8ee&amp;type=3#Settings" />
+    <Style src="project://database/Assets/Resources/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
     <ui:VisualElement name="container" class="container">
         <ui:Label tabindex="-1" text="Settings" display-tooltip-when-elided="true" name="title" class="title" />
         <ui:VisualElement name="volume-divider" class="divider" />
@@ -40,4 +40,7 @@
             <ui:Button tooltip="Go back to main menu" text="Go Back" name="back" class="button-back button animate-scale" />
         </ui:GroupBox>
     </ui:VisualElement>
+    <UI.Elements.Backdrop name="delete-progress-backdrop" enabled="false">
+        <UI.Elements.ConfirmationDialog name="dialog" title="Confirm Progress Reset" message="Are you sure you want to erase your progress? This action is irreversible and you will lose all your saved data." class="foo" />
+    </UI.Elements.Backdrop>
 </ui:UXML>

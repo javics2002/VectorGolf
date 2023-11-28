@@ -1,18 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/WinPanel.uss?fileID=7433441132597879392&amp;guid=5b49d6b975ae7274a86d8c61e31e0fc5&amp;type=3#WinPanel" />
-    <Style src="project://database/Assets/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
+    <Style src="project://database/Assets/Resources/UI/WinPanel.uss?fileID=7433441132597879392&amp;guid=5b49d6b975ae7274a86d8c61e31e0fc5&amp;type=3#WinPanel" />
+    <Style src="project://database/Assets/Resources/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
     <ui:GroupBox name="container" class="container">
         <ui:Label tabindex="-1" text="VICTORIA" display-tooltip-when-elided="true" name="title" class="title" />
         <ui:VisualElement name="divider" class="divider" />
         <ui:GroupBox name="stars" class="stars">
             <ui:VisualElement name="star-1" class="star">
-                <ToggleableVisualElement name="fill" class="star-base" enabled="false" />
+                <UI.Elements.ToggleableVisualElement name="fill" enabled="false" class="star-base" />
             </ui:VisualElement>
             <ui:VisualElement name="star-2" class="star">
-                <ToggleableVisualElement name="fill" class="star-base" enabled="false" />
+                <UI.Elements.ToggleableVisualElement name="fill" enabled="false" class="star-base" />
             </ui:VisualElement>
             <ui:VisualElement name="star-3" class="star">
-                <ToggleableVisualElement name="fill" class="star-base" enabled="false" />
+                <UI.Elements.ToggleableVisualElement name="fill" enabled="false" class="star-base" />
             </ui:VisualElement>
         </ui:GroupBox>
         <ui:Label tabindex="-1" text="¡Te tomó X intentos!" display-tooltip-when-elided="true" name="retries" class="subtitle retries-text" />

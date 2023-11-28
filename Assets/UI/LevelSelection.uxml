@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/LevelSelection.uss?fileID=7433441132597879392&amp;guid=1b5807c93917d9042bf2ed5d9d64f5b0&amp;type=3#LevelSelection" />
-    <Style src="project://database/Assets/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
+    <Style src="project://database/Assets/Resources/UI/LevelSelection.uss?fileID=7433441132597879392&amp;guid=1b5807c93917d9042bf2ed5d9d64f5b0&amp;type=3#LevelSelection" />
+    <Style src="project://database/Assets/Resources/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
     <ui:VisualElement name="header" class="header">
         <ui:Button text="Volver" display-tooltip-when-elided="true" name="button-back" class="button animate-scale" style="margin-bottom: 0; margin-top: 0;" />
         <ui:ProgressBar title="X% completed" name="progress-bar" class="header-progress" />
