@@ -2,11 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioManager))]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     public LoadManager LoadManager { get; private set; }
+    
+    public AudioManager Audio { get; private set; }
     
     /// <summary>
     /// The data for the current level.
@@ -55,11 +58,6 @@ public class GameManager : MonoBehaviour
     public readonly LevelProgress[] progress = new LevelProgress[NumberOfLevels];
 
     [Header("Settings")]
-    [Range(0, 1)]
-    public float MusicVolume;
-    [Range(0, 1)]
-	public float SoundVolume;
-
 	public Color BallColour;
 	public Color SpeedColour;
 	public Color ForcesColour;
@@ -115,6 +113,7 @@ public class GameManager : MonoBehaviour
         mouseOverObject = null;
         firstTimeEnteringLevel = true;
 
+		Audio = gameObject.GetComponent<AudioManager>();
         LoadManager = gameObject.AddComponent<LoadManager>();
 		LoadManager.Load();
 	}

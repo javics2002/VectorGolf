@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Vehicle : InteractableObject
 {
@@ -16,9 +18,24 @@ public class Vehicle : InteractableObject
 	[Tooltip("The force that is applied to the vehicle when a scalar force is applied")]
 	public float ForceSpeedMultiplier = 100f;
 
+	[Header("Audio Settings")]
+	[Range(0f, 1f)]
+	[SerializeField]
+	private float MaximumVolume = 0.3f;
+
+	[SerializeField]
+	[Min(0f)]
+	private float TransitionEngineStart = 1f;
+
+	[SerializeField]
+	[Min(0f)]
+	private float TransitionEnginePitchChange = 1.5f;
+
 	private JointMotor2D _motor;
 	private Rigidbody2D _rb;
-	
+
+	private AudioSource _audioSource;
+
 	/// <inheritdoc />
 	public override ObjectType Type => ObjectType.Vehicle;
 
@@ -31,6 +48,7 @@ public class Vehicle : InteractableObject
 	private void Start()
 	{
 		_rb = GetComponent<Rigidbody2D>();
+		_audioSource = GetComponent<AudioSource>();
 	}
 
 	public void SetScalarForce(float force)
@@ -44,5 +62,31 @@ public class Vehicle : InteractableObject
 		FrontWheel.motor = _motor;
 
 		_rb.AddForce(Vector2.right * force * ForceSpeedMultiplier);
+
+		if (!_audioSource.isPlaying)
+		{
+			StartCoroutine(nameof(LerpEngineVolume));
+			_audioSource.Play();
+		}
+
+		StartCoroutine(LerpEnginePitch(force * 0.2f));
+	}
+
+	private IEnumerator LerpEngineVolume()
+	{
+		foreach (var value in EnumeratorMethods.Lerp(0f, MaximumVolume, TransitionEngineStart))
+		{
+			_audioSource.volume = value;
+			yield return null;
+		}
+	}
+
+	private IEnumerator LerpEnginePitch(float next)
+	{
+		foreach (var value in EnumeratorMethods.Lerp(_audioSource.pitch, next, TransitionEnginePitchChange))
+		{
+			_audioSource.pitch = value;
+			yield return null;
+		}
 	}
 }
