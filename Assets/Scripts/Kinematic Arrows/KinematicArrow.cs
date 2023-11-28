@@ -60,7 +60,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 	protected MeshRenderer meshRenderer;
 	protected MeshFilter meshFilter;
 	protected new Rigidbody2D rigidbody;
-	public TextMeshPro labelText;
+	protected TextMeshPro labelText;
 	protected GameManager gameManager;
 
 	public Vector3 lastFrameVector;
@@ -141,7 +141,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 			Destroy(labelText.gameObject);
 	}
 
-	void Update() {
+	void LateUpdate() {
 		Vector3 vector = GetVector();
 		transform.position = target.position + properties.priority * Vector3.back * .1f;
 
@@ -151,10 +151,12 @@ public abstract class KinematicArrow : MonoBehaviour {
 			if (properties.isLabelVisible || properties.isValueVisible) {
 				labelText.enabled = true;
 
-				labelText.rectTransform.position = target.position + vector / 2
+				if(canDecomposite) {
+					labelText.rectTransform.position = target.position + vector / 2
 					+ Vector3.Cross(vector, Vector3.back).normalized * properties.labelSeparation + properties.priority * Vector3.back * .1f;
-				labelText.text = (properties.isLabelVisible ? (!properties.name.Equals("") ? properties.name + ": " : "") : "")
-					+ (properties.isValueVisible ? vector.magnitude.ToString("0.#") + " " + unit : "");
+					labelText.text = (properties.isLabelVisible ? (!properties.name.Equals("") ? properties.name + ": " : "") : "")
+						+ (properties.isValueVisible ? vector.magnitude.ToString("0.#") + " " + unit : "");
+				}
 			}
 			else
 				labelText.enabled = false;
@@ -177,6 +179,62 @@ public abstract class KinematicArrow : MonoBehaviour {
 
 				yLine.SetPosition(0, target.position + x);
 				yLine.SetPosition(1, target.position + x + y);
+
+				labelText.ForceMeshUpdate();
+				xComponent.labelText.ForceMeshUpdate();
+				yComponent.labelText.ForceMeshUpdate();
+
+				if (xComponent.properties.isLabelVisible || xComponent.properties.isValueVisible) {
+					xComponent.labelText.enabled = true;
+
+					xComponent.labelText.rectTransform.position = xComponent.target.position + x / 2
+						+ Vector3.Cross(x, Vector3.back).normalized * xComponent.properties.labelSeparation + xComponent.properties.priority * Vector3.back * .1f;
+					xComponent.labelText.text = (xComponent.properties.isLabelVisible ? (!xComponent.properties.name.Equals("") ? xComponent.properties.name + ": " : "") : "")
+							+ (xComponent.properties.isValueVisible ? x.magnitude.ToString("0.#") + " " + unit : "");
+				}
+				else
+					xComponent.labelText.enabled = false;
+
+				if (yComponent.properties.isLabelVisible || yComponent.properties.isValueVisible) {
+					yComponent.labelText.enabled = true;
+
+					yComponent.labelText.rectTransform.position = yComponent.target.position + y / 2
+						+ Vector3.Cross(y, Vector3.back).normalized * yComponent.properties.labelSeparation + yComponent.properties.priority * Vector3.back * .1f;
+					yComponent.labelText.text = (yComponent.properties.isLabelVisible ? (!yComponent.properties.name.Equals("") ? yComponent.properties.name + ": " : "") : "")
+							+ (yComponent.properties.isValueVisible ? y.magnitude.ToString("0.#") + " " + unit : "");
+				}
+				else
+					yComponent.labelText.enabled = false;
+
+				Bounds labelBounds = labelText.textBounds;
+				labelBounds.center = labelText.rectTransform.position;
+				Bounds xBounds = xComponent.labelText.textBounds;
+				xBounds.center = xComponent.labelText.rectTransform.position;
+				Bounds yBounds = yComponent.labelText.textBounds;
+				yBounds.center = yComponent.labelText.rectTransform.position;
+
+				//Debug.Log(xComponent.labelText.rectTransform.position - labelText.rectTransform.position);
+
+				int intentos = 10000;
+				while(xBounds.Intersects(labelBounds) && intentos>0){
+					xBounds.center = xComponent.labelText.rectTransform.position = xComponent.labelText.rectTransform.position
+						+ (xComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
+					intentos--;
+				}
+
+				while (yBounds.Intersects(labelBounds) && intentos > 0) {
+					yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
+						+ (yComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
+					intentos--;
+				}
+
+				while (yBounds.Intersects(xBounds) && intentos > 0) {
+					yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
+						+ (yComponent.labelText.rectTransform.position - xComponent.labelText.rectTransform.position).normalized * .1f;
+					intentos--;
+				}
+
+				Debug.Log((intentos != 10000) + " " + (intentos == 0));
 			}
 
 			vector.Normalize();
