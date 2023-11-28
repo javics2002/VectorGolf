@@ -181,13 +181,17 @@ public class SettingsScreenUI : MonoBehaviour
 
 	private void OnDeleteProgressConfirm()
 	{
+		Debug.Log("Se borra el progreso");
+
 		var progress = GameManager.Instance.progress;
 		for (var i = 0; i < GameManager.NumberOfLevels; i++)
 		{
 			progress[i].Status = i == 0
 				? GameManager.LevelCompletionStatus.Uncompleted
 				: GameManager.LevelCompletionStatus.Locked;
-		}
+
+			progress[i].tutorialCardShown = false;
+        }
 
 		_deleteProgressBackdrop.Enabled = false;
 	}

@@ -10,6 +10,9 @@ public class Goal : MonoBehaviour
 	[SerializeField]
 	private SpriteAtlas Atlas;
 
+	[SerializeField]
+	private GameObject _tutorialCard;
+
 	private const string AtlasFlagDefault = "game-flag-default";
 	private const string AtlasFlagRed = "game-flag-red";
 	private const string AtlasFlagGold = "game-flag-gold";
@@ -19,7 +22,11 @@ public class Goal : MonoBehaviour
 	{
 		// Set the sprite to the correct flag sprite from the atlas:
 		GetComponent<SpriteRenderer>().sprite = Atlas.GetSprite(GetGoalSpriteName());
-	}
+
+        // Show tutorial card?
+		if (!GameManager.Instance.progress[GameManager.Instance.Level.CurrentIndex].tutorialCardShown && _tutorialCard != null)
+			_tutorialCard.SetActive(true);
+    }
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
@@ -39,7 +46,11 @@ public class Goal : MonoBehaviour
 		var levelIndex = gm.Level.CurrentIndex;
 
 		// Save the level completion:
-		gm.LoadManager.Save(levelIndex, GetLevelCompletionStatus(stars));
+		GameManager.LevelProgress progress = new GameManager.LevelProgress();
+		progress.Status = GetLevelCompletionStatus(stars);
+		progress.tutorialCardShown = true;
+
+        gm.LoadManager.Save(levelIndex, progress);
 		UnlockNextLevel();
 
 		// Find the GameObject named "WinScreen":
@@ -59,7 +70,10 @@ public class Goal : MonoBehaviour
 		var nextIndex = gm.Level.CurrentIndex + 1;
 		if (gm.progress[nextIndex].Status == GameManager.LevelCompletionStatus.Locked)
 		{
-			gm.LoadManager.Save(nextIndex, GameManager.LevelCompletionStatus.Uncompleted);
+			GameManager.LevelProgress progress = new GameManager.LevelProgress();
+			progress.Status = GameManager.LevelCompletionStatus.Uncompleted;
+            progress.tutorialCardShown = false;
+			gm.LoadManager.Save(nextIndex, progress);
 		}
 	}
 

@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameLevel Level { get; private set; } = GameLevel.Invalid;
 
+    [Header("Tutorial")]
+    public bool firstTimeEnteringLevel;
+
 	[Header("Gameplay State")]
 	public bool isArrowVisible;
 	public bool isDragging;
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     public struct LevelProgress
     {
+        public bool tutorialCardShown { get; set; }
 	    public LevelCompletionStatus Status { get; set; }
     }
 
@@ -109,6 +113,7 @@ public class GameManager : MonoBehaviour
         isArrowVisible = false;
 		draggedObject = null;
         mouseOverObject = null;
+        firstTimeEnteringLevel = true;
 
         LoadManager = gameObject.AddComponent<LoadManager>();
 		LoadManager.Load();
@@ -168,6 +173,12 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(GameScene.Id id)
     {
+        if (id == GameScene.Id.Tutorial)
+        {
+            firstTimeEnteringLevel = false;
+            SaveFirstTimeEnteringLevel();
+        }
+
         StartCoroutine(LoadLevel(id));
     }
 
@@ -193,5 +204,10 @@ public class GameManager : MonoBehaviour
         left.SetBool(End, true);
         right.SetBool(End, true);
         icon.SetBool(End, true);
+    }
+
+    public void SaveFirstTimeEnteringLevel()
+    {
+        LoadManager.SaveFirstTimeEnteringLevel();
     }
 }

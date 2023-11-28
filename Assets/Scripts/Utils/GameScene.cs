@@ -45,6 +45,11 @@ public static class GameScene
 		return (Id)number + 3;
 	}
 
+	public static Id LevelTutorial()
+	{
+		return Id.Tutorial;
+	}
+
 	/// <summary>
 	/// Gets the ID of the current active scene.
 	/// </summary>
