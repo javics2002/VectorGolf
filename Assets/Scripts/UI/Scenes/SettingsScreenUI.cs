@@ -1,4 +1,7 @@
-﻿using UI.Elements;
+﻿using System.Drawing;
+using System.Linq;
+using UI.Elements;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -18,6 +21,10 @@ public class SettingsScreenUI : MonoBehaviour
 	private UIColor255 _colourForces;
 
 	private Backdrop _deleteProgressBackdrop;
+
+	private VisualElement _colourBallVE;
+	private VisualElement _colourSpeedVE;
+	private VisualElement _colourForcesVE;
 
 	private void Start()
 	{
@@ -44,7 +51,11 @@ public class SettingsScreenUI : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape)) OnKeyDownCancel();
+		ClampColors(_colourBallVE);
+		ClampColors(_colourSpeedVE);
+		ClampColors(_colourForcesVE);
+
+        if (Input.GetKeyDown(KeyCode.Escape)) OnKeyDownCancel();
 		else if (Input.GetKeyDown(KeyCode.Return)) OnKeyDownSubmit();
 	}
 
@@ -82,24 +93,33 @@ public class SettingsScreenUI : MonoBehaviour
 
 	private void SetUpColours(VisualElement root)
 	{
-		SetUpColour(_colourBall, root.Q("colour-ball"));
-		SetUpColour(_colourSpeed, root.Q("colour-speed"));
-		SetUpColour(_colourForces, root.Q("colour-forces"));
+		_colourBallVE = root.Q("colour-ball");
+        SetUpColour(_colourBall, _colourBallVE);
+
+		_colourSpeedVE = root.Q("colour-speed");
+        SetUpColour(_colourSpeed, _colourSpeedVE);
+
+		_colourForcesVE = root.Q("colour-forces");
+        SetUpColour(_colourForces, _colourForcesVE);
 	}
 
 	private void SetUpColour(UIColor255 color, VisualElement root)
 	{
 		var red = root.Q<IntegerField>("red");
-		red.value = color.Red;
-		red.RegisterValueChangedCallback(@event => color.Red = @event.newValue);
+        red.value = color.Red;
+        red.maxLength = 3;
 
-		var green = root.Q<IntegerField>("green");
-		green.value = color.Green;
-		green.RegisterValueChangedCallback(@event => color.Green = @event.newValue);
+        red.RegisterValueChangedCallback(@event => color.Red = @event.newValue);
+
+        var green = root.Q<IntegerField>("green");
+        green.value = color.Green;
+        green.maxLength = 3;
+        green.RegisterValueChangedCallback(@event => color.Green = @event.newValue);
 
 		var blue = root.Q<IntegerField>("blue");
-		blue.value = color.Blue;
-		blue.RegisterValueChangedCallback(@event => color.Blue = @event.newValue);
+        blue.value = color.Blue;
+        blue.maxLength = 3;
+        blue.RegisterValueChangedCallback(@event => color.Blue = @event.newValue);
 
 		color.Element = root.Q<VisualElement>("preview");
 	}
@@ -117,7 +137,29 @@ public class SettingsScreenUI : MonoBehaviour
 #endif
 	}
 
-	private void OnDeleteProgress()
+    private void ClampColors(VisualElement root)
+    {
+        var red = root.Q<IntegerField>("red");
+        var blue = root.Q<IntegerField>("blue");
+        var green = root.Q<IntegerField>("green");
+
+        if (red.value > 255)
+            red.value = 255;
+        else if (red.value < 0)
+            red.value = 0;
+
+        if (green.value > 255)
+            green.value = 255;
+        else if (green.value < 0)
+            green.value = 0;
+
+        if (blue.value > 255)
+            blue.value = 255;
+        else if (blue.value < 0)
+            blue.value = 0;
+    }
+
+    private void OnDeleteProgress()
 	{
 		_deleteProgressBackdrop.Enabled = true;
 	}
