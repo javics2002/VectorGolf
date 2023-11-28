@@ -16,7 +16,7 @@ MonoBehaviour:
   - "Bienvenido a Vector Golf! En este juego aprender\xE1s todo sobre los vectores
     y sobre las leyes de la f\xEDsica."
   - "El primer elemento del juego que has de entender es la pelota. Para moverse
-    has de darle una direcci\xF3n y una fuerza, una _magnitud vectorial_"
+    has de darle una direcci\xF3n y una fuerza, una magnitud vectorial."
   - "Este elemento es la bandera. el objetivo de todos los niveles ser\xE1 meter
     la pelota en el agujero de la bandera."
   - "Este es el men\xFA de magnitudes. Aqu\xED encontrar\xE1s tanto magnitudes escalares
@@ -28,5 +28,7 @@ MonoBehaviour:
   - "De esta forma, la pelota se movera hacia la direccion que indique la flecha.
     Ten en cuenta que en la mayor\xEDa de niveles existe la gravedad y las flechas
     de previsualizaci\xF3n no la tienen en cuenta!"
-  - 'Espero que disfrutes de la experiencia y el aprendizaje con Vector Golf! '
-  textSpeed: 0.05
+  - En este caso, la pelota se mueve hacia abajo.
+  - 'Bien! Hemos conseguido meter la pelota en el hoyo! Eso ha sido todo, espero
+    que disfrutes de la experiencia y el aprendizaje con Vector Golf! '
+  textSpeed: 0.02

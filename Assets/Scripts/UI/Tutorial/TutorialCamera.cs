@@ -8,6 +8,9 @@ public class TutorialCamera : MonoBehaviour
     [SerializeField]
     private Camera _mainCamera;
 
+    [SerializeField]
+    private DialogueBox _dialogueBox;
+
     private int _index;
     private Vector3 _initialCameraPosition;
     private float _initialCameraSize;
@@ -39,17 +42,21 @@ public class TutorialCamera : MonoBehaviour
                 cameraSize = 3f;
                 break;
             case 3: // FOCUSED ON CANVAS
-                newPosition = new Vector3(25, 8.2f, -10);
-                cameraSize = 3.5f;
+                newPosition = new Vector3(25, 7f, -10);
+                cameraSize = 5f;
                 break;
             case 4: // START DRAGGING
             case 5:
                 newPosition = new Vector3(20, 7, -10);
                 cameraSize = 4.5f;
                 break;
-            case 6:
+            case 6: // FOCUS ON BALL
                 newPosition = new Vector3(14.5f, 4.5f, -10);
                 cameraSize = 4.8f;
+                break;
+            case 7: // HIT
+                newPosition = new Vector3(14.5f, 1.5f, -10);
+                cameraSize = 4.5f;
                 break;
         }
 
@@ -58,8 +65,16 @@ public class TutorialCamera : MonoBehaviour
 
     public void ChangeCameraFocusPositionAndSize(Vector3 newPosition, float newSize)
     {
-        _mainCamera.orthographicSize = Mathf.Lerp(_mainCamera.orthographicSize, newSize, Time.deltaTime);
-        _mainCamera.transform.position = Vector3.Lerp(_mainCamera.transform.position, newPosition, Time.deltaTime);
+        if (_dialogueBox._textCompleted)
+        {
+            _mainCamera.orthographicSize = Mathf.Lerp(_mainCamera.orthographicSize, newSize, Time.deltaTime * _speed);
+            _mainCamera.transform.position = Vector3.Lerp(_mainCamera.transform.position, newPosition, Time.deltaTime * _speed);
+        }
+        else
+        {
+            _mainCamera.orthographicSize = Mathf.Lerp(_mainCamera.orthographicSize, newSize, Time.deltaTime);
+            _mainCamera.transform.position = Vector3.Lerp(_mainCamera.transform.position, newPosition, Time.deltaTime);
+        }
     }
 
     public void UpdateTutorialCameraPosition()

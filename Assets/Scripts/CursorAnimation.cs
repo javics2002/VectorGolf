@@ -141,8 +141,12 @@ public class CursorAnimation : MonoBehaviour
         {
             StopDragging();
 
-            // SHOW ARROW
+            // SHOW PREVIEW ARROW
             ballTransform.GetComponentInChildren<Ball>().ShowTutorialArrow(scalarTransform.GetComponent<VectorForce>().Force);
+        }
+        else if (_index == 7)
+        {
+            StartCoroutine(ballTransform.GetComponentInChildren<Ball>().Hit(scalarTransform.GetComponent<VectorForce>().Force));
         }
     }
 

@@ -21,8 +21,16 @@ public class DialogueBox : MonoBehaviour
 
     public int dialogueIndex;
 
+    public bool _textCompleted = false;
+
     void Start()
     {
+        // Disable canvas to prevent player from using forces
+        foreach (DraggableItem item in FindObjectsOfType<DraggableItem>())
+        {
+            item.canDrag = false;
+        }
+
         _textComponent.text = "";
         StartDialogue();
     }
@@ -40,6 +48,7 @@ public class DialogueBox : MonoBehaviour
             {
                 StopAllCoroutines();
                 _textComponent.text = _tutorialDialogue.lines[dialogueIndex];
+                _textCompleted = true;
             }
         }   
     }
@@ -71,6 +80,8 @@ public class DialogueBox : MonoBehaviour
             // test
             if (dialogueIndex == 5)
                 _tutorialCursor.StartDragging();
+
+            _textCompleted = false;
 
             StartCoroutine(TypeLine());
         }

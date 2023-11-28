@@ -46,7 +46,7 @@ public class Ball : InteractableObject
         firstVector.canDecomposite = false;
     }
 
-	public IEnumerator Hit(Vector2 force)
+    public IEnumerator Hit(Vector2 force)
 	{
 		Hits++;
 
