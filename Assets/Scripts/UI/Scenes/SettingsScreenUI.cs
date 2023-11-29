@@ -55,7 +55,7 @@ public class SettingsScreenUI : MonoBehaviour
 		ClampColors(_colourSpeedVE);
 		ClampColors(_colourForcesVE);
 
-        if (Input.GetKeyDown(KeyCode.Escape)) OnKeyDownCancel();
+		if (Input.GetKeyDown(KeyCode.Escape)) OnKeyDownCancel();
 		else if (Input.GetKeyDown(KeyCode.Return)) OnKeyDownSubmit();
 	}
 
@@ -76,6 +76,7 @@ public class SettingsScreenUI : MonoBehaviour
 	{
 		if (_deleteProgressBackdrop.Enabled)
 		{
+			_deleteProgressBackdrop.Focus();
 			OnDeleteProgressConfirm();
 		}
 	}
