@@ -1655,7 +1655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5993083973487568878, guid: ac794778abdd18a489834112eee7b18e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5993083973487568878, guid: ac794778abdd18a489834112eee7b18e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1898,10 +1898,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
-      propertyPath: levelData
-      value: 
-      objectReference: {fileID: 11400000, guid: 5b5c44157cf75ce4b9ae180c1a4f2c59, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -168,7 +168,7 @@ MonoBehaviour:
     isVisible: 0
     isLabelVisible: 0
     isValueVisible: 0
-    priority: 2
+    priority: -1
     color: {r: 0, g: 0.6, b: 1, a: 1}
     stemLength: 1
     stemWidth: 0.2
@@ -182,7 +182,7 @@ MonoBehaviour:
     isVisible: 0
     isLabelVisible: 0
     isValueVisible: 0
-    priority: 1
+    priority: -2
     color: {r: 1, g: 0.9490196, b: 0, a: 1}
     stemLength: 1
     stemWidth: 0.2

@@ -1788,7 +1788,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -1797,7 +1797,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 972609911
   m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &2792791518604897104
@@ -2684,7 +2684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6e0aa46b9fb1349b944ea8b9f17c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelData: {fileID: 11400000, guid: 1cafc9f23ce5c584da4e22797ca21d4c, type: 2}
+  levelData: {fileID: 11400000, guid: 5b5c44157cf75ce4b9ae180c1a4f2c59, type: 2}
   ScalarPrefab: {fileID: 4562996286555279454, guid: f235498d087801b499351737091077a5, type: 3}
   VectorPrefab: {fileID: 4513758812377255076, guid: 0cffd93f3bd61d54292dd20f6733a7ac, type: 3}
 --- !u!1 &7091245056383768368
