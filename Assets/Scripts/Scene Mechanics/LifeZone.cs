@@ -15,6 +15,8 @@ public class LifeZone : MonoBehaviour
 	private Vector3 Size { get; set; }
 	private Vector3 Position { get; set; }
 
+	public bool _enabled = true;
+
 	private void Start()
 	{
 		_collider = GetComponent<BoxCollider2D>();
@@ -40,6 +42,8 @@ public class LifeZone : MonoBehaviour
 
 		var scene = SceneManager.GetActiveScene();
 		if (!scene.isLoaded) return;
+
+		if (!_enabled) return;
 
 		Debug.Log("Player left the visible area! Restarting level...", this);
 		GameManager.Instance.ChangeScene((GameScene.Id)scene.buildIndex);
