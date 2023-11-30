@@ -38,7 +38,7 @@ public class UIGame : MonoBehaviour
 		EnableUI(scene.buildIndex == (int)GameScene.Id.Settings);
 	}
 
-	private void EnableUI(bool value)
+	public void EnableUI(bool value)
 	{
 		_buttonExit.SetEnabled(value);
 		_buttonSettings.SetEnabled(value);

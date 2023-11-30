@@ -23,7 +23,7 @@ public class Goal : MonoBehaviour
 		// Set the sprite to the correct flag sprite from the atlas:
 		GetComponent<SpriteRenderer>().sprite = Atlas.GetSprite(GetGoalSpriteName());
 
-        // Show tutorial card?
+        // Show tutorial card
 		if (!GameManager.Instance.progress[GameManager.Instance.Level.CurrentIndex].tutorialCardShown && _tutorialCard != null)
 			_tutorialCard.SetActive(true);
     }
