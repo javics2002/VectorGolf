@@ -2,6 +2,7 @@
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Drone : InteractableObject
 {
@@ -23,12 +24,29 @@ public class Drone : InteractableObject
 
 	[SerializeField]
 	private Vector3 RightCableOffset;
+	
+	[Header("Audio Settings")]
+	[SerializeField]
+	[Range(0f, 3f)]
+	[Tooltip("The maximum pitch for the drone")]
+	private float MaximumPitch = 2f;
+
+	[SerializeField]
+	[Range(0f, 3f)]
+	[Tooltip("The minimum pitch for the drone")]
+	private float MinimumPitch = 0.5f;
+
+	[SerializeField]
+	[Range(0f, 3f)]
+	[Tooltip("The multiplier for the pitch based on the speed of the drone")]
+	private float PitchStepMultiplier = 0.1f;
 
 	private static readonly Vector3 OriginCableLeft = new(-1.5f, -0.5f, 0f);
 	private static readonly Vector3 OriginCableRight = new(1.5f, -0.5f, 0f);
 
 	private SnapArrow _arrow;
 	private Rigidbody2D _rb;
+	private AudioSource _audioSource;
 
 	/// <inheritdoc />
 	public override ObjectType Type => ObjectType.Drone;
@@ -36,7 +54,7 @@ public class Drone : InteractableObject
 	private void Start()
 	{
 		_rb = GetComponent<Rigidbody2D>();
-		Assert.IsNotNull(_rb);
+		_audioSource = GetComponent<AudioSource>();
 
 		_arrow = GetComponentInChildren<SnapArrow>();
 		Assert.IsNotNull(_arrow);
@@ -68,5 +86,7 @@ public class Drone : InteractableObject
 	public void SetVectorForce(Vector2 vector)
 	{
 		_rb.velocity = vector * Speed;
+		_audioSource.pitch = Mathf.Min(MaximumPitch, MinimumPitch + vector.magnitude * PitchStepMultiplier);
+		Debug.Log(_audioSource.pitch, this);
 	}
 }

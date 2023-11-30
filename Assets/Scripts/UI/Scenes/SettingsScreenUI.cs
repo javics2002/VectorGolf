@@ -13,9 +13,6 @@ public class SettingsScreenUI : MonoBehaviour
 	[Header("Audio")]
 	public AudioMixer Mixer;
 
-	private float _musicVolume;
-	private float _soundVolume;
-
 	private UIColor255 _colourBall;
 	private UIColor255 _colourSpeed;
 	private UIColor255 _colourForces;
@@ -30,8 +27,6 @@ public class SettingsScreenUI : MonoBehaviour
 	{
 		var root = GetComponent<UIDocument>().rootVisualElement;
 		var gm = GameManager.Instance;
-		_musicVolume = gm.MusicVolume;
-		_soundVolume = gm.SoundVolume;
 		_colourBall = new UIColor255(gm.BallColour);
 		_colourSpeed = new UIColor255(gm.SpeedColour);
 		_colourForces = new UIColor255(gm.ForcesColour);
@@ -83,12 +78,13 @@ public class SettingsScreenUI : MonoBehaviour
 
 	private void SetUpVolumeSliders(VisualElement root)
 	{
+		var audio = GameManager.Instance.Audio;
 		var musicVolume = root.Q<Slider>("volume-music");
-		musicVolume.value = _musicVolume;
+		musicVolume.value = audio.MusicVolume;
 		musicVolume.RegisterValueChangedCallback(OnMusicVolumeChange);
 
 		var soundVolume = root.Q<Slider>("volume-sound");
-		soundVolume.value = _soundVolume;
+		soundVolume.value = audio.SoundVolume;
 		soundVolume.RegisterValueChangedCallback(OnSoundVolumeChange);
 	}
 
@@ -212,8 +208,6 @@ public class SettingsScreenUI : MonoBehaviour
 	private void OnBackAndSave()
 	{
 		var gm = GameManager.Instance;
-		gm.MusicVolume = _musicVolume;
-		gm.SoundVolume = _soundVolume;
 		gm.BallColour = _colourBall.Color;
 		gm.SpeedColour = _colourSpeed.Color;
 		gm.ForcesColour = _colourForces.Color;
@@ -222,20 +216,13 @@ public class SettingsScreenUI : MonoBehaviour
 		SceneManager.UnloadSceneAsync((int)GameScene.Id.Settings);
 	}
 
-	private void OnMusicVolumeChange(ChangeEvent<float> @event)
+	private void OnMusicVolumeChange(ChangeEvent<float> evt)
 	{
-		_musicVolume = @event.newValue;
-		Mixer.SetFloat("musicVol", LinearVolumeToDecibels(@event.newValue));
+		GameManager.Instance.Audio.MusicVolume = evt.newValue;
 	}
 
-	private void OnSoundVolumeChange(ChangeEvent<float> @event)
+	private void OnSoundVolumeChange(ChangeEvent<float> evt)
 	{
-		_soundVolume = @event.newValue;
-		Mixer.SetFloat("sfxVol", LinearVolumeToDecibels(@event.newValue));
-	}
-
-	private static float LinearVolumeToDecibels(float linearVolume)
-	{
-		return 20 * Mathf.Log10(linearVolume);
+		GameManager.Instance.Audio.SoundVolume = evt.newValue;
 	}
 }
