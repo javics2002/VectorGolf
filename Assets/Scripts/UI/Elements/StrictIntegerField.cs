@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Elements
@@ -17,6 +18,26 @@ namespace UI.Elements
 		/// The maximum value that this field can hold.
 		/// </summary>
 		public int Maximum { get; set; }
+
+		public StrictIntegerField()
+		{
+			RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
+		}
+
+		private void OnKeyDown(KeyDownEvent evt)
+		{
+			switch (evt.keyCode)
+			{
+				case KeyCode.UpArrow:
+					evt.PreventDefault();
+					value = Math.Min(value + (evt.shiftKey ? 10 : 1), Maximum);
+					break;
+				case KeyCode.DownArrow:
+					evt.PreventDefault();
+					value = Math.Max(value - (evt.shiftKey ? 10 : 1), Minimum);
+					break;
+			}
+		}
 
 		/// <summary>
 		/// Converts a string to an integer and clamps it between the minimum and maximum values.
