@@ -32,8 +32,8 @@ public class LoadManager : MonoBehaviour
             progress[level].tutorialCardShown = PlayerPrefs.GetInt(MakeLevelTutorialShownKey(level), 0) == 1;
         }
 
-		gm.SoundVolume = PlayerPrefs.GetFloat(VolumeSoundKey, 1f);
-		gm.MusicVolume = PlayerPrefs.GetFloat(VolumeMusicKey, 1f);
+		gm.Audio.MusicVolume = PlayerPrefs.GetFloat(VolumeMusicKey, 1f);
+		gm.Audio.SoundVolume = PlayerPrefs.GetFloat(VolumeSoundKey, 1f);
 
 		gm.BallColour = GetColour(ColourBallKey, gm.BallColour);
 		gm.SpeedColour = GetColour(ColourSpeedKey, gm.SpeedColour);
@@ -51,8 +51,8 @@ public class LoadManager : MonoBehaviour
 			SaveLevelProgress(level, progress[level]);
 		}
 
-		PlayerPrefs.SetFloat(VolumeSoundKey, gm.SoundVolume);
-		PlayerPrefs.SetFloat(VolumeMusicKey, gm.MusicVolume);
+		PlayerPrefs.SetFloat(VolumeSoundKey, gm.Audio.SoundVolume);
+		PlayerPrefs.SetFloat(VolumeMusicKey, gm.Audio.MusicVolume);
 
 		SetColour(ColourBallKey, gm.BallColour);
 		SetColour(ColourSpeedKey, gm.SpeedColour);

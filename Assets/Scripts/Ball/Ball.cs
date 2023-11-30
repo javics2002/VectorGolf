@@ -2,6 +2,7 @@ using System.Collections;
 
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Ball : InteractableObject
 {
 	public int Hits { get; private set; } = 0;
@@ -24,16 +25,15 @@ public class Ball : InteractableObject
 	public VelocityArrow velocityArrow { get; set; }
 	InterfaceArrow firstVector, secondVector, resultVector;
 
-	new Rigidbody2D rigidbody;
-	GameManager gameManager;
+	private Rigidbody2D _rb;
+	private AudioSource _audioSource;
 	
 	/// <inheritdoc />
 	public override ObjectType Type => ObjectType.Ball;
 
 	private void Start() {
-		rigidbody = GetComponentInParent<Rigidbody2D>();
-
-		gameManager = GameManager.Instance;
+		_rb = GetComponentInParent<Rigidbody2D>();
+		_audioSource = GetComponent<AudioSource>();
 	}
 
 	public void ShowTutorialArrow(Vector2 force)
@@ -50,18 +50,21 @@ public class Ball : InteractableObject
 	{
 		Hits++;
 
-		if(gameManager.seeAnimations)
-			yield return AddVectorsAnimation(force, rigidbody.transform,
+		if(GameManager.Instance.seeAnimations)
+			yield return AddVectorsAnimation(force, _rb.transform,
 				EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction));
 
-		rigidbody.AddForce(force, ForceMode2D.Impulse);
+		_audioSource.Play();
+		_rb.AddForce(force, ForceMode2D.Impulse);
 	}
 
-	public IEnumerator Hit(Vector2 force, InterfaceArrow secondArrow) {
+	public IEnumerator Hit(Vector2 force, InterfaceArrow secondArrow)
+	{
 		Hits++;
 
-		if (!gameManager.seeAnimations) {
-			rigidbody.AddForce(force, ForceMode2D.Impulse);
+		if (!GameManager.Instance.seeAnimations) {
+			_audioSource.Play();
+			_rb.AddForce(force, ForceMode2D.Impulse);
 			yield break;
 		}
 
@@ -70,7 +73,8 @@ public class Ball : InteractableObject
 		yield return AddVectorsAnimation(force, secondArrow.transform,
 			EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction));
 
-		rigidbody.AddForce(force, ForceMode2D.Impulse);
+		_audioSource.Play();
+		_rb.AddForce(force, ForceMode2D.Impulse);
 
 		//TODO usar alpha para volver a verlo
 		secondArrow.properties.isVisible = true;
