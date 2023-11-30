@@ -81,15 +81,15 @@ public class SettingsScreenUI : MonoBehaviour
 
 	private void SetUpColour(UIColor255 color, VisualElement root)
 	{
-		var red = root.Q<StrictIntegerField>("red");
+		var red = root.Q<EnhancedIntegerField>("red");
 		red.value = color.Red;
 		red.RegisterValueChangedCallback(@event => color.Red = @event.newValue);
 
-		var green = root.Q<StrictIntegerField>("green");
+		var green = root.Q<EnhancedIntegerField>("green");
 		green.value = color.Green;
 		green.RegisterValueChangedCallback(@event => color.Green = @event.newValue);
 
-		var blue = root.Q<StrictIntegerField>("blue");
+		var blue = root.Q<EnhancedIntegerField>("blue");
 		blue.value = color.Blue;
 		blue.RegisterValueChangedCallback(@event => color.Blue = @event.newValue);
 

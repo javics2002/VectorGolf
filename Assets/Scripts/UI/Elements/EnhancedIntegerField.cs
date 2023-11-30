@@ -7,7 +7,7 @@ namespace UI.Elements
 	/// <summary>
 	/// A custom IntegerField that enforces a minimum and maximum value.
 	/// </summary>
-	public class StrictIntegerField : IntegerField
+	public class EnhancedIntegerField : IntegerField
 	{
 		/// <summary>
 		/// The minimum value that this field can hold.
@@ -19,11 +19,16 @@ namespace UI.Elements
 		/// </summary>
 		public int Maximum { get; set; }
 
-		public StrictIntegerField()
+		public EnhancedIntegerField()
 		{
 			RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
 		}
 
+		/// <summary>
+		/// Handles the KeyDownEvent. If the up or down arrow keys are pressed, the value is incremented or decremented.
+		/// If the shift key is also pressed, the increment or decrement is by 10 instead of 1.
+		/// </summary>
+		/// <param name="evt">The KeyDownEvent to handle.</param>
 		private void OnKeyDown(KeyDownEvent evt)
 		{
 			switch (evt.keyCode)
@@ -47,14 +52,14 @@ namespace UI.Elements
 		protected override int StringToValue(string str) => Math.Clamp(base.StringToValue(str), Minimum, Maximum);
 
 		/// <summary>
-		/// A UxmlFactory for creating <see cref="StrictIntegerField"/> instances.
+		/// A UxmlFactory for creating <see cref="EnhancedIntegerField"/> instances.
 		/// </summary>
-		public new class UxmlFactory : UxmlFactory<StrictIntegerField, UxmlTraits>
+		public new class UxmlFactory : UxmlFactory<EnhancedIntegerField, UxmlTraits>
 		{
 		}
 
 		/// <summary>
-		/// A UxmlTraits for adding custom attributes to <see cref="StrictIntegerField"/>.
+		/// A UxmlTraits for adding custom attributes to <see cref="EnhancedIntegerField"/>.
 		/// </summary>
 		public new class UxmlTraits : IntegerField.UxmlTraits
 		{
@@ -65,7 +70,7 @@ namespace UI.Elements
 				{ name = "maximum", defaultValue = int.MaxValue };
 
 			/// <summary>
-			/// Initializes a <see cref="StrictIntegerField"/> from a UXML bag of attributes.
+			/// Initializes a <see cref="EnhancedIntegerField"/> from a UXML bag of attributes.
 			/// </summary>
 			/// <param name="element">The VisualElement to initialize.</param>
 			/// <param name="attributes">The UXML bag of attributes.</param>
@@ -74,7 +79,7 @@ namespace UI.Elements
 			{
 				base.Init(element, attributes, cc);
 
-				if (element is not StrictIntegerField field) return;
+				if (element is not EnhancedIntegerField field) return;
 				field.Minimum = _minimum.GetValueFromBag(attributes, cc);
 				field.Maximum = _maximum.GetValueFromBag(attributes, cc);
 			}
