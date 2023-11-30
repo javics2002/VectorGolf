@@ -71,7 +71,6 @@ public class SettingsScreenUI : MonoBehaviour
 	{
 		if (_deleteProgressBackdrop.Enabled)
 		{
-			_deleteProgressBackdrop.Focus();
 			OnDeleteProgressConfirm();
 		}
 	}
@@ -159,6 +158,7 @@ public class SettingsScreenUI : MonoBehaviour
     private void OnDeleteProgress()
 	{
 		_deleteProgressBackdrop.Enabled = true;
+		_deleteProgressBackdrop.Focus();
 	}
 
 	private void SetUpModal(VisualElement root)
