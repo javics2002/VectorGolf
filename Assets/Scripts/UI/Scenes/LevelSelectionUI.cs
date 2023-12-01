@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Linq;
+using UI.Elements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
 public class LevelSelectionUI : MonoBehaviour
 {
-	[Header("Level Images")]
-	[SerializeField]
-	private Sprite[] LevelImages = new Sprite[GameManager.NumberOfLevels];
+	private GroupBox _buttons;
+	private LevelSelectionGroup _group;
 
 	private void OnEnable()
 	{
 		var root = GetComponent<UIDocument>().rootVisualElement;
 
-		StartRows(root);
 		StartProgress(root);
 		root.Q<Button>("button-back").clicked += OnButtonBack;
+
+		var content = root.Q<VisualElement>("content");
+		StartGroup(content);
+		StartButtons(content);
 	}
 
 	private void Update()
@@ -40,91 +43,37 @@ public class LevelSelectionUI : MonoBehaviour
 		progress.title = $"{percentage:0}% completed";
 	}
 
-	private void StartRows(VisualElement root)
+	private void StartButtons(VisualElement root)
 	{
-		var rows = root.Q<GroupBox>("rows");
-		for (var i = 0; i < GameManager.NumberOfLevels;)
+		_buttons = root.Q<GroupBox>("buttons");
+		for (var i = 0; i < LevelSelectionGroup.GameSceneGroups.Length; i++)
 		{
-			rows.Add(CreateRow(ref i));
+			var group = LevelSelectionGroup.GameSceneGroups[i];
+			var button = (Button)_buttons[i];
+			button.text = group.Name;
+			button.clicked += OnGroupSelection(i);
 		}
 	}
 
-	private GroupBox CreateRow(ref int i)
+	private Action OnGroupSelection(int groupIndex)
 	{
-		var root = new GroupBox { name = $"row-{i / 4}" };
-		root.AddToClassList("level-row");
+		return () => PerformGroupSelection(groupIndex);
+	}
 
-		var gm = GameManager.Instance;
-		for (var max = Math.Min(i + 4, GameManager.NumberOfLevels); i < max; i++)
+	private void PerformGroupSelection(int groupIndex)
+	{
+		_group.Index = LevelSelectionGroup.GameSceneGroups[groupIndex].Id;
+
+		for (var i = 0; i < _buttons.childCount; i++)
 		{
-			root.Add(CreateButton(i + 1, gm.progress[i]));
+			if (i == groupIndex) _buttons[i].RemoveFromClassList("unselected");
+			else _buttons[i].AddToClassList("unselected");
 		}
-
-		return root;
 	}
 
-	private VisualElement CreateButton(int level, GameManager.LevelProgress progress)
+	private void StartGroup(VisualElement root)
 	{
-		var root = CreateButtonRoot(level, progress);
-
-		var thumbnail = new VisualElement
-			{ name = "thumbnail", style = { backgroundImage = LevelImages[level - 1].texture } };
-		thumbnail.AddToClassList("button-icon");
-		thumbnail.AddToClassList("level-thumbnail");
-		root.Add(thumbnail);
-
-		var flagFg = new VisualElement { name = "flag-fg" };
-		flagFg.AddToClassList("level-flag-container");
-		root.Add(flagFg);
-
-		var image = new VisualElement { name = "image" };
-		image.AddToClassList("level-flag-image");
-		flagFg.Add(image);
-
-		var number = new Label { name = "number", text = $"{level}" };
-		number.AddToClassList("level-number");
-		root.Add(number);
-
-		return root;
+		_group = root.Q<LevelSelectionGroup>("group");
+		_group.Index = GameSceneGroup.GroupId.Kinematic;
 	}
-
-	private static Button CreateButtonRoot(int level, GameManager.LevelProgress progress)
-	{
-		var root = new Button { name = $"level-{level}" };
-		root.AddToClassList("level-button");
-		root.AddToClassList("animate-scale");
-
-		switch (progress.Status)
-		{
-			case GameManager.LevelCompletionStatus.Locked:
-				root.SetEnabled(false);
-				return root;
-			case GameManager.LevelCompletionStatus.Uncompleted:
-				break;
-			case GameManager.LevelCompletionStatus.Completed:
-				root.AddToClassList("red");
-				break;
-			case GameManager.LevelCompletionStatus.Par:
-				root.AddToClassList("gold");
-				break;
-			case GameManager.LevelCompletionStatus.HoleInOne:
-				root.AddToClassList("platinum");
-				break;
-			default:
-				throw new ArgumentOutOfRangeException();
-		}
-
-		root.clicked += OnLevelSelected(level);
-		return root;
-	}
-
-	private static Action OnLevelSelected(int level)
-	{
-		if (GameManager.Instance.firstTimeEnteringLevel)
-		{
-            return () => GameManager.Instance.ChangeScene(GameScene.LevelTutorial());
-        }
-
-        return () => GameManager.Instance.ChangeScene(GameScene.Level(level));
-    }
 }

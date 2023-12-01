@@ -1,0 +1,95 @@
+﻿.level-button {
+    flex: 0 1 auto;
+    margin: 12px 0 0 18px;
+    padding: 2px;
+    overflow: visible;
+    border-left-width: 2px;
+    border-right-width: 0;
+    border-top-width: 2px;
+    border-bottom-width: 0;
+    border-color: rgb(23, 51, 51);
+    border-radius: 10px;
+    align-self: stretch;
+    align-items: stretch;
+    height: 100%;
+}
+
+.level-button.red {
+    border-color: rgb(255, 0, 0);
+}
+
+.level-button.gold {
+    border-color: rgb(255, 204, 0);
+}
+
+.level-button.platinum {
+    border-color: rgb(229, 228, 226);
+}
+
+.level-button .level-flag-container {
+    display: none;
+}
+
+.level-button.red .level-flag-container {
+    display: initial;
+}
+
+.level-button.gold .level-flag-container {
+    display: initial;
+}
+
+.level-button.platinum .level-flag-container {
+    display: initial;
+}
+
+.level-thumbnail {
+    align-self: center;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.level-button:disabled .level-thumbnail {
+    -unity-background-image-tint-color: rgb(77, 77, 77);
+}
+
+.level-number {
+    margin: 0;
+    padding: 6px;
+    position: absolute;
+    left: -20px;
+    top: -14px;
+    background-color: rgb(219, 219, 219);
+    border-radius: 6px;
+    border-width: 2px;
+    border-color: rgb(41, 41, 41);
+    min-width: 40px;
+}
+
+.level-flag-container {
+    flex-grow: 1;
+    background-color: rgb(41, 41, 41);
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    left: -17px;
+    top: 18px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 2px 4px 4px;
+}
+
+.level-flag-image {
+    flex: 1 0 auto;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.level-button.red .level-flag-image {
+    background-image: url('project://database/Assets/Images/flag-level-red.png?fileID=21300000&guid=c9498d7ce1d6cd548b1a109f1b17e97f&type=3#flag-level-red');
+}
+
+.level-button.gold .level-flag-image {
+    background-image: url('project://database/Assets/Images/flag-level-gold.png?fileID=21300000&guid=e56fc07643f4000449ee65ed1929d695&type=3#flag-level-gold');
+}
+
+.level-button.platinum .level-flag-image {
+    background-image: url('project://database/Assets/Images/flag-level-platinum.png?fileID=21300000&guid=f63ddf494363d324ab46f3f95b421bb9&type=3#flag-level-platinum');
+}

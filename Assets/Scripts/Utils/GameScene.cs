@@ -42,7 +42,23 @@ public static class GameScene
 			throw new ArgumentOutOfRangeException(nameof(number), number, "Level number must be between 1 and 12");
 		}
 
-		return (Id)number + 3;
+		return number + Id.Level1 - 1;
+	}
+
+	/// <summary>
+	/// Returns the level number corresponding to the given ID.
+	/// </summary>
+	/// <param name="number">The ID of the level.</param>
+	/// <returns>The number of the level.</returns>
+	/// <exception cref="ArgumentOutOfRangeException">Thrown when the level ID is not between Level1 and Level12.</exception>
+	public static int Level(Id number)
+	{
+		if (number is < Id.Level1 or > Id.Level12)
+		{
+			throw new ArgumentOutOfRangeException(nameof(number), number, "Level number must be between 1 and 12");
+		}
+
+		return number - Id.Level1 + 1;
 	}
 
 	public static Id LevelTutorial()
