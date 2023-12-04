@@ -192,6 +192,7 @@ MonoBehaviour:
     name: F<sub>P</sub>
     labelSize: 6
     labelSeparation: 0.4
+  arrowMaterial: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
 --- !u!1 &5911104698774542964
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +256,7 @@ MonoBehaviour:
   VectorDirection: 0
   animationTime: 0
   interpolationType: 0
+  arrowMaterial: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
 --- !u!61 &3171165838429480283
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -372,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60b7ca287ecff5469e9ef0f781875b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previewArrowMaterial: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
   secondArrowTime: 1
   resultArrowTime: 1
   pauseAfterSecond: 0.2

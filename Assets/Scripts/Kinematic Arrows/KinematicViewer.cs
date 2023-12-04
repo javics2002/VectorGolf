@@ -18,5 +18,7 @@ public class KinematicViewer : MonoBehaviour
 			transform, velocityArrowProperties, arrowMaterial);
 		KinematicArrow.CreateArrow<GravityArrow>(gameObject.name + " Acceleration Arrow", 
 			transform, accelerationArrowProperties, arrowMaterial);
+		KinematicArrow.CreateArrow<NormalArrow>(gameObject.name + " Acceleration Arrow",
+			transform, accelerationArrowProperties, arrowMaterial);
 	}
 }

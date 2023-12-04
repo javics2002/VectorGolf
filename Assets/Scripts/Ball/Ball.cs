@@ -8,6 +8,9 @@ public class Ball : InteractableObject
 	public int Hits { get; private set; } = 0;
 	public bool Animating { get; private set; } = false;
 
+	[SerializeField]
+	Material previewArrowMaterial;
+
 	[Header("Animation times")]
 	[SerializeField, Range(0f, 1f)]
 	float secondArrowTime;
@@ -39,7 +42,7 @@ public class Ball : InteractableObject
 	public void ShowTutorialArrow(Vector2 force)
 	{
         firstVector = KinematicArrow.CreateArrow<InterfaceArrow>("First Vector",
-                transform, velocityArrow.properties);
+                transform, velocityArrow.properties, previewArrowMaterial);
 
         firstVector.SetInterfaceArrow(force);
         firstVector.properties.isVisible = true;
@@ -89,7 +92,7 @@ public class Ball : InteractableObject
 			velocityArrow.properties.isVisible = false;
 
 			firstVector = KinematicArrow.CreateArrow<InterfaceArrow>("First Vector",
-				transform, velocityArrow.properties);
+				transform, velocityArrow.properties, previewArrowMaterial);
 			firstVector.SetInterfaceArrow(velocityArrow.GetVector());
 			firstVector.properties.isVisible = true;
 			firstVector.canDecomposite = false;
@@ -113,7 +116,7 @@ public class Ball : InteractableObject
 
 	IEnumerator MoveSecondVector(Vector3 force, Transform secondVectorOrigin, EasingFunctions.Interpolation interpolation) {
 		secondVector = KinematicArrow.CreateArrow<InterfaceArrow>("Second Vector",
-				transform, velocityArrow.properties);
+				transform, velocityArrow.properties, previewArrowMaterial);
 		secondVector.SetInterfaceArrow(force);
 		secondVector.properties.isVisible = true;
 		secondVector.target = secondArrowTarget;
@@ -133,7 +136,7 @@ public class Ball : InteractableObject
 
 	IEnumerator GrowResultVector(Vector3 force, EasingFunctions.Interpolation interpolation) {
 		resultVector = KinematicArrow.CreateArrow<InterfaceArrow>("Result Vector",
-				transform, velocityArrow.properties);
+				transform, velocityArrow.properties, previewArrowMaterial);
 		resultVector.properties.isVisible = true;
 		resultVector.canDecomposite = false;
 

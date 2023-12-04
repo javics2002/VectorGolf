@@ -257,8 +257,8 @@ public abstract class KinematicArrow : MonoBehaviour {
 
 		for(int i = 0; i < n; i++) {
 			if (contacts[i].rigidbody.CompareTag("Ground")) {
-				normal = contacts[i].normal;
-
+				if(contacts[i].normalImpulse < 1f)
+					normal = contacts[i].normal;
 				break;
 			}
 		}
