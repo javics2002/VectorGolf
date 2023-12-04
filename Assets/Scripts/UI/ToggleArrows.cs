@@ -39,6 +39,15 @@ public class ToggleArrows : MonoBehaviour
 
 		foreach (AccelerationArrow accelerationArrow in FindObjectsOfType<AccelerationArrow>())
 			accelerationArrow.SetVisible(gameManager.seeForces);
+
+		foreach (GravityArrow gravityArrow in FindObjectsOfType<GravityArrow>())
+			gravityArrow.SetVisible(gameManager.seeForces);
+
+		foreach (NormalArrow normalArrow in FindObjectsOfType<NormalArrow>())
+			normalArrow.SetVisible(gameManager.seeForces);
+
+		foreach (DumpingArrow dumpingArrow in FindObjectsOfType<DumpingArrow>())
+			dumpingArrow.SetVisible(gameManager.seeForces);
 	}
 
 	public void ToggleLabels() {

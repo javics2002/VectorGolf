@@ -3,7 +3,8 @@ using UnityEngine;
 public class KinematicViewer : MonoBehaviour
 {
 	[SerializeField]
-	KinematicArrow.ArrowProperties velocityArrowProperties, accelerationArrowProperties;
+	KinematicArrow.ArrowProperties velocityArrowProperties, accelerationArrowProperties,
+		normalArrowProperties, dumpingArrowProperties;
 
 	[SerializeField]
 	Material arrowMaterial;
@@ -16,9 +17,11 @@ public class KinematicViewer : MonoBehaviour
 		ball.velocityArrow = 
 			KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name + " Velocity Arrow", 
 			transform, velocityArrowProperties, arrowMaterial);
-		KinematicArrow.CreateArrow<GravityArrow>(gameObject.name + " Acceleration Arrow", 
+		KinematicArrow.CreateArrow<GravityArrow>(gameObject.name + " Gravity Arrow", 
 			transform, accelerationArrowProperties, arrowMaterial);
-		KinematicArrow.CreateArrow<NormalArrow>(gameObject.name + " Acceleration Arrow",
-			transform, accelerationArrowProperties, arrowMaterial);
+		KinematicArrow.CreateArrow<NormalArrow>(gameObject.name + " Normal Arrow",
+			transform, normalArrowProperties, arrowMaterial);
+		KinematicArrow.CreateArrow<DumpingArrow>(gameObject.name + " Dumping Arrow",
+			transform, dumpingArrowProperties, arrowMaterial);
 	}
 }
