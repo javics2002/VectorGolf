@@ -5,10 +5,24 @@ using UnityEngine;
 public class ContinueButton : MonoBehaviour
 {
     [SerializeField]
-    private CanvasGroup panel;
+    private CanvasGroup _panel;
+
+    [SerializeField]
+    private UIGame _uiGame;
 
     [SerializeField]
     private float _speed;
+
+    private void Start()
+    {
+        _uiGame = GameObject.Find("Game UI").GetComponent<UIGame>();
+        _uiGame.EnableUI(false);
+        // Disable canvas to prevent player from using forces
+        foreach (DraggableItem item in FindObjectsOfType<DraggableItem>())
+        {
+            item.canDrag = false;
+        }
+    }
 
     public void OnClick()
     {
@@ -17,12 +31,20 @@ public class ContinueButton : MonoBehaviour
 
     private IEnumerator MakePanelInvisible()
     {
-        while (panel.alpha > 0.01)
+        while (_panel.alpha > 0.01)
         {
-            panel.alpha = Mathf.Lerp(panel.alpha, 0, Time.deltaTime * _speed);
+            _panel.alpha = Mathf.Lerp(_panel.alpha, 0, Time.deltaTime * _speed);
             yield return null;
         }
 
-        panel.gameObject.SetActive(false);
+        // Disable canvas to prevent player from using forces
+        foreach (DraggableItem item in FindObjectsOfType<DraggableItem>())
+        {
+            item.canDrag = true;
+        }
+
+        _uiGame.EnableUI(true);
+
+        _panel.gameObject.SetActive(false);
     }
 }

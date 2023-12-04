@@ -5,5 +5,12 @@
         <ui:Button text="Volver" display-tooltip-when-elided="true" name="button-back" class="button animate-scale" style="margin-bottom: 0; margin-top: 0;" />
         <ui:ProgressBar title="X% completed" name="progress-bar" class="header-progress" />
     </ui:VisualElement>
-    <ui:GroupBox name="rows" class="row-container" />
+    <ui:VisualElement name="content" class="selection-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:GroupBox name="buttons" class="button-tap-group" style="flex-direction: row;">
+            <ui:Button text="Cinemática" name="button-0" class="button-tap" />
+            <ui:Button text="Fricción" name="button-1" class="button-tap unselected" />
+            <ui:Button text="Plano Inclinado" name="button-2" class="button-tap unselected" />
+        </ui:GroupBox>
+        <UI.Elements.LevelSelectionGroup group="Kinematic" name="group" />
+    </ui:VisualElement>
 </ui:UXML>

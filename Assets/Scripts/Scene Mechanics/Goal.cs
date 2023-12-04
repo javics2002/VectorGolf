@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.U2D;
@@ -17,15 +18,20 @@ public class Goal : MonoBehaviour
 	private const string AtlasFlagRed = "game-flag-red";
 	private const string AtlasFlagGold = "game-flag-gold";
 	private const string AtlasFlagPlatinum = "game-flag-platinum";
+    private LifeZone _lifeZone;
 
-	private void Start()
+    private void Start()
 	{
 		// Set the sprite to the correct flag sprite from the atlas:
 		GetComponent<SpriteRenderer>().sprite = Atlas.GetSprite(GetGoalSpriteName());
 
-        // Show tutorial card?
+		_tutorialCard = GameObject.Find("Gameplay Canvas").transform.GetChild(2).gameObject;
+
+        // Show tutorial card
 		if (!GameManager.Instance.progress[GameManager.Instance.Level.CurrentIndex].tutorialCardShown && _tutorialCard != null)
 			_tutorialCard.SetActive(true);
+
+		_lifeZone = GameObject.Find("LifeZone").GetComponent<LifeZone>();
     }
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -37,6 +43,9 @@ public class Goal : MonoBehaviour
 
 		var ball = collision.transform.GetComponentInChildren<Ball>();
 		Assert.IsNotNull(ball);
+
+		_lifeZone._enabled = false;
+		_lifeZone.gameObject.SetActive(false);
 
 		var stars = 1;
 		if (ball.Hits <= gm.LevelData.Gold) stars++;

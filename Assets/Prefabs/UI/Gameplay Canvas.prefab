@@ -1132,7 +1132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e77fe8710050d84c914cccded4632d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 4607513969997276102}
+  _panel: {fileID: 4607513969997276102}
+  _uiGame: {fileID: 0}
   _speed: 10
 --- !u!1 &3439706438618256023
 GameObject:

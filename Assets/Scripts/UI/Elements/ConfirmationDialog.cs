@@ -1,4 +1,5 @@
 ﻿using System;
+using UI.Manipulators;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -51,6 +52,7 @@ namespace UI.Elements
 		{
 			// Load the stylesheet
 			styleSheets.Add(Resources.Load<StyleSheet>("UI/ConfirmationDialog"));
+			styleSheets.Add(Resources.Load<StyleSheet>("UI/Shared"));
 			this.AddManipulator(new ClickInterceptor());
 
 			// Add the styles to the elements
@@ -70,11 +72,13 @@ namespace UI.Elements
 
 			var cancelButton = new Button(() => OnCancel?.Invoke()) { name = "cancel-button", text = "Cancel" };
 			cancelButton.AddToClassList("button");
+			cancelButton.AddToClassList("animate-scale");
 			buttons.Add(cancelButton);
 
 			var confirmButton = new Button(() => OnConfirm?.Invoke()) { name = "confirm-button", text = "Confirm" };
 			confirmButton.AddToClassList("button");
 			confirmButton.AddToClassList("danger");
+			confirmButton.AddToClassList("animate-scale");
 			buttons.Add(confirmButton);
 		}
 

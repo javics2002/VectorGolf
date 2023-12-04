@@ -5,30 +5,30 @@
         <ui:Label tabindex="-1" text="Settings" display-tooltip-when-elided="true" name="title" class="title" />
         <ui:VisualElement name="volume-divider" class="divider" />
         <ui:Label tabindex="-1" text="Volume" display-tooltip-when-elided="true" name="volume-subtitle" class="subtitle" />
-        <ui:Slider label="Music" name="volume-music" high-value="1" class="slider" />
-        <ui:Slider label="Sound Effects" name="volume-sound" high-value="1" class="slider" />
+        <UI.Elements.EnhancedSlider label="Music" name="volume-music" high-value="1" class="slider" />
+        <UI.Elements.EnhancedSlider label="Sound Effects" name="volume-sound" high-value="1" class="slider" />
         <ui:VisualElement name="colours-divider" class="divider" />
         <ui:Label tabindex="-1" text="Colours" display-tooltip-when-elided="true" name="colours-subtitle" class="subtitle" />
         <ui:GroupBox name="colour-ball" class="colour-group">
             <ui:Label tabindex="-1" text="Ball" display-tooltip-when-elided="true" name="label" class="colour-label" />
             <ui:VisualElement name="preview" class="colour-preview animate-scale" />
-            <ui:IntegerField name="red" class="colour-input" />
-            <ui:IntegerField name="green" class="colour-input" />
-            <ui:IntegerField name="blue" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="red" minimum="0" maximum="255" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="green" minimum="0" maximum="255" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="blue" minimum="0" maximum="255" class="colour-input" />
         </ui:GroupBox>
         <ui:GroupBox name="colour-speed" class="colour-group" style="flex-shrink: 1; flex-direction: row;">
             <ui:Label tabindex="-1" text="Speed" display-tooltip-when-elided="true" name="label" class="colour-label" />
             <ui:VisualElement name="preview" class="colour-preview animate-scale" />
-            <ui:IntegerField name="red" class="colour-input" />
-            <ui:IntegerField name="green" class="colour-input" />
-            <ui:IntegerField name="blue" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="red" minimum="0" maximum="255" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="green" minimum="0" maximum="255" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="blue" minimum="0" maximum="255" class="colour-input" />
         </ui:GroupBox>
         <ui:GroupBox name="colour-forces" class="colour-group" style="flex-shrink: 1; flex-direction: row;">
             <ui:Label tabindex="-1" text="Forces" display-tooltip-when-elided="true" name="label" class="colour-label" />
             <ui:VisualElement name="preview" class="colour-preview animate-scale" />
-            <ui:IntegerField name="red" class="colour-input" />
-            <ui:IntegerField name="green" class="colour-input" />
-            <ui:IntegerField name="blue" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="red" minimum="0" maximum="255" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="green" minimum="0" maximum="255" class="colour-input" />
+            <UI.Elements.EnhancedIntegerField name="blue" minimum="0" maximum="255" class="colour-input" />
         </ui:GroupBox>
         <ui:GroupBox name="buttons" class="button-list" style="margin-top: auto;">
             <ui:Button tooltip="Erase Progress" name="delete-progress" class="button danger animate-scale">

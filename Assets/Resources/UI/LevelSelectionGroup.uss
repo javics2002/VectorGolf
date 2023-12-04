@@ -1,0 +1,15 @@
+﻿.level-root {
+    align-self: stretch;
+    background-color: rgba(0, 0, 0, 0.70);
+    padding: 20px 20px 30px 20px;
+    border-radius: 0 10px 10px 10px;
+}
+
+.level-row {
+    margin-top: 20px;
+}
+
+.level-row > * {
+    padding-left: 5px;
+    padding-right: 5px;
+}

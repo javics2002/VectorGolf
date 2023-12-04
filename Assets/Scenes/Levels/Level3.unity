@@ -778,6 +778,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3439706438618256023, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3793353350717864389, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -817,6 +821,10 @@ PrefabInstance:
     - target: {fileID: 5005143829840684858, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_Name
       value: Gameplay Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501389275477224089, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: Tutorial - Tercera Ley de Newton
       objectReference: {fileID: 0}
     - target: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_Pivot.x
@@ -954,10 +962,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: "La tercera ley de Newton establece que toda acci\xF3n genera una reacci\xF3n
+        de igual intensidad, pero en sentido opuesto. Es decir, siempre que un objeto
+        ejerza una fuerza sobre otro, este \xFAltimo devolver\xE1 una fuerza de igual
+        magnitud, pero en sentido opuesto al primero."
+      objectReference: {fileID: 0}
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData
       value: 
       objectReference: {fileID: 11400000, guid: 96a566505e2d18944809b5a970ed26cb, type: 2}
+    - target: {fileID: 9037027648678764964, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 219d6d7cea7631a4eb99a8445f12f927, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -33,7 +33,7 @@ public class RenderLevel : MonoBehaviour
 			var camera = GetComponent<Camera>();
 			Assert.IsNotNull(camera);
 
-			SaveRenderTextureToFile(camera.targetTexture, $"Assets/Sprites/Levels/Level {level.Current}");
+			SaveRenderTextureToFile(camera.targetTexture, $"Assets/Resources/Levels/Level {level.Current}");
 		}
 
 		Destroy(gameObject);
