@@ -36,11 +36,12 @@ public abstract class KinematicArrow : MonoBehaviour {
 		}
 	}
 
-	public static ArrowType CreateArrow<ArrowType>(string name, Transform target, ArrowProperties properties)
+	public static ArrowType CreateArrow<ArrowType>(string name, Transform target, ArrowProperties properties, Material material)
 		where ArrowType : KinematicArrow {
 		GameObject arrowGameObject = new GameObject(name);
 		arrowGameObject.layer = LayerMask.NameToLayer("UI");
 		ArrowType arrow = arrowGameObject.AddComponent<ArrowType>();
+		arrowGameObject.GetComponent<MeshRenderer>().material = material;
 
 		arrow.target = target;
 		arrow.properties = properties;
@@ -55,6 +56,9 @@ public abstract class KinematicArrow : MonoBehaviour {
 	public List<Vector3> verticesList;
 	[System.NonSerialized]
 	public List<int> trianglesList;
+
+	protected Vector3 normal;
+	static ContactPoint2D[] contacts = new ContactPoint2D[10];
 
 	protected Mesh mesh;
 	protected MeshRenderer meshRenderer;
@@ -113,6 +117,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 			xComponent.target = target;
 			xComponent.gameObject.layer = LayerMask.NameToLayer("UI");
 			xComponent.properties.name = properties.name + "<sub>x</sub>";
+			xComponent.GetComponent<MeshRenderer>().material = meshRenderer.material;
 
 			yComponent = new GameObject(gameObject.name + " Y component").AddComponent<InterfaceArrow>();
 			yComponent.canDecomposite = false;
@@ -125,6 +130,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 			yComponent.target = target;
 			yComponent.gameObject.layer = LayerMask.NameToLayer("UI");
 			yComponent.properties.name = properties.name + "<sub>y</sub>";
+			yComponent.GetComponent<MeshRenderer>().material = meshRenderer.material;
 
 			xLine = Instantiate(gameManager.linePrefab).GetComponent<LineRenderer>();
 			xLine.startColor = properties.color;
@@ -225,43 +231,12 @@ public abstract class KinematicArrow : MonoBehaviour {
 				}
 				else
 					yComponent.labelText.enabled = false;
-
-				//Evitar superposicion con los componentes x e y
-				//Bounds labelBounds = labelText.textBounds;
-				//labelBounds.center = labelText.rectTransform.position;
-				//Bounds xBounds = xComponent.labelText.textBounds;
-				//xBounds.center = xComponent.labelText.rectTransform.position;
-				//Bounds yBounds = yComponent.labelText.textBounds;
-				//yBounds.center = yComponent.labelText.rectTransform.position;
-
-				//int intentos = 10000;
-				//while(xBounds.Intersects(labelBounds) && intentos > 0){
-				//	xBounds.center = xComponent.labelText.rectTransform.position = xComponent.labelText.rectTransform.position
-				//		+ (xComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
-				//	intentos--;
-				//}
-
-				//while (yBounds.Intersects(labelBounds) && intentos > 0) {
-				//	yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
-				//		+ (yComponent.labelText.rectTransform.position - labelText.rectTransform.position).normalized * .1f;
-				//	intentos--;
-				//}
-
-				//while (yBounds.Intersects(xBounds) && intentos > 0) {
-				//	yBounds.center = yComponent.labelText.rectTransform.position = yComponent.labelText.rectTransform.position
-				//		+ (yComponent.labelText.rectTransform.position - xComponent.labelText.rectTransform.position).normalized * .1f;
-				//	intentos--;
-				//}
 			}
 
 			vector.Normalize();
 
 			if (forceSmooth)
 				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(Smooth(vector)));
-			//else
-			//	transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(SmoothIfSimilar(vector, threshold)));
-
-			//TEMP: no smooth
 			else
 				transform.rotation = Quaternion.Euler(0, 0, ArrowRotation(vector));
 		}
@@ -275,12 +250,18 @@ public abstract class KinematicArrow : MonoBehaviour {
 		}
 	}
 
-	private Vector3 SmoothIfSimilar(Vector3 vector, float threshold) {
-		if ((lastFrameVector - vector).sqrMagnitude < threshold * threshold)
-			return Smooth(vector);
+	private void FixedUpdate() {
+		int n = rigidbody.GetContacts(contacts);
 
-		lastFrameVector = vector;
-		return vector;
+		normal = Vector3.zero;
+
+		for(int i = 0; i < n; i++) {
+			if (contacts[i].rigidbody.CompareTag("Ground")) {
+				normal = contacts[i].normal;
+
+				break;
+			}
+		}
 	}
 
 	private Vector3 Smooth(Vector3 vector) {

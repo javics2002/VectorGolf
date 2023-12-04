@@ -17,6 +17,9 @@ public class SnapArrow : MonoBehaviour
 	[SerializeField]
 	EasingFunctions.InterpolationType interpolationType;
 
+	[SerializeField]
+	Material arrowMaterial;
+
 	public InterfaceArrow interfaceArrow { get; private set; }
 	private Vector2 currentForce, lastForce;
 
@@ -27,6 +30,7 @@ public class SnapArrow : MonoBehaviour
 		interfaceArrow.target = transform.parent;
 		interfaceArrow.gameObject.layer = LayerMask.NameToLayer("UI");
 		interfaceArrow.canDecomposite = false;
+		interfaceArrow.GetComponent<MeshRenderer>().material = arrowMaterial;
 
 		//TODO poner valor inicial de la flecha
 		currentForce = Vector2.zero;
