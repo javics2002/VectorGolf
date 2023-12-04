@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.U2D;
@@ -23,6 +24,8 @@ public class Goal : MonoBehaviour
 	{
 		// Set the sprite to the correct flag sprite from the atlas:
 		GetComponent<SpriteRenderer>().sprite = Atlas.GetSprite(GetGoalSpriteName());
+
+		_tutorialCard = GameObject.Find("Gameplay Canvas").transform.GetChild(2).gameObject;
 
         // Show tutorial card
 		if (!GameManager.Instance.progress[GameManager.Instance.Level.CurrentIndex].tutorialCardShown && _tutorialCard != null)

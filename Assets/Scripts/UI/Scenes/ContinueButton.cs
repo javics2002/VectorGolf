@@ -15,6 +15,7 @@ public class ContinueButton : MonoBehaviour
 
     private void Start()
     {
+        _uiGame = GameObject.Find("Game UI").GetComponent<UIGame>();
         _uiGame.EnableUI(false);
         // Disable canvas to prevent player from using forces
         foreach (DraggableItem item in FindObjectsOfType<DraggableItem>())

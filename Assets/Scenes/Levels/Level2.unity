@@ -2432,6 +2432,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gameplay Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5501389275477224089, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: Tutorial - Segunda Ley de Newton
+      objectReference: {fileID: 0}
     - target: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2568,10 +2572,19 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: "De acuerdo con la segunda ley y en t\xE9rminos modernos, el movimiento
+        de un objeto est\xE1 descrito por su momentum (o momento):"
+      objectReference: {fileID: 0}
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData
       value: 
       objectReference: {fileID: 11400000, guid: 2d9e9f3979b426748aa5007c46e7ab17, type: 2}
+    - target: {fileID: 9037027648678764964, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2d679ee6b98737746ba645f1ce8a1c03, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
