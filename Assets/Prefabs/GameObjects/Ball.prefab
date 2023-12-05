@@ -213,13 +213,13 @@ MonoBehaviour:
     priority: -4
     color: {r: 0.9056604, g: 0.2651916, b: 0.09740115, a: 1}
     stemLength: 1
-    stemWidth: 0.15
-    tipLength: 0.3
-    tipWidth: 0.3
+    stemWidth: 0.1
+    tipLength: 0.2
+    tipWidth: 0.2
     forceSmooth: 0
     name: F<sub>RP</sub>
-    labelSize: 5
-    labelSeparation: 0.4
+    labelSize: 4
+    labelSeparation: 0.2
   arrowMaterial: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
 --- !u!1 &5911104698774542964
 GameObject:

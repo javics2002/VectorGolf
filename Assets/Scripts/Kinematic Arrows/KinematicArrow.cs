@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using TMPro;
+
+using Unity.VisualScripting;
+
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -58,6 +61,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 	public List<int> trianglesList;
 
 	protected Vector3 normal;
+	protected float friction;
 	static ContactPoint2D[] contacts = new ContactPoint2D[10];
 
 	protected Mesh mesh;
@@ -176,12 +180,21 @@ public abstract class KinematicArrow : MonoBehaviour {
 			meshRenderer.enabled = true;
 			
 			if(canDecomposite) {
-				xComponent.properties.isVisible = yComponent.properties.isVisible = 
+				xComponent.properties.isVisible = yComponent.properties.isVisible =
 					xLine.enabled = yLine.enabled =
 					gameManager.vectorDecomposition && !(Mathf.Abs(vector.x) < 1f || Mathf.Abs(vector.y) < 1f);
 
 				Vector3 x = new Vector3(vector.x, 0, 0);
 				Vector3 y = new Vector3(0, vector.y, 0);
+
+				if (normal != Vector3.zero) {
+					x = Vector3.Project(vector, Vector3.Cross(normal, Vector3.back));
+					y = Vector3.Project(vector, normal);
+
+					xComponent.properties.isVisible = yComponent.properties.isVisible =
+						xLine.enabled = yLine.enabled =
+						gameManager.vectorDecomposition && Vector3.Angle(x, vector) > 5f && Vector3.Angle(y, vector) > 5f;
+				}
 
 				xComponent.SetInterfaceArrow(x);
 				yComponent.SetInterfaceArrow(y);
@@ -254,11 +267,15 @@ public abstract class KinematicArrow : MonoBehaviour {
 		int n = rigidbody.GetContacts(contacts);
 
 		normal = Vector3.zero;
+		friction = 0;
 
 		for(int i = 0; i < n; i++) {
 			if (contacts[i].rigidbody.CompareTag("Ground")) {
-				if(contacts[i].normalImpulse < 1f)
+				if(contacts[i].normalImpulse < 1f) {
 					normal = contacts[i].normal;
+					friction = contacts[i].rigidbody.sharedMaterial.friction;
+				}
+
 				break;
 			}
 		}

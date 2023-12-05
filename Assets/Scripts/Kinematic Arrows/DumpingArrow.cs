@@ -15,6 +15,6 @@ public class DumpingArrow : KinematicArrow {
 		if(rigidbody.velocity.sqrMagnitude < 0.1f)
 			return Vector3.zero;
 
-        return Vector3.RotateTowards(rigidbody.drag * normal, - rigidbody.velocity, 3f, 0);
+        return Vector3.RotateTowards(friction * normal, - rigidbody.velocity, 3f, 0);
 	}
 }
