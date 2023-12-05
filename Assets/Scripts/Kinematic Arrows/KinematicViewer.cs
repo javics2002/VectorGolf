@@ -13,9 +13,11 @@ public class KinematicViewer : MonoBehaviour
 
 	private void Awake() {
 		ball = GetComponentInChildren<Ball>();
-
-		ball.velocityArrow = 
-			KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name + " Velocity Arrow", 
+		if (ball) {
+			ball.velocityArrow = KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name + " Velocity Arrow",
+				transform, velocityArrowProperties, arrowMaterial);
+		}
+		KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name + " Velocity Arrow",
 			transform, velocityArrowProperties, arrowMaterial);
 		KinematicArrow.CreateArrow<GravityArrow>(gameObject.name + " Gravity Arrow", 
 			transform, accelerationArrowProperties, arrowMaterial);

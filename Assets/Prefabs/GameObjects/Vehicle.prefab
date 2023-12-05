@@ -274,8 +274,9 @@ MonoBehaviour:
   MotorSpeedMultiplier: -100
   MaximumMotorTorque: 10000
   ForceSpeedMultiplier: 100
-  EngineStartClip: {fileID: 8300000, guid: 3e815f1dc27fc6a40964d7856eea10fd, type: 3}
-  EngineLoopClip: {fileID: 8300000, guid: 30753c614a3844c479bdfa1836b3bba4, type: 3}
+  MaximumVolume: 0.3
+  TransitionEngineStart: 1
+  TransitionEnginePitchChange: 1.5
 --- !u!82 &1501695486688645736
 AudioSource:
   m_ObjectHideFlags: 0
@@ -731,6 +732,7 @@ MonoBehaviour:
   VectorDirection: 3
   animationTime: 0.3
   interpolationType: 18
+  arrowMaterial: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
 --- !u!50 &7616884626452189479
 Rigidbody2D:
   serializedVersion: 4

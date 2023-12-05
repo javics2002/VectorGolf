@@ -57,8 +57,6 @@ public class SnapArrow : MonoBehaviour
 				CreateVectorArrow(vectorForce.Force);
 				draggedObject.GetComponent<CanvasGroup>().alpha = 0f;
 				break;
-			case ObjectType.Spring:
-			case ObjectType.Fan:
 			case ObjectType.Vehicle:
 				var scalarForce = draggedObject.GetComponent<ScalarForce>();
 				if (scalarForce is null) return;
@@ -85,7 +83,7 @@ public class SnapArrow : MonoBehaviour
 		{
 			ObjectType.Ball or ObjectType.Drone
 				=> draggedObject.GetComponent<VectorForce>() is not null,
-			ObjectType.Spring or ObjectType.Fan or ObjectType.Vehicle
+			ObjectType.Vehicle
 				=> draggedObject.GetComponent<ScalarForce>() is not null,
 			_ => throw new ArgumentOutOfRangeException()
 		};

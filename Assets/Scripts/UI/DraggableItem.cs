@@ -80,8 +80,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		var applyForce = interactable.Type switch
 		{
 			ObjectType.Ball => ApplyForce(arrow, (Ball)interactable),
-			ObjectType.Spring => ApplyForce(arrow, (Spring)interactable),
-			ObjectType.Fan => ApplyForce(arrow, (Fan)interactable),
 			ObjectType.Vehicle => ApplyForce(arrow, (Vehicle)interactable),
 			ObjectType.Drone => ApplyForce(arrow, (Drone)interactable),
 			_ => throw new ArgumentOutOfRangeException()
@@ -104,26 +102,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 		// Delete arrow
 		arrow.DeleteArrow();
-		return true;
-	}
-
-	private bool ApplyForce(SnapArrow arrow, Spring spring)
-	{
-		var scalarForce = GetComponent<ScalarForce>();
-		if (scalarForce is null) return false;
-
-		spring.SetSpringForce(scalarForce.Force);
-		arrow.SaveForce();
-		return true;
-	}
-
-	private bool ApplyForce(SnapArrow arrow, Fan fan)
-	{
-		var scalarForce = GetComponent<ScalarForce>();
-		if (scalarForce is null) return false;
-
-		fan.SetFanForce(scalarForce.Force);
-		arrow.SaveForce();
 		return true;
 	}
 

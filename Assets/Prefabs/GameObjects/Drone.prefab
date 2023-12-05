@@ -63,6 +63,7 @@ MonoBehaviour:
   VectorDirection: 0
   animationTime: 0
   interpolationType: 0
+  arrowMaterial: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
 --- !u!61 &4650828765838324415
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -316,6 +317,9 @@ MonoBehaviour:
   CableRight: {fileID: 7161902711224251343}
   LeftCableOffset: {x: -5.15, y: -6.1, z: 0}
   RightCableOffset: {x: 5.15, y: -6.1, z: 0}
+  MaximumPitch: 2
+  MinimumPitch: 0.5
+  PitchStepMultiplier: 0.1
 --- !u!82 &1499648448025668458
 AudioSource:
   m_ObjectHideFlags: 0

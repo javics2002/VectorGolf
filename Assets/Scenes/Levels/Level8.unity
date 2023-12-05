@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 705763578}
   - component: {fileID: 705763577}
   - component: {fileID: 705763576}
+  - component: {fileID: 705763580}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -413,6 +414,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1285899441}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &705763580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705763575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe7975a49631bf41954578cdeead85e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityArrowProperties:
+    isVisible: 1
+    isLabelVisible: 1
+    isValueVisible: 1
+    priority: 4
+    color: {r: 0, g: 0.6, b: 1, a: 1}
+    stemLength: 1
+    stemWidth: 0.2
+    tipLength: 0.5
+    tipWidth: 0.5
+    forceSmooth: 0
+    name: v<sub>C</sub>
+    labelSize: 6
+    labelSeparation: 0.4
+  accelerationArrowProperties:
+    isVisible: 1
+    isLabelVisible: 1
+    isValueVisible: 1
+    priority: 3
+    color: {r: 1, g: 0.9490196, b: 0, a: 1}
+    stemLength: 1
+    stemWidth: 0.2
+    tipLength: 0.5
+    tipWidth: 0.5
+    forceSmooth: 0
+    name: F<sub>C</sub>
+    labelSize: 6
+    labelSeparation: 0.4
+  normalArrowProperties:
+    isVisible: 1
+    isLabelVisible: 1
+    isValueVisible: 1
+    priority: 2
+    color: {r: 0.5074467, g: 1, b: 0.09811318, a: 1}
+    stemLength: 1
+    stemWidth: 0.2
+    tipLength: 0.5
+    tipWidth: 0.5
+    forceSmooth: 0
+    name: N<sub>C</sub>
+    labelSize: 6
+    labelSeparation: 0.4
+  dumpingArrowProperties:
+    isVisible: 1
+    isLabelVisible: 1
+    isValueVisible: 1
+    priority: 1
+    color: {r: 0.9056604, g: 0.2651916, b: 0.09740115, a: 1}
+    stemLength: 1
+    stemWidth: 0.1
+    tipLength: 0.2
+    tipWidth: 0.2
+    forceSmooth: 0
+    name: F<sub>RC</sub>
+    labelSize: 4
+    labelSeparation: 0.2
+  arrowMaterial: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
 --- !u!1001 &1034283837
 PrefabInstance:
   m_ObjectHideFlags: 0

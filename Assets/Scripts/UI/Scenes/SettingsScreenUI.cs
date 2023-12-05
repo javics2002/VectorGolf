@@ -140,6 +140,8 @@ public class SettingsScreenUI : MonoBehaviour
 				: GameManager.LevelCompletionStatus.Locked;
 
 			progress[i].tutorialCardShown = false;
+
+			GameManager.Instance.firstTimeEnteringLevel = true;
 		}
 
 		_deleteProgressBackdrop.Enabled = false;
