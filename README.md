@@ -256,11 +256,15 @@ El dron volará con su objeto de forma estática. Cuando se le aplica un vector,
 El dron puede tener un elemento estático que servirá a modo de barrera para impedir el paso o una plataforma en la que la pelota podrá apoyarse y ser transportada por el mismo.
 
 ### Meta <a name="meta"></a>
-La meta será tendrá el mismo ancho que un tile, que contará con un agujero donde entrará la bola. La banderá de la meta podrá variar de color dependiendo del número de intentos con los que se supera el nivel. La bandera será de color rojo para los niveles superados, dorada si se ha superado en par o mejor y de platino si se ha hecho hoyo en 1.
+La meta será tendrá el mismo ancho que un tile, que contará con un agujero donde entra la bola. La banderá de la meta podrá variar de color dependiendo de la situación:
+- **Default** *(gris azulado oscuro con palo marrón)*: el nivel no ha sido completado.
+- **Red** *(rojo con palo blanco)*: el nivel ha sido completado.
+- **Gold** *(dorado con palo blanco)*: el nivel ha sido completado con un golpe adicional de la solución más óptima.
+- **Platinum** *(gris con palo gris oscuro)*: el nivel ha sido completado con la solución óptima, es decir, el menor número de golpes.
 
-| normal | gold | platinum |
-| :----: | :--: | :------: |
-| ![game-flag](https://github.com/javics2002/JuegosSerios/assets/24852502/a4c9c6a9-95a8-478c-81c4-58506f20449e) | ![game-flag-gold](https://github.com/javics2002/JuegosSerios/assets/24852502/868cd7f7-56ca-463f-b4a2-2d76241127a4) | ![game-flag-platinum](https://github.com/javics2002/JuegosSerios/assets/24852502/70431ae6-74c8-4bbb-a1ac-7d9c5048842b) |
+|                                                         default                                                          |                                                       red                                                        |                                                        gold                                                        |                                                          platinum                                                          |
+|:------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------:|
+| ![game-flag-default](https://raw.githubusercontent.com/javics2002/JuegosSerios/main/Assets/Images/game-flag-default.png) | ![game-flag-red](https://raw.githubusercontent.com/javics2002/JuegosSerios/main/Assets/Images/game-flag-red.png) | ![game-flag-gold](https://raw.githubusercontent.com/javics2002/JuegosSerios/main/Assets/Images/game-flag-gold.png) | ![game-flag-platinum](https://raw.githubusercontent.com/javics2002/JuegosSerios/main/Assets/Images/game-flag-platinum.png) |
 
 Además, al volver a jugar un nivel, la meta tendrá que aparecer del mismo color con el que se superó con el mínimo número de intentos. 
 
