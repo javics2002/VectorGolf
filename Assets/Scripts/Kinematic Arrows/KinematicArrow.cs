@@ -82,6 +82,8 @@ public abstract class KinematicArrow : MonoBehaviour {
 	InterfaceArrow xComponent, yComponent;
 	LineRenderer xLine, yLine;
 
+	public float decompositeThreshold { get; set; } = 0.5f;
+
 	protected virtual void Start() {
 		gameManager = GameManager.Instance;
 
@@ -182,7 +184,8 @@ public abstract class KinematicArrow : MonoBehaviour {
 			if(canDecomposite) {
 				xComponent.properties.isVisible = yComponent.properties.isVisible =
 					xLine.enabled = yLine.enabled =
-					gameManager.vectorDecomposition && !(Mathf.Abs(vector.x) < 1f || Mathf.Abs(vector.y) < 1f);
+					gameManager.vectorDecomposition && !(Mathf.Abs(vector.x) < decompositeThreshold 
+					|| Mathf.Abs(vector.y) < decompositeThreshold);
 
 				Vector3 x = new Vector3(vector.x, 0, 0);
 				Vector3 y = new Vector3(0, vector.y, 0);
