@@ -39,7 +39,7 @@ public class Ball : InteractableObject
 		_audioSource = GetComponent<AudioSource>();
 	}
 
-	public void ShowTutorialArrow(Vector2 force)
+    public void ShowTutorialArrow(Vector2 force)
 	{
         firstVector = KinematicArrow.CreateArrow<InterfaceArrow>("First Vector",
                 transform, velocityArrow.properties, previewArrowMaterial);
@@ -53,9 +53,20 @@ public class Ball : InteractableObject
 	{
 		Hits++;
 
-		if(GameManager.Instance.seeAnimations)
-			yield return AddVectorsAnimation(force, _rb.transform,
-				EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction));
+		if (GameManager.Instance.seeAnimations)
+		{
+			// Disable pause button while animation
+            UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
+            ui.EnablePauseButton(false);
+
+            yield return AddVectorsAnimation(force, _rb.transform,
+                EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction));
+
+            // Enable pause button when animation ends
+            ui.EnablePauseButton(true);
+			ui.SetPauseIcon();
+        }
+			
 
 		_audioSource.Play();
 		_rb.AddForce(force, ForceMode2D.Impulse);
@@ -86,7 +97,7 @@ public class Ball : InteractableObject
 	IEnumerator AddVectorsAnimation(Vector3 force, Transform secondVectorOrigin,
 		EasingFunctions.Interpolation secondVectorInterpolation, EasingFunctions.Interpolation resultVectorInterpolation) {
 		if (velocityArrow.IsLongEnoughToDraw(velocityArrow.GetVector())) {
-			Time.timeScale = 0;
+			GameManager.Instance.StopTime();
 			Animating = true;
 
 			velocityArrow.properties.isVisible = false;
@@ -110,8 +121,8 @@ public class Ball : InteractableObject
 			velocityArrow.properties.isVisible = true;
 
 			Animating = false;
-			Time.timeScale = 1;
-		}
+            GameManager.Instance.RestartTime();
+        }
 	}
 
 	IEnumerator MoveSecondVector(Vector3 force, Transform secondVectorOrigin, EasingFunctions.Interpolation interpolation) {

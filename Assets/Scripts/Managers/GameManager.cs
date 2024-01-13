@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -47,6 +48,9 @@ public class GameManager : MonoBehaviour
 	public const int NumberOfLevels = 12;
 
     public enum LevelCompletionStatus { Locked, Uncompleted, Completed, Par, HoleInOne };
+
+    [Header("Pause Time Properties")]
+    public bool isTimeStopped;
 
     public struct LevelProgress
     {
@@ -208,5 +212,17 @@ public class GameManager : MonoBehaviour
     public void SaveFirstTimeEnteringLevel()
     {
         LoadManager.SaveFirstTimeEnteringLevel();
+    }
+
+    public void StopTime()
+    {
+        isTimeStopped = true;
+        Time.timeScale = 0f;
+    }
+
+    public void RestartTime()
+    {
+        isTimeStopped = false;
+        Time.timeScale = 1.0f;
     }
 }

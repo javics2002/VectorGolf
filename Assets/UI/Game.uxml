@@ -11,5 +11,8 @@
         <ui:Button name="button-restart" tooltip="Restart level" class="button animate-scale">
             <ui:VisualElement name="restart" class="button-icon" />
         </ui:Button>
+        <ui:Button name="button-pause" tooltip="Pause Time" class="button animate-scale">
+            <ui:VisualElement name="pause" class="button-icon" style="background-image: url(&apos;project://database/Assets/Images/pause-icon.png?fileID=2800000&amp;guid=b8281423cc99223489ca99331aae98d9&amp;type=3#pause-icon&apos;); scale: 1.4 1.4;" />
+        </ui:Button>
     </ui:GroupBox>
 </ui:UXML>
