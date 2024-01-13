@@ -11,20 +11,50 @@ public class ToggleArrows : MonoBehaviour
 		Toggle velocityToggle = transform.GetChild(0).GetComponent<Toggle>();
 		velocityToggle.isOn = gameManager.seeVelocity;
 
+		if (!velocityToggle.isOn) { 
+			ToggleAllVelocityArrowsVisible();
+		}
+
 		Toggle forcesToggle = transform.GetChild(1).GetComponent<Toggle>();
 		forcesToggle.isOn = gameManager.seeForces;
+
+		if (!forcesToggle.isOn)
+		{
+			ToggleAllAccelerationArrowsVisible();
+		}
 
 		Toggle labelsToggle = transform.GetChild(2).GetComponent<Toggle>();
 		labelsToggle.isOn = gameManager.seeVectorLabels;
 
+		if (!labelsToggle.isOn)
+		{
+			ToggleLabels();
+		}
+
+
 		Toggle valuesToggle = transform.GetChild(3).GetComponent<Toggle>();
 		valuesToggle.isOn = gameManager.seeVectorValues;
+
+		if (!valuesToggle.isOn)
+		{
+			ToggleValues();
+		}
 
 		Toggle animationToggle = transform.GetChild(4).GetComponent<Toggle>();
 		animationToggle.isOn = gameManager.seeAnimations;
 
+		if (!animationToggle.isOn)
+		{
+			ToggleAnimations();
+		}
+
 		Toggle vectorDecompositionToggle = transform.GetChild(5).GetComponent<Toggle>();
 		vectorDecompositionToggle.isOn = gameManager.vectorDecomposition;
+
+		if (!vectorDecompositionToggle.isOn)
+		{
+			ToggleVectorDecomposition();
+		}
 	}
 
 	public void ToggleAllVelocityArrowsVisible() {

@@ -71,18 +71,21 @@ public class UIGame : MonoBehaviour
 
 	private void OnButtonExit()
 	{
+		GameManager.Instance.RestartTime();
 		GameManager.Instance.ChangeScene(GameScene.Id.MainMenu);
 	}
 
 	private void OnButtonSettings()
 	{
-		GameScene.LoadScene(GameScene.Id.Settings, LoadSceneMode.Additive);
+        GameManager.Instance.RestartTime();
+        GameScene.LoadScene(GameScene.Id.Settings, LoadSceneMode.Additive);
 		EnableUI(false);
 	}
 
 	private void OnButtonRestart()
 	{
-		GameManager.Instance.ChangeScene(GameScene.Current);
+        GameManager.Instance.RestartTime();
+        GameManager.Instance.ChangeScene(GameScene.Current);
 	}
 
 	private void OnButtonPause()
