@@ -69,7 +69,11 @@ public class Goal : MonoBehaviour
 		winScreen.Stars = stars;
 		winScreen.Hits = ball.Hits;
 		winScreen.gameObject.SetActive(true);
-	}
+
+        // Disable UI
+        UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
+        ui.EnableUI(false);
+    }
 	
 	private void UnlockNextLevel()
 	{
