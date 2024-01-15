@@ -1,35 +1,50 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
 using static InteractableObject;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 	public bool canDrag { get; set; } = true;
+	private bool dragging = false;
 
 	[SerializeField, Range(0f, 1f)]
 	float scaleWhenDrag;
 
+	private Ball ball;
 	private RectTransform rectTransform;
 	private Canvas canvas;
 	private CanvasGroup canvasGroup;
+	private Image image;
+	private Color initialColor, undraggableColor;
 
 	private Vector2 initialPositon;
 
 	private void Awake()
 	{
+		ball = GameObject.Find("Ball").GetComponentInChildren<Ball>();
 		rectTransform = GetComponent<RectTransform>();
 		canvas = GetComponentInParent<Canvas>();
 		canvasGroup = GetComponent<CanvasGroup>();
+		image = GetComponentInParent<Image>();
+
+		undraggableColor = initialColor = image.color;
+		undraggableColor.a = .3f;
+	}
+
+	private void Update() {
+		image.color = !dragging && !CanDrag() ? undraggableColor : initialColor;
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
 		// Dont pick invisible items
-		if (canvasGroup.alpha == 0f || !canDrag)
-		{
+		if (!CanDrag())
 			return;
-		}
+
+		dragging = true;
 
 		GameManager.Instance.isDragging = true;
 		GameManager.Instance.draggedObject = gameObject;
@@ -44,7 +59,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		if (!canDrag)
+		if (!dragging)
 			return;
 
 		rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
@@ -52,8 +67,10 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (!canDrag)
+		if (!dragging)
 			return;
+
+		dragging = false;
 
 		var mouseOverObject = GameManager.Instance.mouseOverObject;
 
@@ -123,5 +140,9 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		drone.SetVectorForce(vectorForce.Force);
 		arrow.SaveForce();
 		return true;
+	}
+
+	private bool CanDrag() {
+		return canvasGroup.alpha == 0f || !canDrag || !ball.Animating;
 	}
 }
