@@ -52,11 +52,11 @@ public class Ball : InteractableObject
     public IEnumerator Hit(Vector2 force)
 	{
 		Hits++;
+		UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>(); ;
 
-		if (GameManager.Instance.seeAnimations)
+        if (GameManager.Instance.seeAnimations)
 		{
 			// Disable pause button while animation
-            UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
             ui.EnablePauseButton(false);
 
             yield return AddVectorsAnimation(force, _rb.transform,
@@ -67,18 +67,23 @@ public class Ball : InteractableObject
             ui.EnablePauseButton(true);
 			ui.SetPauseIcon();
         }
-			
-		_audioSource.Play();
+
+        // Enable pause button
+        ui.EnablePauseButton(true);
+        ui.SetPauseIcon();
+        GameManager.Instance.RestartTime();
+
+        _audioSource.Play();
 		_rb.AddForce(force, ForceMode2D.Impulse);
-	}
+    }
 
 	public IEnumerator Hit(Vector2 force, InterfaceArrow secondArrow)
 	{
 		Hits++;
+        UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
 
-		if (GameManager.Instance.seeAnimations) {
+        if (GameManager.Instance.seeAnimations) {
 			// Disable pause button while animation
-			UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
 			ui.EnablePauseButton(false);
 
 			secondArrow.properties.isVisible = false;
@@ -92,7 +97,12 @@ public class Ball : InteractableObject
 			ui.SetPauseIcon();
 		}
 
-		_audioSource.Play();
+        // Enable pause button
+        ui.EnablePauseButton(true);
+        ui.SetPauseIcon();
+        GameManager.Instance.RestartTime();
+
+        _audioSource.Play();
 		_rb.AddForce(force, ForceMode2D.Impulse);
 
 		secondArrow.properties.isVisible = true;
