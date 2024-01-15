@@ -17,4 +17,6 @@ public abstract class BaseForce<T> : MonoBehaviour
 	/// Gets the kind of force this object is.
 	/// </summary>
 	public abstract ForceKind Kind { get; }
+
+	public Color color { get; protected set; }
 }

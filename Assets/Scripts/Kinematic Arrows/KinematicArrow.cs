@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-
-using Unity.VisualScripting;
-
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -79,8 +76,8 @@ public abstract class KinematicArrow : MonoBehaviour {
 	protected string unit = "";
 
 	public bool canDecomposite = true;
-	InterfaceArrow xComponent, yComponent;
-	LineRenderer xLine, yLine;
+	protected InterfaceArrow xComponent, yComponent;
+	protected LineRenderer xLine, yLine;
 
 	public float decompositeThreshold { get; set; } = 0.5f;
 

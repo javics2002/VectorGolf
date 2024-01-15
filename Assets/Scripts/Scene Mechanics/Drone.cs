@@ -87,6 +87,5 @@ public class Drone : InteractableObject
 	{
 		_rb.velocity = vector * Speed;
 		_audioSource.pitch = Mathf.Min(MaximumPitch, MinimumPitch + vector.magnitude * PitchStepMultiplier);
-		Debug.Log(_audioSource.pitch, this);
 	}
 }

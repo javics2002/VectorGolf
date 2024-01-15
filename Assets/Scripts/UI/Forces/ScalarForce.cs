@@ -2,6 +2,10 @@ using TMPro;
 
 public sealed class ScalarForce : BaseForce<float>
 {
+	private void Start() {
+		color = GameManager.Instance.ForcesColour;
+	}
+
 	/// <inheritdoc />
 	public override float Force
 	{

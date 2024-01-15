@@ -24,6 +24,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 	private ForceKind forceKind;
 
+	bool forceColor;
+
 	private void Awake()
 	{
 		ball = GameObject.Find("Ball").GetComponentInChildren<Ball>();
@@ -32,16 +34,23 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 		canvasGroup = GetComponent<CanvasGroup>();
 		image = GetComponentInParent<Image>();
 
-		undraggableColor = initialColor = image.color;
-		undraggableColor.a = .3f;
 
-		if (GetComponent<VectorForce>())
+		if (GetComponent<VectorForce>()) {
 			forceKind = ForceKind.Vector;
-		else
+			forceColor = false;
+		}
+		else if (GetComponent<ScalarForce>()) {
 			forceKind = ForceKind.Scalar;
+			forceColor = true;
+		}
 	}
 
 	private void Update() {
+
+		undraggableColor = initialColor = forceColor ? 
+			GameManager.Instance.ForcesColour : GameManager.Instance.SpeedColour;
+		undraggableColor.a = .3f;
+
 		image.color = !dragging && !CanDrag() ? undraggableColor : initialColor;
 	}
 

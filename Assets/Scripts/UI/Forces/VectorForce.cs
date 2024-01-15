@@ -3,6 +3,10 @@ using UnityEngine;
 
 public sealed class VectorForce : BaseForce<Vector2>
 {
+	private void Start() {
+		color = GameManager.Instance.SpeedColour;
+	}
+
 	/// <inheritdoc />
 	public override Vector2 Force
 	{

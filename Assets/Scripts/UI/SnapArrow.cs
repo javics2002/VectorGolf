@@ -32,6 +32,7 @@ public class SnapArrow : MonoBehaviour
 	public Light2D highlight { get; private set; }
 
 	public ForceKind forceKind { get; private set; }
+	ObjectType interactableObjectType;
 
 	private void Awake()
 	{
@@ -55,6 +56,8 @@ public class SnapArrow : MonoBehaviour
 			forceKind = ForceKind.Scalar;
 		else
 			forceKind = ForceKind.Vector;
+
+		interactableObjectType = transform.parent.gameObject.GetComponentInChildren<InteractableObject>().Type;
 	}
 
 	private void Start() {
@@ -64,14 +67,21 @@ public class SnapArrow : MonoBehaviour
 		lastForce = Vector2.zero;
 	}
 
+	private void Update() {
+		interfaceArrow.properties.color = interactableObjectType switch {
+			ObjectType.Ball => GameManager.Instance.SpeedColour,
+			ObjectType.Drone => GameManager.Instance.SpeedColour,
+			ObjectType.Vehicle => GameManager.Instance.ForcesColour,
+			_ => interfaceArrow.properties.color
+		};
+	}
+
 	private void OnMouseEnter()
 	{
 		if (!GameManager.Instance.isDragging)
 			return;
 
 		var draggedObject = GameManager.Instance.draggedObject;
-		var interactableObjectType =
-			transform.parent.gameObject.GetComponentInChildren<InteractableObject>().Type;
 
 		switch (interactableObjectType)
 		{

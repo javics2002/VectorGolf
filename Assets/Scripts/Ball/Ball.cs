@@ -28,18 +28,24 @@ public class Ball : InteractableObject
 	public VelocityArrow velocityArrow { get; set; }
 	InterfaceArrow firstVector, secondVector, resultVector;
 
-	private Rigidbody2D _rb;
-	private AudioSource _audioSource;
+	private Rigidbody2D rb;
+	private AudioSource audioSource;
+	private SpriteRenderer sprite;
 	
 	/// <inheritdoc />
 	public override ObjectType Type => ObjectType.Ball;
 
 	private void Start() {
-		_rb = GetComponentInParent<Rigidbody2D>();
-		_audioSource = GetComponent<AudioSource>();
+		rb = GetComponentInParent<Rigidbody2D>();
+		audioSource = GetComponent<AudioSource>();
+		sprite = GetComponentInParent<SpriteRenderer>();
 	}
 
-    public void ShowTutorialArrow(Vector2 force)
+	private void Update() {
+		sprite.color = GameManager.Instance.BallColour;
+	}
+
+	public void ShowTutorialArrow(Vector2 force)
 	{
         firstVector = KinematicArrow.CreateArrow<InterfaceArrow>("First Vector",
                 transform, velocityArrow.properties, previewArrowMaterial);
@@ -59,7 +65,7 @@ public class Ball : InteractableObject
 			// Disable pause button while animation
             ui.EnablePauseButton(false);
 
-            yield return AddVectorsAnimation(force, _rb.transform,
+            yield return AddVectorsAnimation(force, rb.transform,
                 EasingFunctions.GetEasingFunction(secondEasingFunction), 
 				EasingFunctions.GetEasingFunction(resultEasingFunction));
 
@@ -73,8 +79,8 @@ public class Ball : InteractableObject
         ui.SetPauseIcon();
         GameManager.Instance.RestartTime();
 
-        _audioSource.Play();
-		_rb.AddForce(force, ForceMode2D.Impulse);
+        audioSource.Play();
+		rb.AddForce(force, ForceMode2D.Impulse);
     }
 
 	public IEnumerator Hit(Vector2 force, InterfaceArrow secondArrow)
@@ -102,8 +108,8 @@ public class Ball : InteractableObject
         ui.SetPauseIcon();
         GameManager.Instance.RestartTime();
 
-        _audioSource.Play();
-		_rb.AddForce(force, ForceMode2D.Impulse);
+        audioSource.Play();
+		rb.AddForce(force, ForceMode2D.Impulse);
 
 		secondArrow.properties.isVisible = true;
 	}
