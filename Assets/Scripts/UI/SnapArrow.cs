@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+
 using static InteractableObject;
 
 public class SnapArrow : MonoBehaviour
@@ -27,6 +29,10 @@ public class SnapArrow : MonoBehaviour
 	private Vector2 currentForce, lastForce;
 	private VelocityArrow ballVelocityArrow;
 
+	public Light2D highlight { get; private set; }
+
+	public ForceKind forceKind { get; private set; }
+
 	private void Awake()
 	{
 		interfaceArrow = new GameObject(gameObject.name + " snap arrow").AddComponent<InterfaceArrow>();
@@ -42,6 +48,13 @@ public class SnapArrow : MonoBehaviour
 		interfaceAdditionArrow.gameObject.layer = LayerMask.NameToLayer("UI");
 		interfaceAdditionArrow.canDecomposite = false;
 		interfaceAdditionArrow.GetComponent<MeshRenderer>().material = arrowMaterial;
+
+		highlight = GetComponent<Light2D>();
+
+		if (GetComponentInParent<Vehicle>())
+			forceKind = ForceKind.Scalar;
+		else
+			forceKind = ForceKind.Vector;
 	}
 
 	private void Start() {

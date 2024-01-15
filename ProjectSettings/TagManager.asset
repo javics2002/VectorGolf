@@ -44,6 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Interactuable
+    uniqueID: 1248637851
+    locked: 0
   - name: Ball
     uniqueID: 3885896515
     locked: 0

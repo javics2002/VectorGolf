@@ -22,6 +22,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 	private Vector2 initialPositon;
 
+	private ForceKind forceKind;
+
 	private void Awake()
 	{
 		ball = GameObject.Find("Ball").GetComponentInChildren<Ball>();
@@ -32,6 +34,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
 		undraggableColor = initialColor = image.color;
 		undraggableColor.a = .3f;
+
+		if (GetComponent<VectorForce>())
+			forceKind = ForceKind.Vector;
+		else
+			forceKind = ForceKind.Scalar;
 	}
 
 	private void Update() {
@@ -45,6 +52,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 			return;
 
 		dragging = true;
+
+		foreach (SnapArrow snapArrow in FindObjectsOfType<SnapArrow>()) {
+			snapArrow.highlight.enabled = snapArrow.forceKind == forceKind;
+			snapArrow.highlight.color = initialColor;
+		}
 
 		GameManager.Instance.isDragging = true;
 		GameManager.Instance.draggedObject = gameObject;
@@ -71,6 +83,10 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 			return;
 
 		dragging = false;
+
+		foreach (SnapArrow snapArrow in FindObjectsOfType<SnapArrow>()) {
+			snapArrow.highlight.enabled = false;
+		}
 
 		var mouseOverObject = GameManager.Instance.mouseOverObject;
 
