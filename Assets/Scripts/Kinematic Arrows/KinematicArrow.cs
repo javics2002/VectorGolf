@@ -107,6 +107,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 		labelText.color = properties.color;
 		labelText.outlineColor = Color.black;
 		labelText.outlineWidth = .1f;
+		labelText.gameObject.layer = LayerMask.NameToLayer("UI");
 
 		properties.isLabelVisible = gameManager.seeVectorLabels;
 		properties.isValueVisible = gameManager.seeVectorValues;
