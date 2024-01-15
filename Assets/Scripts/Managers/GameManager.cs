@@ -76,11 +76,16 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	public GameObject linePrefab;
 
-	private static readonly int End = Animator.StringToHash("End");
+
+    private static readonly int End = Animator.StringToHash("End");
 	private static readonly int Start = Animator.StringToHash("Start");
 
 	private void Awake()
 	{
+        left.updateMode = AnimatorUpdateMode.UnscaledTime;
+        right.updateMode = AnimatorUpdateMode.UnscaledTime;
+        icon.updateMode = AnimatorUpdateMode.UnscaledTime;
+
 		if (Instance is not null) {
 			Instance.OnNewScene();
 			Instance.LevelData = LevelData;
