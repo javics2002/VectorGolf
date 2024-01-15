@@ -44,7 +44,11 @@ public class Goal : MonoBehaviour
 		var ball = collision.transform.GetComponentInChildren<Ball>();
 		Assert.IsNotNull(ball);
 
-		_lifeZone._enabled = false;
+        // Disable UI
+        UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
+        ui.EnableUI(false);
+
+        _lifeZone._enabled = false;
 		_lifeZone.gameObject.SetActive(false);
 
 		var stars = 1;
@@ -69,10 +73,6 @@ public class Goal : MonoBehaviour
 		winScreen.Stars = stars;
 		winScreen.Hits = ball.Hits;
 		winScreen.gameObject.SetActive(true);
-
-        // Disable UI
-        UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
-        ui.EnableUI(false);
     }
 	
 	private void UnlockNextLevel()
