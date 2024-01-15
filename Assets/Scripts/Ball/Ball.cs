@@ -60,14 +60,14 @@ public class Ball : InteractableObject
             ui.EnablePauseButton(false);
 
             yield return AddVectorsAnimation(force, _rb.transform,
-                EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction));
+                EasingFunctions.GetEasingFunction(secondEasingFunction), 
+				EasingFunctions.GetEasingFunction(resultEasingFunction));
 
             // Enable pause button when animation ends
             ui.EnablePauseButton(true);
 			ui.SetPauseIcon();
         }
 			
-
 		_audioSource.Play();
 		_rb.AddForce(force, ForceMode2D.Impulse);
 	}
@@ -76,21 +76,25 @@ public class Ball : InteractableObject
 	{
 		Hits++;
 
-		if (!GameManager.Instance.seeAnimations) {
-			_audioSource.Play();
-			_rb.AddForce(force, ForceMode2D.Impulse);
-			yield break;
+		if (GameManager.Instance.seeAnimations) {
+			// Disable pause button while animation
+			UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
+			ui.EnablePauseButton(false);
+
+			secondArrow.properties.isVisible = false;
+
+			yield return AddVectorsAnimation(force, secondArrow.transform,
+				EasingFunctions.GetEasingFunction(secondEasingFunction), 
+				EasingFunctions.GetEasingFunction(resultEasingFunction));
+
+			// Enable pause button when animation ends
+			ui.EnablePauseButton(true);
+			ui.SetPauseIcon();
 		}
-
-		secondArrow.properties.isVisible = false;
-
-		yield return AddVectorsAnimation(force, secondArrow.transform,
-			EasingFunctions.GetEasingFunction(secondEasingFunction), EasingFunctions.GetEasingFunction(resultEasingFunction));
 
 		_audioSource.Play();
 		_rb.AddForce(force, ForceMode2D.Impulse);
 
-		//TODO usar alpha para volver a verlo
 		secondArrow.properties.isVisible = true;
 	}
 

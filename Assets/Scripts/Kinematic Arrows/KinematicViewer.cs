@@ -14,11 +14,13 @@ public class KinematicViewer : MonoBehaviour
 	private void Awake() {
 		ball = GetComponentInChildren<Ball>();
 		if (ball) {
-			ball.velocityArrow = KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name + " Velocity Arrow",
-				transform, velocityArrowProperties, arrowMaterial);
+			ball.velocityArrow = KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name 
+				+ " Velocity Arrow", transform, velocityArrowProperties, arrowMaterial);
 		}
-		KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name + " Velocity Arrow",
+		else{
+			KinematicArrow.CreateArrow<VelocityArrow>(gameObject.name + " Velocity Arrow",
 			transform, velocityArrowProperties, arrowMaterial);
+		}
 		KinematicArrow.CreateArrow<GravityArrow>(gameObject.name + " Gravity Arrow", 
 			transform, accelerationArrowProperties, arrowMaterial);
 		KinematicArrow.CreateArrow<NormalArrow>(gameObject.name + " Normal Arrow",

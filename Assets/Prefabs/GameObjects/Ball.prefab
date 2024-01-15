@@ -281,9 +281,25 @@ MonoBehaviour:
     name: 
     labelSize: 6
     labelSeparation: 1
+  additionArrowProperties:
+    isVisible: 1
+    isLabelVisible: 0
+    isValueVisible: 0
+    priority: 3
+    color: {r: 1, g: 0.4197454, b: 0.2396226, a: 0.78431374}
+    stemLength: 1
+    stemWidth: 0.3
+    tipLength: 0.6
+    tipWidth: 0.6
+    forceSmooth: 1
+    name: 
+    labelSize: 7
+    labelSeparation: 1
   VectorDirection: 0
-  animationTime: 0
-  interpolationType: 0
+  animationTime: 0.2
+  additionAnimationTime: 0.5
+  additionWaitTime: 0.3
+  interpolationType: 2
   arrowMaterial: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
 --- !u!61 &3171165838429480283
 BoxCollider2D:

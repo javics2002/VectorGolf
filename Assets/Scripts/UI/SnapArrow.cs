@@ -6,13 +6,15 @@ using static InteractableObject;
 public class SnapArrow : MonoBehaviour
 {
 	[SerializeField]
-	KinematicArrow.ArrowProperties arrowProperties;
+	KinematicArrow.ArrowProperties arrowProperties, additionArrowProperties;
 
 	[SerializeField]
 	public VectorDirection VectorDirection = 0f;
 
 	[SerializeField, Range(0f, 1f)]
-	private float animationTime;
+	private float animationTime, additionAnimationTime;
+	[SerializeField, Range(0f, .5f)]
+	private float additionWaitTime;
 
 	[SerializeField]
 	EasingFunctions.InterpolationType interpolationType;
@@ -21,7 +23,9 @@ public class SnapArrow : MonoBehaviour
 	Material arrowMaterial;
 
 	public InterfaceArrow interfaceArrow { get; private set; }
+	public InterfaceArrow interfaceAdditionArrow { get; private set; }
 	private Vector2 currentForce, lastForce;
+	private VelocityArrow ballVelocityArrow;
 
 	private void Awake()
 	{
@@ -32,7 +36,17 @@ public class SnapArrow : MonoBehaviour
 		interfaceArrow.canDecomposite = false;
 		interfaceArrow.GetComponent<MeshRenderer>().material = arrowMaterial;
 
-		//TODO poner valor inicial de la flecha
+		interfaceAdditionArrow = new GameObject(gameObject.name + " addition arrow").AddComponent<InterfaceArrow>();
+		interfaceAdditionArrow.properties = additionArrowProperties;
+		interfaceAdditionArrow.target = transform.parent;
+		interfaceAdditionArrow.gameObject.layer = LayerMask.NameToLayer("UI");
+		interfaceAdditionArrow.canDecomposite = false;
+		interfaceAdditionArrow.GetComponent<MeshRenderer>().material = arrowMaterial;
+	}
+
+	private void Start() {
+		ballVelocityArrow = GameObject.Find("Ball Velocity Arrow").GetComponent<VelocityArrow>();
+
 		currentForce = Vector2.zero;
 		lastForce = Vector2.zero;
 	}
@@ -76,8 +90,7 @@ public class SnapArrow : MonoBehaviour
 			return;
 
 		var draggedObject = GameManager.Instance.draggedObject;
-		var type =
-			transform.parent.GetComponentInChildren<InteractableObject>().Type;
+		var type = transform.parent.GetComponentInChildren<InteractableObject>().Type;
 
 		var shouldReturn = type switch
 		{
@@ -94,6 +107,11 @@ public class SnapArrow : MonoBehaviour
 	public void DeleteArrow()
 	{
 		interfaceArrow.properties.isVisible = false;
+		interfaceArrow.SetInterfaceArrow(Vector3.zero);
+
+		interfaceAdditionArrow.properties.isVisible = false;
+		interfaceAdditionArrow.SetInterfaceArrow(Vector3.zero);
+
 		GameManager.Instance.mouseOverObject = null;
 	}
 
@@ -109,7 +127,8 @@ public class SnapArrow : MonoBehaviour
 		currentForce = force;
 		StopAllCoroutines();
 		StartCoroutine(AnimateArrow(currentForce, animationTime,
-			EasingFunctions.GetEasingFunction(interpolationType)));
+			EasingFunctions.GetEasingFunction(interpolationType),
+			GameManager.Instance.isTimeStopped));
 
 		GameManager.Instance.mouseOverObject = transform.parent.gameObject;
 	}
@@ -121,7 +140,8 @@ public class SnapArrow : MonoBehaviour
 		currentForce = transform.parent.ToDirection(VectorDirection) * force;
 		StopAllCoroutines();
 		StartCoroutine(AnimateArrow(currentForce, animationTime,
-			EasingFunctions.GetEasingFunction(interpolationType)));
+			EasingFunctions.GetEasingFunction(interpolationType), 
+			GameManager.Instance.isTimeStopped));
 
 		GameManager.Instance.mouseOverObject = transform.parent.gameObject;
 	}
@@ -130,14 +150,17 @@ public class SnapArrow : MonoBehaviour
 	{
 		StopAllCoroutines();
 		StartCoroutine(AnimateArrow(lastForce, animationTime,
-			EasingFunctions.GetEasingFunction(interpolationType)));
+			EasingFunctions.GetEasingFunction(interpolationType), false));
+
+		interfaceAdditionArrow.properties.isVisible = false;
+		interfaceAdditionArrow.SetInterfaceArrow(Vector3.zero);
 
 		GameManager.Instance.mouseOverObject = null;
 		GameManager.Instance.draggedObject.GetComponent<CanvasGroup>().alpha = 1f;
 	}
 
 	private IEnumerator AnimateArrow(Vector2 newVector, float animationTime,
-		EasingFunctions.Interpolation interpolation)
+		EasingFunctions.Interpolation interpolation, bool seeAddition)
 	{
 		Vector2 initialVector = interfaceArrow.GetVector();
 
@@ -152,5 +175,24 @@ public class SnapArrow : MonoBehaviour
 		}
 
 		interfaceArrow.SetInterfaceArrow(newVector);
+
+		if (seeAddition) {
+			yield return new WaitForSecondsRealtime(additionWaitTime);
+
+			interfaceAdditionArrow.properties.isVisible = true;
+
+			Vector2 currentVelocity = ballVelocityArrow.GetVector();
+			Vector2 additionVector = currentVelocity + newVector;
+			t = 0;
+			while (t < animationTime) {
+				interfaceAdditionArrow.SetInterfaceArrow(Vector3.Lerp(currentVelocity,
+					additionVector, interpolation(t / animationTime)));
+
+				yield return null;
+				t += Time.unscaledDeltaTime;
+			}
+
+			interfaceAdditionArrow.SetInterfaceArrow(additionVector);
+		}
 	}
 }
