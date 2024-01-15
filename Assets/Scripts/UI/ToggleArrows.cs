@@ -1,15 +1,21 @@
+using TMPro;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ToggleArrows : MonoBehaviour
 {
 	GameManager gameManager;
+	Image velocityBackground, forcesBackground;
+	TextMeshProUGUI velocityText, forcesText;
 
 	private void Start() {
 		gameManager = GameManager.Instance;
 
 		Toggle velocityToggle = transform.GetChild(0).GetComponent<Toggle>();
 		velocityToggle.isOn = gameManager.seeVelocity;
+		velocityBackground = velocityToggle.gameObject.GetComponentInChildren<Image>();
+		velocityText = velocityToggle.gameObject.GetComponentInChildren<TextMeshProUGUI>();
 
 		if (!velocityToggle.isOn) { 
 			ToggleAllVelocityArrowsVisible();
@@ -17,6 +23,8 @@ public class ToggleArrows : MonoBehaviour
 
 		Toggle forcesToggle = transform.GetChild(1).GetComponent<Toggle>();
 		forcesToggle.isOn = gameManager.seeForces;
+		forcesBackground = forcesToggle.gameObject.GetComponentInChildren<Image>();
+		forcesText = forcesToggle.gameObject.GetComponentInChildren<TextMeshProUGUI>();
 
 		if (!forcesToggle.isOn)
 		{
@@ -55,6 +63,13 @@ public class ToggleArrows : MonoBehaviour
 		{
 			ToggleVectorDecomposition();
 		}
+	}
+
+	private void Update() {
+		velocityBackground.color = gameManager.SpeedColour;
+		velocityText.color = gameManager.SpeedColour;
+		forcesBackground.color = gameManager.ForcesColour;
+		forcesText.color = gameManager.ForcesColour;
 	}
 
 	public void ToggleAllVelocityArrowsVisible() {
