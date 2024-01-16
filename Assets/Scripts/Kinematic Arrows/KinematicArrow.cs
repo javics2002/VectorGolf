@@ -65,7 +65,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 	protected MeshRenderer meshRenderer;
 	protected MeshFilter meshFilter;
 	protected new Rigidbody2D rigidbody;
-	protected TextMeshPro labelText;
+	public TextMeshPro labelText;
 	protected GameManager gameManager;
 
 	public Vector3 lastFrameVector;
@@ -271,7 +271,7 @@ public abstract class KinematicArrow : MonoBehaviour {
 		friction = 0;
 
 		for(int i = 0; i < n; i++) {
-			if (contacts[i].rigidbody.CompareTag("Ground")) {
+			if (contacts[i].rigidbody && contacts[i].rigidbody.CompareTag("Ground")) {
 				if(contacts[i].normalImpulse < 1f) {
 					normal = contacts[i].normal;
 					friction = contacts[i].rigidbody.sharedMaterial.friction;

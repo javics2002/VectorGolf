@@ -15,7 +15,9 @@ public class GravityArrow : KinematicArrow {
 
 		if (canDecomposite) {
 			xComponent.properties.color = gameManager.ForcesColour;
+			xComponent.labelText.color = gameManager.ForcesColour;
 			yComponent.properties.color = gameManager.ForcesColour;
+			yComponent.labelText.color = gameManager.ForcesColour;
 
 			xLine.startColor = gameManager.ForcesColour;
 			xLine.endColor = gameManager.ForcesColour;
