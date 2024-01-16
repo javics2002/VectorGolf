@@ -64,11 +64,6 @@ public class UIGame : MonoBehaviour
 		}
 	}
 
-	public void EnablePauseButton(bool value)
-	{
-        _buttonPause.SetEnabled(value);
-    }
-
 	private void OnButtonExit()
 	{
 		GameManager.Instance.RestartTime();

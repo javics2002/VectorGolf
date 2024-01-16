@@ -62,20 +62,16 @@ public class Ball : InteractableObject
 
         if (GameManager.Instance.seeAnimations)
 		{
-			// Disable pause button while animation
-            ui.EnablePauseButton(false);
+			// Disable UI while animation
+            ui.EnableUI(false);
 
             yield return AddVectorsAnimation(force, rb.transform,
                 EasingFunctions.GetEasingFunction(secondEasingFunction), 
 				EasingFunctions.GetEasingFunction(resultEasingFunction));
-
-            // Enable pause button when animation ends
-            ui.EnablePauseButton(true);
-			ui.SetPauseIcon();
         }
 
-        // Enable pause button
-        ui.EnablePauseButton(true);
+        // Enable UI
+        ui.EnableUI(true);
         ui.SetPauseIcon();
         GameManager.Instance.RestartTime();
 
@@ -89,22 +85,18 @@ public class Ball : InteractableObject
         UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
 
         if (GameManager.Instance.seeAnimations) {
-			// Disable pause button while animation
-			ui.EnablePauseButton(false);
+			// Disable UI while animation
+			ui.EnableUI(false);
 
 			secondArrow.properties.isVisible = false;
 
 			yield return AddVectorsAnimation(force, secondArrow.transform,
 				EasingFunctions.GetEasingFunction(secondEasingFunction), 
 				EasingFunctions.GetEasingFunction(resultEasingFunction));
-
-			// Enable pause button when animation ends
-			ui.EnablePauseButton(true);
-			ui.SetPauseIcon();
 		}
 
-        // Enable pause button
-        ui.EnablePauseButton(true);
+        // Enable UI
+        ui.EnableUI(true);
         ui.SetPauseIcon();
         GameManager.Instance.RestartTime();
 
