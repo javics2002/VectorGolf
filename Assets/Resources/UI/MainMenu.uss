@@ -7,7 +7,7 @@
 
 #logo {
     flex: 0 1 auto;
-    background-image: url('project://database/Assets/Images/logo.png');
+    background-image: url('project://database/Assets/Sprites/Logo/Vector%20Golf%20Logo.png?fileID=21300000&guid=5f50fd3d7652b6942846b9c063207530&type=3#Vector Golf Logo');
     height: 40%;
     margin-bottom: 20px;
     -unity-font-style: bold;

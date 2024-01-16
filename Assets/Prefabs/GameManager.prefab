@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1751579814, guid: bbb0ebf2c98368442a9d6296314e48ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c8bb50f6a8bfa054c880757f42a6ab53, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -571,6 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelData: {fileID: 11400000, guid: 1c5643e160dcbd540a2a2bb912274309, type: 2}
+  firstTimeEnteringLevel: 0
   isArrowVisible: 0
   isDragging: 0
   draggedObject: {fileID: 0}
@@ -585,6 +586,7 @@ MonoBehaviour:
   maxForce: 20
   minLinearValue: 0
   maxLinearValue: 5
+  isTimeStopped: 0
   BallColour: {r: 1, g: 1, b: 1, a: 1}
   SpeedColour: {r: 0, g: 0.6, b: 1, a: 1}
   ForcesColour: {r: 1, g: 0.9490196, b: 0, a: 1}
