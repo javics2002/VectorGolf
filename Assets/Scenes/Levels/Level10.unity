@@ -133,9 +133,10 @@ GameObject:
   m_Component:
   - component: {fileID: 55767411}
   - component: {fileID: 55767412}
+  - component: {fileID: 55767413}
   m_Layer: 0
   m_Name: Scene Collider
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,6 +220,33 @@ PolygonCollider2D:
       - {x: 23.837786, y: -4.309017}
       - {x: 22.771812, y: 2.3797717}
   m_UseDelaunayMesh: 0
+--- !u!50 &55767413
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55767409}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 3ec3b3906a024d843bf796822f1138da, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1001 &115186291
 PrefabInstance:
   m_ObjectHideFlags: 0
