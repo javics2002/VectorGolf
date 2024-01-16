@@ -525,6 +525,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 3402048967893659477}
+    - target: {fileID: 7523472755985671283, guid: 39b8673e86f13c646ad9d331ea77e284, type: 3}
+      propertyPath: arrowMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
     - target: {fileID: 8194810613532027745, guid: 39b8673e86f13c646ad9d331ea77e284, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

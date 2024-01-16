@@ -38,6 +38,8 @@ public class SliderForce : MonoBehaviour {
 			target.transform, arrowProperties, arrowMaterial);
 		sliderArrow.decompositeThreshold = 0.1f;
 		targetRigidbody = target.GetComponent<Rigidbody2D>();
+
+		sliderArrow.GetComponent<MeshRenderer>().material = arrowMaterial;
 	}
 
 	private void Update() {
