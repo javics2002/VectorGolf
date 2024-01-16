@@ -7,9 +7,10 @@
     </ui:VisualElement>
     <ui:VisualElement name="content" class="selection-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
         <ui:GroupBox name="buttons" class="button-tap-group" style="flex-direction: row;">
-            <ui:Button text="Cinemática" name="button-0" class="button-tap" />
-            <ui:Button text="Fricción" name="button-1" class="button-tap unselected" />
-            <ui:Button text="Plano Inclinado" name="button-2" class="button-tap unselected" />
+            <ui:Button text="Vectores" name="button-0" class="button-tap" />
+            <ui:Button text="Cinemática" name="button-1" class="button-tap unselected" />
+            <ui:Button text="Fricción" name="button-2" class="button-tap unselected" />
+            <ui:Button text="Plano Inclinado" name="button-3" class="button-tap unselected" />
         </ui:GroupBox>
         <UI.Elements.LevelSelectionGroup group="Kinematic" name="group" />
     </ui:VisualElement>

@@ -10,6 +10,7 @@ public sealed class GameSceneGroup : ScriptableObject
 	public enum GroupId
 	{
 		None,
+		Vector,
 		Kinematic,
 		Friction,
 		LeaningSlope

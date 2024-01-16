@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scalars: []
   Vectors:
-  - {x: 5, y: 0}
-  - {x: 3, y: 0}
+  - {x: 6, y: 0}
   - {x: 2, y: 3}
   - {x: -5, y: 0}
+  - {x: 3, y: 0}
   Platinum: 2
   Gold: 2

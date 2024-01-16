@@ -74,6 +74,6 @@ public class LevelSelectionUI : MonoBehaviour
 	private void StartGroup(VisualElement root)
 	{
 		_group = root.Q<LevelSelectionGroup>("group");
-		_group.Index = GameSceneGroup.GroupId.Kinematic;
+		_group.Index = GameSceneGroup.GroupId.Vector;
 	}
 }

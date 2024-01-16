@@ -53,7 +53,7 @@
 
 .button-tap {
     margin: 0;
-    background-color: rgba(0, 0, 0, 0.70);
+    background-color: rgba(0, 0, 0, 0.7);
     color: rgb(233, 233, 233);
     border-width: 0;
     border-top-left-radius: 5px;
@@ -61,5 +61,8 @@
 }
 
 .button-tap.unselected {
-    background-color: rgba(0, 0, 0, 0.90);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.unity-button {
 }

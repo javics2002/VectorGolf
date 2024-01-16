@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61acda225bef42fa90c42ff79d2ac4c8, type: 3}
-  m_Name: Friction
+  m_Name: Vector
   m_EditorClassIdentifier: 
-  Name: "Fricci\xF3n"
-  Id: 3
-  Scenes: 0c0000000d0000000e000000
+  Name: Vectores
+  Id: 1
+  Scenes: 040000000500000006000000

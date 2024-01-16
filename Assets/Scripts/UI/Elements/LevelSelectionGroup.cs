@@ -8,7 +8,8 @@ namespace UI.Elements
 	{
 		public static readonly GameSceneGroup[] GameSceneGroups =
 		{
-			Resources.Load<GameSceneGroup>("Data/Kinematic"),
+			Resources.Load<GameSceneGroup>("Data/Vector"),
+            Resources.Load<GameSceneGroup>("Data/Kinematic"),
 			Resources.Load<GameSceneGroup>("Data/Friction"),
 			Resources.Load<GameSceneGroup>("Data/LeaningSlope")
 		};

@@ -27,6 +27,8 @@ public static class GameScene
 		Level10,
 		Level11,
 		Level12,
+		Level13,
+		Level14
 	}
 
 	/// <summary>
@@ -37,9 +39,9 @@ public static class GameScene
 	/// <exception cref="ArgumentOutOfRangeException">Thrown when the level number is not between 1 and 12.</exception>
 	public static Id Level(int number)
 	{
-		if (number is < 1 or > 12)
+		if (number is < 1 or > 14)
 		{
-			throw new ArgumentOutOfRangeException(nameof(number), number, "Level number must be between 1 and 12");
+			throw new ArgumentOutOfRangeException(nameof(number), number, "Level number must be between 1 and 14");
 		}
 
 		return number + Id.Level1 - 1;
@@ -53,9 +55,9 @@ public static class GameScene
 	/// <exception cref="ArgumentOutOfRangeException">Thrown when the level ID is not between Level1 and Level12.</exception>
 	public static int Level(Id number)
 	{
-		if (number is < Id.Level1 or > Id.Level12)
+		if (number is < Id.Level1 or > Id.Level14)
 		{
-			throw new ArgumentOutOfRangeException(nameof(number), number, "Level number must be between 1 and 12");
+			throw new ArgumentOutOfRangeException(nameof(number), number, "Level number must be between 1 and 14");
 		}
 
 		return number - Id.Level1 + 1;
@@ -78,7 +80,7 @@ public static class GameScene
 	public static Id NextLevel =>
 		Current switch
 		{
-			>= Id.Tutorial and <= Id.Level11 => Current + 1,
+			>= Id.Tutorial and <= Id.Level13 => Current + 1,
 			_ => throw new IndexOutOfRangeException("The current level is not within the range of levels Tutorial-11")
 		};
 

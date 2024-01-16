@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Kinematic
   m_EditorClassIdentifier: 
   Name: "Cinem\xE1tica"
-  Id: 1
-  Scenes: 0400000005000000060000000700000008000000
+  Id: 2
+  Scenes: 0700000008000000090000000a0000000b000000
