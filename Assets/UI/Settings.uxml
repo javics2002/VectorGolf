@@ -16,14 +16,14 @@
             <UI.Elements.EnhancedIntegerField name="green" minimum="0" maximum="255" class="colour-input" />
             <UI.Elements.EnhancedIntegerField name="blue" minimum="0" maximum="255" class="colour-input" />
         </ui:GroupBox>
-        <ui:GroupBox name="colour-speed" class="colour-group" style="flex-shrink: 1; flex-direction: row;">
+        <ui:GroupBox name="colour-speed" class="colour-group">
             <ui:Label tabindex="-1" text="Velocidad" display-tooltip-when-elided="true" name="label" class="colour-label" />
             <ui:VisualElement name="preview" class="colour-preview animate-scale" />
             <UI.Elements.EnhancedIntegerField name="red" minimum="0" maximum="255" class="colour-input" />
             <UI.Elements.EnhancedIntegerField name="green" minimum="0" maximum="255" class="colour-input" />
             <UI.Elements.EnhancedIntegerField name="blue" minimum="0" maximum="255" class="colour-input" />
         </ui:GroupBox>
-        <ui:GroupBox name="colour-forces" class="colour-group" style="flex-shrink: 1; flex-direction: row;">
+        <ui:GroupBox name="colour-forces" class="colour-group">
             <ui:Label tabindex="-1" text="Fuerzas" display-tooltip-when-elided="true" name="label" class="colour-label" />
             <ui:VisualElement name="preview" class="colour-preview animate-scale" />
             <UI.Elements.EnhancedIntegerField name="red" minimum="0" maximum="255" class="colour-input" />
