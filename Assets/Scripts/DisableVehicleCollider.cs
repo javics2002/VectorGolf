@@ -9,7 +9,7 @@ public class DisableVehicleCollider : MonoBehaviour
 
     private void Update()
     {
-        if (boxRb.velocity.y < -0.8)
+        if (boxRb.velocity.y < -0.5)
         {
             GetComponent<PolygonCollider2D>().enabled = false;
         }
