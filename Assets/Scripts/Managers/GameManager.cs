@@ -181,12 +181,13 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(GameScene.Id id)
     {
-        if (id == GameScene.Id.Tutorial)
+        if ((id == GameScene.Id.Level4 && firstTimeEnteringLevel) || id == GameScene.Id.Tutorial)
         {
             firstTimeEnteringLevel = false;
-            SaveFirstTimeEnteringLevel();
+            id = GameScene.Id.Tutorial;
         }
 
+        SaveFirstTimeEnteringLevel();
         StartCoroutine(LoadLevel(id));
     }
 

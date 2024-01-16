@@ -2,6 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -25,18 +26,26 @@ public class Goal : MonoBehaviour
 		// Set the sprite to the correct flag sprite from the atlas:
 		GetComponent<SpriteRenderer>().sprite = Atlas.GetSprite(GetGoalSpriteName());
 
-		_tutorialCard = GameObject.Find("Gameplay Canvas").transform.GetChild(2).gameObject;
+		if (SceneManager.GetActiveScene().name != "TutorialDrag")
+		{
+            _tutorialCard = GameObject.Find("Gameplay Canvas").transform.GetChild(2).gameObject;
 
-        // Show tutorial card
-		if (!GameManager.Instance.progress[GameManager.Instance.Level.CurrentIndex].tutorialCardShown && _tutorialCard != null)
-			_tutorialCard.SetActive(true);
+            // Show tutorial card
+            if (_tutorialCard != null && !GameManager.Instance.progress[GameManager.Instance.Level.CurrentIndex].tutorialCardShown)
+                _tutorialCard.SetActive(true);
+        }
+		else
+		{
+            UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
+			ui.EnableUI(false);
+        }
 
 		_lifeZone = GameObject.Find("LifeZone").GetComponent<LifeZone>();
     }
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (!collision.CompareTag("Player")) return;
+		if (!collision.CompareTag("Player") || SceneManager.GetActiveScene().name == "TutorialDrag") return;
 
 		var gm = GameManager.Instance;
 		Assert.IsNotNull(gm);

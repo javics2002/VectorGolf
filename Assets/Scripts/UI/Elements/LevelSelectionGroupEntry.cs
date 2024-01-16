@@ -95,8 +95,8 @@ namespace UI.Elements
 			var gm = GameManager.Instance;
 			if (gm is null) return () => { };
 
-			return gm.firstTimeEnteringLevel
-				? () => gm.ChangeScene(GameScene.LevelTutorial())
+			return gm.firstTimeEnteringLevel && GameScene.Level(Level) == GameScene.Id.Level4
+                ? () => gm.ChangeScene(GameScene.LevelTutorial())
 				: () => gm.ChangeScene(GameScene.Level(Level));
 		}
 

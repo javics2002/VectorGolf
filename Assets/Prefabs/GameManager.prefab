@@ -593,7 +593,7 @@ MonoBehaviour:
   left: {fileID: 2869412329379715499}
   right: {fileID: 3062801294302215218}
   icon: {fileID: 757564310039029955}
-  transitionTime: 1
+  transitionTime: 0.8
   linePrefab: {fileID: 3375924588649957342, guid: 900de0be61190d14b86d4d38a04d72ac, type: 3}
 --- !u!114 &4765009586683346382
 MonoBehaviour:

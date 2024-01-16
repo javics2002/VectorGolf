@@ -265,6 +265,11 @@ public abstract class KinematicArrow : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
+		if (rigidbody == null)
+		{
+			return;
+		}
+
 		int n = rigidbody.GetContacts(contacts);
 
 		normal = Vector3.zero;

@@ -87,7 +87,8 @@ public class DialogueBox : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.ChangeScene(GameScene.NextLevel);
+            GameManager.Instance.firstTimeEnteringLevel = false;
+            GameManager.Instance.ChangeScene(GameScene.Id.Level4);
         }
     }
 }

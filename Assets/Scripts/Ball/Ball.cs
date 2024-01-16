@@ -58,7 +58,7 @@ public class Ball : InteractableObject
     public IEnumerator Hit(Vector2 force)
 	{
 		Hits++;
-		UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>(); ;
+		UIGame ui = GameObject.Find("Game UI").GetComponent<UIGame>();
 
         if (GameManager.Instance.seeAnimations)
 		{

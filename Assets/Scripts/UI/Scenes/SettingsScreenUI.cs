@@ -25,7 +25,7 @@ public class SettingsScreenUI : MonoBehaviour
 		SetUpButtons(root);
 		SetUpModal(root);
 
-		gm.StopTime();
+		Time.timeScale = 0;
 	}
 
 	private void OnDestroy()

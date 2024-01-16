@@ -16,14 +16,19 @@ public class AddForcesUI : MonoBehaviour
 
 	private void Awake()
 	{
-		if (levelData is null)
+		if (levelData == null)
 		{
-			throw new ArgumentNullException(nameof(levelData));
+			Debug.LogWarning("LevelData is NULL");
 		}
 	}
 
 	private void Start()
 	{
+		if (levelData == null)
+		{
+			return;
+		}
+
 		// Create prefabs
 		foreach (var scalar in levelData.Scalars)
 		{

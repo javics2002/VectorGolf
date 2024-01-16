@@ -16,7 +16,7 @@ public class UIGame : MonoBehaviour
     [SerializeField]
     private Sprite _playIconSprite;
 
-    public void Start()
+    public void Awake()
 	{
 		var root = GetComponent<UIDocument>().rootVisualElement;
 
