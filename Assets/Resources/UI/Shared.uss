@@ -1,4 +1,4 @@
-﻿.container {
+.container {
     flex-grow: 0;
     background-color: rgba(0, 0, 0, 0.8);
     align-self: center;
@@ -81,7 +81,10 @@
     transition-duration: 0.3s;
 }
 
-.animate-scale:enabled:hover,
+.animate-scale:enabled:hover {
+    scale: 1.05;
+}
+
 .animate-scale:enabled:focus {
     scale: 1.05;
 }
