@@ -25,12 +25,15 @@ public class SettingsScreenUI : MonoBehaviour
 		SetUpButtons(root);
 		SetUpModal(root);
 
-		Time.timeScale = 0f;
+		gm.StopTime();
 	}
 
 	private void OnDestroy()
 	{
-		Time.timeScale = 1f;
+		if (!GameManager.Instance.isTimeStopped)
+		{
+            GameManager.Instance.RestartTime();
+        }
 	}
 
 	private void Update()
