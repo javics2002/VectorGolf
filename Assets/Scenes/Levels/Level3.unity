@@ -1064,11 +1064,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.06
       objectReference: {fileID: 0}
     - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 3477341217559327684, guid: e5163adc8cb134a419053d0c3120a6d1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1993,7 +1993,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0.23921569}
+  m_Color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 1}
   m_Origin: {x: -17, y: -6, z: 0}
   m_Size: {x: 34, y: 20, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}

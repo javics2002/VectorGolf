@@ -2,29 +2,29 @@
     <Style src="project://database/Assets/Resources/UI/Settings.uss?fileID=7433441132597879392&amp;guid=8e9998c6f10adc34491d131133dbf8ee&amp;type=3#Settings" />
     <Style src="project://database/Assets/Resources/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
     <ui:VisualElement name="container" class="container">
-        <ui:Label tabindex="-1" text="Settings" display-tooltip-when-elided="true" name="title" class="title" />
+        <ui:Label tabindex="-1" text="Ajustes" display-tooltip-when-elided="true" name="title" class="title" />
         <ui:VisualElement name="volume-divider" class="divider" />
-        <ui:Label tabindex="-1" text="Volume" display-tooltip-when-elided="true" name="volume-subtitle" class="subtitle" />
-        <UI.Elements.EnhancedSlider label="Music" name="volume-music" high-value="1" class="slider" />
-        <UI.Elements.EnhancedSlider label="Sound Effects" name="volume-sound" high-value="1" class="slider" />
+        <ui:Label tabindex="-1" text="Volumen" display-tooltip-when-elided="true" name="volume-subtitle" class="subtitle" />
+        <UI.Elements.EnhancedSlider label="Música" name="volume-music" high-value="1" class="slider" />
+        <UI.Elements.EnhancedSlider label="Efectos de sonido" name="volume-sound" high-value="1" class="slider" />
         <ui:VisualElement name="colours-divider" class="divider" />
-        <ui:Label tabindex="-1" text="Colours" display-tooltip-when-elided="true" name="colours-subtitle" class="subtitle" />
+        <ui:Label tabindex="-1" text="Colores" display-tooltip-when-elided="true" name="colours-subtitle" enable-rich-text="true" class="subtitle" />
         <ui:GroupBox name="colour-ball" class="colour-group">
-            <ui:Label tabindex="-1" text="Ball" display-tooltip-when-elided="true" name="label" class="colour-label" />
+            <ui:Label tabindex="-1" text="Pelota" display-tooltip-when-elided="true" name="label" class="colour-label" />
             <ui:VisualElement name="preview" class="colour-preview animate-scale" />
             <UI.Elements.EnhancedIntegerField name="red" minimum="0" maximum="255" class="colour-input" />
             <UI.Elements.EnhancedIntegerField name="green" minimum="0" maximum="255" class="colour-input" />
             <UI.Elements.EnhancedIntegerField name="blue" minimum="0" maximum="255" class="colour-input" />
         </ui:GroupBox>
         <ui:GroupBox name="colour-speed" class="colour-group" style="flex-shrink: 1; flex-direction: row;">
-            <ui:Label tabindex="-1" text="Speed" display-tooltip-when-elided="true" name="label" class="colour-label" />
+            <ui:Label tabindex="-1" text="Velocidad" display-tooltip-when-elided="true" name="label" class="colour-label" />
             <ui:VisualElement name="preview" class="colour-preview animate-scale" />
             <UI.Elements.EnhancedIntegerField name="red" minimum="0" maximum="255" class="colour-input" />
             <UI.Elements.EnhancedIntegerField name="green" minimum="0" maximum="255" class="colour-input" />
             <UI.Elements.EnhancedIntegerField name="blue" minimum="0" maximum="255" class="colour-input" />
         </ui:GroupBox>
         <ui:GroupBox name="colour-forces" class="colour-group" style="flex-shrink: 1; flex-direction: row;">
-            <ui:Label tabindex="-1" text="Forces" display-tooltip-when-elided="true" name="label" class="colour-label" />
+            <ui:Label tabindex="-1" text="Fuerzas" display-tooltip-when-elided="true" name="label" class="colour-label" />
             <ui:VisualElement name="preview" class="colour-preview animate-scale" />
             <UI.Elements.EnhancedIntegerField name="red" minimum="0" maximum="255" class="colour-input" />
             <UI.Elements.EnhancedIntegerField name="green" minimum="0" maximum="255" class="colour-input" />

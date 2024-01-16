@@ -40,7 +40,7 @@ public class LevelSelectionUI : MonoBehaviour
 
 		var progress = root.Q<ProgressBar>("progress-bar");
 		progress.value = percentage;
-		progress.title = $"{percentage:0}% completed";
+		progress.title = $"{percentage:0}% completado";
 	}
 
 	private void StartButtons(VisualElement root)

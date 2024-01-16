@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -105,17 +107,11 @@ public class UIGame : MonoBehaviour
 
 	public void SetPauseIcon()
 	{
-        foreach (VisualElement visualElement in _buttonPause.Children())
-        {
-            visualElement.style.backgroundImage = new StyleBackground(_pauseIconSprite);
-        }
+		_buttonPause.Children().First().style.backgroundImage = new StyleBackground(_pauseIconSprite);
     }
 
 	public void SetPlayIcon()
 	{
-        foreach (VisualElement visualElement in _buttonPause.Children())
-        {
-            visualElement.style.backgroundImage = new StyleBackground(_playIconSprite);
-        }
+		_buttonPause.Children().First().style.backgroundImage = new StyleBackground(_playIconSprite);
     }
 }

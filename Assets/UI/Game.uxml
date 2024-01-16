@@ -11,8 +11,9 @@
         <ui:Button name="button-restart" tooltip="Restart level" class="button animate-scale">
             <ui:VisualElement name="restart" class="button-icon" />
         </ui:Button>
-        <ui:Button name="button-pause" tooltip="Pause Time" class="button animate-scale">
-            <ui:VisualElement name="pause" class="button-icon" style="background-image: url(&apos;project://database/Assets/Images/pause-icon.png?fileID=2800000&amp;guid=b8281423cc99223489ca99331aae98d9&amp;type=3#pause-icon&apos;); scale: 1.4 1.4;" />
+        <ui:Button name="button-pause" tooltip="Pause Time" class="button animate-scale" style="flex-direction: row; justify-content: center; max-width: 300px;">
+            <ui:VisualElement name="pause" class="button-icon" style="background-image: url(&apos;project://database/Assets/Images/pause-icon.png?fileID=2800000&amp;guid=b8281423cc99223489ca99331aae98d9&amp;type=3#pause-icon&apos;); scale: 1.4 1.4; justify-content: center; align-items: center; align-self: center; flex-direction: column; width: 32px;" />
+            <ui:Label tabindex="-1" text="Espacio" display-tooltip-when-elided="true" name="pause-label" style="justify-content: center; align-items: center; margin-right: 0; margin-left: 10px;" />
         </ui:Button>
     </ui:GroupBox>
 </ui:UXML>
