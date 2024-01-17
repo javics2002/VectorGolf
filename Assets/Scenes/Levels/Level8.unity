@@ -302,7 +302,7 @@ PrefabInstance:
     - target: {fileID: 2384068119220134962, guid: e3daf66d3522f4347ad4e2967a555ec7, type: 3}
       propertyPath: LevelData
       value: 
-      objectReference: {fileID: 11400000, guid: 8a08dbf1e971df046924e721140159d9, type: 2}
+      objectReference: {fileID: 11400000, guid: 5cb2f7db30ee80f40a4940903d0a83f9, type: 2}
     - target: {fileID: 2384068119220134962, guid: e3daf66d3522f4347ad4e2967a555ec7, type: 3}
       propertyPath: levelCompletion.Array.size
       value: 0
@@ -2923,7 +2923,7 @@ PrefabInstance:
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData
       value: 
-      objectReference: {fileID: 11400000, guid: 8a08dbf1e971df046924e721140159d9, type: 2}
+      objectReference: {fileID: 11400000, guid: 5cb2f7db30ee80f40a4940903d0a83f9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6642940379392494725, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
