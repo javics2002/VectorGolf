@@ -37,10 +37,10 @@
             <ui:Button tooltip="Unlock all levels" name="unlock-all" class="button success animate-scale">
                 <ui:VisualElement tabindex="-1" name="unlock-all-icon" class="button-icon" />
             </ui:Button>
-            <ui:Button tooltip="Go back to main menu" text="Go Back" name="back" class="button-back button animate-scale" />
+            <ui:Button tooltip="Go back to main menu" text="Volver" name="back" class="button-back button animate-scale" />
         </ui:GroupBox>
     </ui:VisualElement>
     <UI.Elements.Backdrop name="delete-progress-backdrop" enabled="false">
-        <UI.Elements.ConfirmationDialog name="dialog" title="Confirm Progress Reset" message="Are you sure you want to erase your progress? This action is irreversible and you will lose all your saved data." class="foo" />
+        <UI.Elements.ConfirmationDialog name="dialog" title="Confirm Progress Reset" message="¿Estás seguro de que quieres borrar el progreso? Esta acción es irreversible y perderás todos los datos guardados." />
     </UI.Elements.Backdrop>
 </ui:UXML>
