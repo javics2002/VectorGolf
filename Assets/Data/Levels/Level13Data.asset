@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf8667a93f5a36f42988a3bbf7642d05, type: 3}
-  m_Name: Level3Data
+  m_Name: Level13Data
   m_EditorClassIdentifier: 
   Scalars: []
   Vectors:
-  - {x: 6, y: 12}
-  - {x: 10, y: 15}
-  - {x: 10, y: 5}
-  - {x: -10, y: 12}
+  - {x: 6, y: 2}
+  - {x: 10, y: 0}
+  - {x: 5, y: 7}
+  - {x: 8, y: 0}
   Platinum: 1
-  Gold: 1
+  Gold: 2

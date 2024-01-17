@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8667a93f5a36f42988a3bbf7642d05, type: 3}
   m_Name: Level11Data
   m_EditorClassIdentifier: 
-  Scalars: []
+  Scalars:
+  - 2
+  - 5
   Vectors:
-  - {x: 25, y: 0}
-  - {x: -15, y: 0}
-  - {x: 14, y: 0}
-  - {x: 18, y: 0}
-  - {x: -10, y: 0}
+  - {x: 10, y: 5}
+  - {x: 6, y: 8}
+  - {x: -10, y: 10}
+  - {x: 4, y: -5}
+  - {x: -5, y: 0}
   Platinum: 2
   Gold: 3
