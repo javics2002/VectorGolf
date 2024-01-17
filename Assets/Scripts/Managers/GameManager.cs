@@ -187,7 +187,11 @@ public class GameManager : MonoBehaviour
             id = GameScene.Id.Tutorial;
         }
 
-        SaveFirstTimeEnteringLevel();
+        if (!firstTimeEnteringLevel)
+        {
+            SaveFirstTimeEnteringLevel();
+        }
+
         StartCoroutine(LoadLevel(id));
     }
 
