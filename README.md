@@ -22,7 +22,7 @@ Autores:
 <tr>
     <td> <b>Cantidades:</b>
 
-Niveles: 12
+Niveles: 14
 
 
  </td>
@@ -30,6 +30,7 @@ Niveles: 12
 
 1. Propuesta del concepto: 5 de octubre de 2023
 2. Prototipo jugable: 7 de noviembre de 2023
+3. Juego completo: 17 de enero de 2024
 
 
  </td>
@@ -44,13 +45,14 @@ Niveles: 12
 1. [Objetivo educativo](#objetivoeducativo)
 2. [Contexto de uso](#contextouso)
 3. [Progresión del juego](#progresionjuego)
-    1. [Nivel 1-3: Tutorial - Leyes de Newton](#tutorial)
-    2. [Niveles 4-5: Aprendizaje Newton](#aprendizaje)
-    3. [Niveles 6-9: Fuerza de Rozamiento y choque elástico](#nivelrozamiento)
-    4. [Niveles 10-12: Plano Inclinado](#planoinclinado)
-4. [Partida típica](#partidatipica)
-5. [Controles](#controles)
-6. [Gameplay](#gameplay)
+    1. [Nivel 1-3: Tutorial - Comprender las coordenadas X, Y](#tutorial-slider)
+    2. [Nivel 4-6: Tutorial - Leyes de Newton](#tutorial)
+    3. [Niveles 7-8: Aprendizaje Newton](#aprendizaje)
+    4. [Niveles 9-12: Fuerza de Rozamiento y choque elástico](#nivelrozamiento)
+    5. [Niveles 13-14: Plano Inclinado](#planoinclinado)
+5. [Partida típica](#partidatipica)
+6. [Controles](#controles)
+7. [Gameplay](#gameplay)
     1. [Pelota](#pelota)
     2. [Flechas cinemáticas](#flechascinematicas)
     3. [Coche motorizado](#coche)
@@ -58,14 +60,14 @@ Niveles: 12
     5. [Meta](#meta)
     6. [Fuerza de rozamiento](#rozamiento)
     7. [Gravedad](#gravedad)
-7. [Menús](#menus)
+8. [Menús](#menus)
     1. [Menú principal](#menuprincipal)
     2. [Configuración](#menuconfiguracion)
     3. [Selección de niveles](#menuniveles)
-8. [Interfaz](#interfaz)
-9. [Guardado](#guardado)
-10. [Sonidos](#sonidos)
-11. [Juegos educativos similares](#juegoseducativos)
+9. [Interfaz](#interfaz)
+10. [Guardado](#guardado)
+11. [Sonidos](#sonidos)
+12. [Juegos educativos similares](#juegoseducativos)
 
 ## 1. Objetivo educativo <a name="objetivoeducativo"></a>
 El objetivo principal es ayudar a los alumnos de instituto a visualizar vectores, para que puedan comprender el concepto que representan y entiendan que está sucediendo al sumarlos. Todos estos conceptos son útiles en la asignatura de física que se da en secundaria y bachillerato.
@@ -83,90 +85,110 @@ El juego se puede jugar durante los 50 minutos que dura la hora, dando tiempo a 
 
 ## 3. Progresión del juego <a name="progresionjuego"></a>
 
-El juego dispone de 12 niveles, separados en 4 bloques que añadirán y explorarán nuevas mecánicas. Cuando entremos al primer nivel de cada bloque, se mostrará una interfaz a modo de tutorial, que explicará las mecánicas que se empleen en dicho nivel.
+Vector Golf consta de 14 niveles divididos en 4 bloques que añaden y exploran nuevas mecánicas. Al comenzar el primer nivel de cada bloque, se mostrará una interfaz a modo de tutorial que explicará las mecánicas empleadas en dicho nivel. Por ejemplo, si entramos al primer nivel, se nos explicará cómo jugar y se nos mostrará una breve definición de qué es un vector. Si entramos por primera vez al nivel 9, se explicará en la interfaz qué es la fuerza de rozamiento y cómo cambia la jugabilidad.
+Cada nivel tiene 2 números de golpes objetivo para conseguir la bandera de oro y la de platino respectivamente.
 
-Por ejemplo, si entramos al primer nivel, se nos explicará cómo jugar y se nos mostrará una breve definición de qué es un vector; y si entramos por primera vez al nivel 7, se explicará en la interfaz qué es la fuerza de rozamiento y cómo cambia la jugabilidad.
+El primer bloque se centra en el movimiento de la pelota. El objetivo es que el jugador se familiarice con las leyes de la cinemática en un entorno seguro, comprenda el flujo del juegolas coordenadas X,Y de los vectores  y pueda llegar al siguiente bloque con la información necesaria para continuar.
 
-La primera mecánica que se presentará en el juego será el movimiento de la pelota. En este bloque, el objetivo es que el jugador se familiarice con las leyes de la cinemática en un entorno seguro, comprenda el bucle de juego y pueda llegar al siguiente bloque con la información necesaria para continuar.
+El segundo bloque profundiza en las leyes de la cinemática con el objetivo de que el jugador comprenda y ponga en práctica sus conocimientos, por primera vez de forma no trivial, reconociendo los vectores de la velocidad y de la fuerza de gravedad.
 
-En el segundo bloque, el objetivo es que el jugador aprenda a identificar los vectores básicos, como la velocidad y la fuerza, mientras se asientan los conocimientos de las leyes de Newton.
-
-En el tercer bloque, se introduce la fuerza de rozamiento y los choques elásticos. Primero se aplicarán únicamente en la pelota, pero después introduciremos obstáculos que habrá que empujar, mover, utilizando las fuerzas escalares y vectoriales de la interfaz. Estos obstáculos son principalmente cajas que se pueden mover con elementos como cochecitos motorizados o cuerdas que tiren con poleas motorizadas.
+En el tercer bloque, se introduce la fuerza de rozamiento y los choques elásticos. Primero se aplicarán únicamente en la pelota, pero después se introducirán obstáculos que habrá que empujar y mover utilizando las fuerzas escalares y vectoriales de la interfaz. Estos obstáculos son principalmente cajas que se pueden mover con elementos como vehículos motorizados o cuerdas que tiran con poleas motorizadas.
 
 En el último bloque se explorarán los planos inclinados, con su descomposición de fuerzas, y encontraremos niveles que pongan a prueba el conocimiento del jugador.
 
-### Nivel 1-3: Tutorial - Leyes de Newton <a name="tutorial"></a>
+### Nivel 1-3: Tutorial - Comprender las coordenadas X, Y <a name="tutorial-slider"></a>
+En los primeros niveles, los jugadores aprenderán los conceptos básicos de los vectores. No habrá ningún elemento complejo y el nivel solo contará con controles deslizantes para controlar la pelota (u otro objeto). 
+
+#### Nivel 1: 
+Nivel simple en el que solo disponemos del control deslizante de la pelota, y no cuenta con ningún obstáculo. 
+La gravedad y la fuerza de rozamiento están  desactivadas. Usando los controles deslizantes modificaremos la velocidad de la flecha en tiempo real. 
+
+![nivel1](https://github.com/javics2002/JuegosSerios/assets/75903737/533c7d19-55ad-4b05-acae-0ff6faefe965)
+
+#### Nivel 2: 
+Se introducen obstáculos que el jugador deberá evitar para meter la pelota en el hoyo. 
+
+![nivel2](https://github.com/javics2002/JuegosSerios/assets/75903737/28015c7e-00f4-4312-98bd-80bb78d98013)
+
+#### Nivel 3: 
+Se introduce el control deslizable en otros objetos, en este caso una caja. El jugador deberá controlar la caja para empujar la pelota metiendola en el hoyo.
+
+![nivel3](https://github.com/javics2002/JuegosSerios/assets/75903737/710a9ced-1b2a-40b5-b90d-3c6ed7e84116)
+
+### Nivel 4-6: Tutorial - Leyes de Newton <a name="tutorial"></a>
 En los primeros niveles, se aprenderán los conceptos básicos del movimiento y las mecánicas del juego. No habrá ningún elemento complejo y el nivel solo contará con fuerzas arrastrables desde la interfaz para mover la pelota. Este tutorial establecerá la base para comprender la física y las mecánicas que guiarán el juego.
 
 Concepto de Vectores (explicado en el tutorial):
 Un vector es una entidad matemática que tiene magnitud y dirección. En el contexto del juego, los vectores se utilizan para representar fuerzas que actúan sobre el pistón y determinan su movimiento. La magnitud del vector representa la fuerza, y su dirección indica la dirección del movimiento.
 
-#### Nivel 1: 
+#### Nivel 4: 
 Nivel simple, en el que solo disponemos de dos fuerzas vectoriales que aseguren que el nivel se complete. La gravedad y la fuerza de rozamiento comienzan desactivadas. En este nivel veremos el tutorial de la primera ley de newton y de cómo jugar, acompañados de imágenes y focos que dirijan la atención hacia un elemento concreto. Platino: 1
 
 Todo cuerpo preserva su estado de reposo o movimiento uniforme y rectilíneo a no ser que sea obligado a cambiar su estado por fuerzas impresas sobre él.
 
-![nivel1](https://github.com/javics2002/JuegosSerios/assets/75903737/350fb688-1d81-485a-b7a2-9e562766f3fa)
+![nivel4](https://github.com/javics2002/JuegosSerios/assets/75903737/4001b5a9-7ba4-4ebd-be1f-13dfd925cd95)
 
-#### Nivel 2: 
+#### Nivel 5: 
 Este nivel enseña la segunda Ley de Newton, e introduce la gravedad para mostrarla. Se disponen de 2 fuerzas vectoriales que ambas encajan la pelota en el primer golpe. Platino: 1
 
 Cuando una fuerza actúa sobre un objeto este se pone en movimiento, acelera, desacelera o varía su trayectoria.
 
-![nivel2](https://github.com/javics2002/JuegosSerios/assets/75903737/9729687f-b9bf-4b14-be9d-ab229b0cce61)
+![nivel5](https://github.com/javics2002/JuegosSerios/assets/75903737/22b38c10-8d70-495c-95f1-016a7a3eb79b)
 
 
-#### Nivel 3: 
+#### Nivel 6: 
 Se introduce la tercera Ley de Newton con los primeros rebotes del juego. Al rebotar la pelota se produce una animación en la que se para el tiempo y el vector velocidad se voltea respecto a la superficie del rebote. Los rebotes son completamente elásticos. Platino: 1
 
 Con toda acción ocurre siempre una reacción igual y contraria: o sea, las acciones mutuas de dos cuerpos siempre son iguales y dirigidas en direcciones opuestas.
 
-![nivel3](https://github.com/javics2002/JuegosSerios/assets/75903737/27969ddb-e366-4eef-915e-2ac1e7541bc2)
+![nivel6](https://github.com/javics2002/JuegosSerios/assets/75903737/3990fe0a-3710-4584-961e-e5471e5670cb)
 
-### Niveles 4-5: Aprendizaje Newton <a name="aprendizaje"></a>
+### Niveles 7-8: Aprendizaje Newton <a name="aprendizaje"></a>
 
 En este bloque no hay tutoriales, se aplican las 3 leyes de newton a la vez.
 
-#### Nivel 4: 
+#### Nivel 7: 
 Nivel sin gravedad en el que hay que hacer la primera suma de vectores, aplicando el segundo vector en el momento justo. Platino: 2
 
-![nivel4](https://github.com/javics2002/JuegosSerios/assets/75903737/415678bb-66fc-48f0-a856-399814daab70)
+![nivel7](https://github.com/javics2002/JuegosSerios/assets/75903737/7415172a-31d0-4ec3-8255-63331a7e4965)
 
 
-#### Nivel 5: 
+#### Nivel 8: 
 Volvemos a activar la gravedad. En este nivel, la pelota, carente de fuerza de rozamiento y con rebotes completamente elásticos, bota indefinidamente hasta que nosotros la golpeemos en el momento justo para que pase por el agujero en la pared. Platino: 2
 
-![nivel5](https://github.com/javics2002/JuegosSerios/assets/75903737/51858fb9-0409-44ba-ae4c-f5edd69c7904)
+![nivel8](https://github.com/javics2002/JuegosSerios/assets/75903737/3c0990a1-d6f9-4c27-aa38-e0d91a0923f8)
 
-### Niveles 6-9: Fuerza de Rozamiento y choque elástico <a name="nivelrozamiento"></a>
+### Niveles 9-11: Fuerza de Rozamiento y choque elástico <a name="nivelrozamiento"></a>
 
-#### Nivel 6: 
+#### Nivel 9: 
 Se introduce la fricción. En este nivel, hay que usar la fuerza justa para que la pelota no se frene antes de llegar al hoyo ni se caiga al vacío. Platino: 1
 
 La fuerza de fricción es la fuerza que existe entre dos superficies en contacto, que se opone al deslizamiento.
 
-![nivel6](https://github.com/javics2002/JuegosSerios/assets/75903737/9021235a-ab80-4e4e-b665-485a6fa02cc0)
+![nivel9](https://github.com/javics2002/JuegosSerios/assets/75903737/52552227-02d7-4a6e-b66e-deefd1e1a160)
 
-#### Nivel 7: 
+
+#### Nivel 10: 
 Se introduce el choque elástico. Ahora la pelota pierde parte de la energía al rebotar, pudiendo quedarse completamente quieta tras un golpe. 
 
 Este nivel utiliza estos choques para colocar la pelota en distintas plataformas de camino a la meta. Platino: 2. Oro: 4
 
-![nivel72](https://github.com/javics2002/JuegosSerios/assets/75903737/a7da822c-a8cf-446b-aead-ecb83b5db723)
+![nivel10](https://github.com/javics2002/JuegosSerios/assets/75903737/9055a692-bfda-41c8-a143-d8c9f9b9e51b)
 
 
-#### Nivel 8: 
+#### Nivel 11: 
 Se introducen elementos de escenario. Hay una caja de masa m y puede ser empujada por un coche motorizado. La idea es apartar una caja para el camino de la pelota al hoyo quede despejado. Platino: 1. Oro: 2
 
-![nivel7](https://github.com/javics2002/JuegosSerios/assets/75903737/29f15c6c-ad98-434d-bda8-ed64f0f6d88f)
+![nivel11](https://github.com/javics2002/JuegosSerios/assets/75903737/b1ae1a18-5dee-4b76-89c3-89a28bb1988c)
 
 
-#### Nivel 9: 
+#### Nivel 12: 
 Se introduce el último elemento de escenario, el dron. Ahora que la pelota se puede quedar quieta, la tenemos que colocar en la plataforma del dron. Hay que usar uno de los vectores para mover el dron y volver a golpear la pelota desde otra posición. Platino: 2. Oro: 3.
 
-![nivel8](https://github.com/javics2002/JuegosSerios/assets/75903737/2dbd1693-1c65-4819-87e4-235d80ce6ad3)
+![nivel12](https://github.com/javics2002/JuegosSerios/assets/75903737/119faa5a-195c-4727-9f96-bbfcdb159087)
 
-### Niveles 10-12: Plano Inclinado <a name="planoinclinado"></a>
+
+### Niveles 12-14: Plano Inclinado <a name="planoinclinado"></a>
 
 La inclusión de planos inclinados agrega una nueva dificultad al juego, ya que la pelota se moverá en la dirección del plano inclinado y el jugador deberá ajustar la velocidad y la dirección de la pelota para lograr superar estos nuevos obstáculos.
 
@@ -174,20 +196,17 @@ Un plano inclinado es una superficie inclinada con respecto a la horizontal, es 
 
 Al descender por un plano inclinado, la gravedad efectiva se suma al componente horizontal, acelerando la pelota. Ascender por un plano inclinado puede reducir la gravedad efectiva, lo que afecta la velocidad de la pelota.
 
-#### Nivel 10:
+#### Nivel 13:
 Para mostrar la descomposición de fuerzas sobre un plano inclinado, el primer nivel de este bloque es muy simple. Contaremos en pantalla con las flechas P, Px, Py, N. Platino: 1. Oro: 2.
 
-![nivel9](https://github.com/javics2002/JuegosSerios/assets/75903737/e1daeeb8-b9c5-48bd-9389-6f3c06d388ce)
+![nivel13](https://github.com/javics2002/JuegosSerios/assets/75903737/a8fc131e-6359-4174-baad-bedfc9b1c4cf)
 
-#### Nivel 11: 
-Nivel complejo que requiera deslizar cajas por el plano inclinado. Platino: 2. Oro: 3
 
-![nivel10](https://github.com/javics2002/JuegosSerios/assets/75903737/5393c006-b0e2-486d-ac53-f03498ef1951)
+#### Nivel 14: 
+Requiere lanzar la pelota aprovechando el plano inclinado. Platino: 1. Oro: 3
 
-#### Nivel 12: 
-Este nivel cuenta con vectores hacia la derecha, por lo que hay que usar los planos inclinados y la tercera ley de newton (rebotes) para conseguir moverse hacia la izquierda. Platino: 3. Oro: 5
+![nivel14](https://github.com/javics2002/JuegosSerios/assets/75903737/27f9cc75-ca23-4a97-88ae-be7659892f35)
 
-![nivel11](https://github.com/javics2002/JuegosSerios/assets/75903737/fb54bf7a-80e5-47fe-b816-2bcc17ad4d3c)
 
 ## 3. Partida típica <a name="partidatipica"></a>
 Al comenzar a jugar, el jugador empieza en el menú principal. Pulsaremos jugar y entraremos al menú de selección de niveles. Se empieza con todos los niveles bloqueados, excepto el primero. Pulsamos en cualquier nivel que tengamos desbloqueado para entrar en él e iremos desbloqueando niveles.
