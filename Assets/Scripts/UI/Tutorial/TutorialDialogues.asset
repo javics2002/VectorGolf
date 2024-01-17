@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: TutorialDialogues
   m_EditorClassIdentifier: 
   lines:
-  - "Bienvenido a Vector Golf! En este juego aprender\xE1s todo sobre los vectores
+  - "Despu\xE9s de haber comprendido las coordenadas X, Y de los vectores, \xA1comienza
+    el desaf\xEDo de verdad! En este juego aprender\xE1s todo sobre los vectores
     y sobre las leyes de la f\xEDsica."
-  - "El primer elemento del juego que has de entender es la pelota. Para moverse
-    has de darle una direcci\xF3n y una fuerza, una magnitud vectorial."
-  - "Este elemento es la bandera. el objetivo de todos los niveles ser\xE1 meter
-    la pelota en el agujero de la bandera."
+  - "El primer elemento del juego que has de entender es la pelota. Para golpear
+    la pelota has de darle una direcci\xF3n y una fuerza, una magnitud vectorial."
+  - "Este elemento es la bandera. El objetivo de todos los niveles es meter la pelota
+    en el agujero de la bandera en el m\xEDnimo n\xFAmero de golpes posibles. Dependiendo
+    de dicho n\xFAmero, la bandera cambiar\xE1 de color."
   - "Este es el men\xFA de magnitudes. Aqu\xED encontrar\xE1s tanto magnitudes escalares
     como magnitudes vectoriales que podr\xE1s arrastrar a todos los elementos interactuables
     del juego."
@@ -27,8 +29,9 @@ MonoBehaviour:
   - 
   - "De esta forma, la pelota se movera hacia la direccion que indique la flecha.
     Ten en cuenta que en la mayor\xEDa de niveles existe la gravedad y las flechas
-    de previsualizaci\xF3n no la tienen en cuenta!"
-  - En este caso, la pelota se mueve hacia abajo.
-  - 'Bien! Hemos conseguido meter la pelota en el hoyo! Eso ha sido todo, espero
-    que disfrutes de la experiencia y el aprendizaje con Vector Golf! '
+    de previsualizaci\xF3n no la tienen en cuenta."
+  - En este caso, la pelota se mueve hacia abajo porque su magnitud vectorial cuenta
+    con un valor negativo en la coordenada Y.
+  - "\xA1Bien, hemos conseguido meter la pelota en el hoyo! Eso ha sido todo, espero
+    que disfrutes de la experiencia y el aprendizaje con Vector Golf."
   textSpeed: 0.02

@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: Level1Data
   m_EditorClassIdentifier: 
   Scalars: []
-  Vectors:
-  - {x: 0, y: -2}
-  - {x: 0, y: 5}
-  - {x: 3, y: 0}
-  Platinum: 1
-  Gold: 1
+  Vectors: []
+  Platinum: 0
+  Gold: 0

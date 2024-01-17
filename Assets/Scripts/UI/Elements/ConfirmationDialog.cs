@@ -70,12 +70,12 @@ namespace UI.Elements
 			buttons.AddToClassList("dialog-buttons");
 			Add(buttons);
 
-			var cancelButton = new Button(() => OnCancel?.Invoke()) { name = "cancel-button", text = "Cancel" };
+			var cancelButton = new Button(() => OnCancel?.Invoke()) { name = "cancel-button", text = "Cancelar" };
 			cancelButton.AddToClassList("button");
 			cancelButton.AddToClassList("animate-scale");
 			buttons.Add(cancelButton);
 
-			var confirmButton = new Button(() => OnConfirm?.Invoke()) { name = "confirm-button", text = "Confirm" };
+			var confirmButton = new Button(() => OnConfirm?.Invoke()) { name = "confirm-button", text = "Confirmar" };
 			confirmButton.AddToClassList("button");
 			confirmButton.AddToClassList("danger");
 			confirmButton.AddToClassList("animate-scale");

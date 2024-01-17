@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=d88dcdaf5f1f82144938daa5b3fab5d6&amp;type=3#MainMenu" />
     <Style src="project://database/Assets/Resources/UI/Shared.uss?fileID=7433441132597879392&amp;guid=ea164f0c00bb45f487df408053de3fd0&amp;type=3#Shared" />
-    <ui:VisualElement name="container" style="width: 600px; flex-direction: column; align-items: center; justify-content: flex-start; align-self: flex-start; max-width: none; min-width: -3px; margin-left: 10%; margin-top: 0;">
-        <ui:VisualElement name="logo" style="transform-origin: center; translate: -40px 0; align-self: flex-end; -unity-background-image-tint-color: rgb(255, 255, 255); flex-direction: column; align-items: center; justify-content: center; width: 538px; height: 490px; margin-bottom: 50px; flex-wrap: nowrap; flex-shrink: 0;" />
-        <ui:Button text="Jugar" name="button-play" class="menu-button animate-scale" style="justify-content: center; align-items: center; width: 200px; height: auto; align-self: center; background-image: none; background-color: rgb(255, 255, 255);" />
-        <ui:Button text="Ajustes" name="button-settings" class="menu-button animate-scale" style="width: 200px; align-self: center;" />
-        <ui:Button text="Salir" name="button-exit" class="menu-button animate-scale" style="width: 200px; align-self: center; background-image: none; background-color: rgb(255, 255, 255);" />
+    <ui:VisualElement name="container">
+        <ui:VisualElement name="logo" />
+        <ui:Button text="Jugar" name="button-play" class="menu-button animate-scale" />
+        <ui:Button text="Ajustes" name="button-settings" class="menu-button animate-scale" />
+        <ui:Button text="Salir" name="button-exit" class="menu-button animate-scale" />
     </ui:VisualElement>
 </ui:UXML>

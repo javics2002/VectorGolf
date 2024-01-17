@@ -597,6 +597,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 924035921}
+    - target: {fileID: 7523472755985671283, guid: 39b8673e86f13c646ad9d331ea77e284, type: 3}
+      propertyPath: arrowMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
     - target: {fileID: 8194810613532027745, guid: 39b8673e86f13c646ad9d331ea77e284, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -749,7 +753,7 @@ PrefabInstance:
     - target: {fileID: 2384068119220134962, guid: e3daf66d3522f4347ad4e2967a555ec7, type: 3}
       propertyPath: LevelData
       value: 
-      objectReference: {fileID: 11400000, guid: 1c5643e160dcbd540a2a2bb912274309, type: 2}
+      objectReference: {fileID: 11400000, guid: f1eb06cb4142042459b72f33c7962ac4, type: 2}
     - target: {fileID: 2384068119220134962, guid: e3daf66d3522f4347ad4e2967a555ec7, type: 3}
       propertyPath: levelCompletion.Array.size
       value: 0
@@ -4429,6 +4433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gameplay Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5501389275477224089, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: Tutorial - Comprender las coordenadas X,Y
+      objectReference: {fileID: 0}
     - target: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4565,15 +4573,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: "En este nivel controlar\xE1s otro objeto, ya que las coordenadas X,Y
+        se pueden aplicar a cualquier elemento.\nEn este caso controlar\xE1s la caja
+        y tendr\xE1s que lograr empujar la pelota hacia el hoyo.\n\xA1Buena suerte!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_fontSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8928992185839385292, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 21.504707
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 721912294918094505, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 365332526}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}

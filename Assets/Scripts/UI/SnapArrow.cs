@@ -63,7 +63,7 @@ public class SnapArrow : MonoBehaviour
 	private void Start() {
 		GameObject ballVelocityArrowGO = GameObject.Find("Ball Velocity Arrow");
 
-		if (ballVelocityArrow != null)
+		if (ballVelocityArrowGO != null)
 		{
             ballVelocityArrow = ballVelocityArrowGO.GetComponent<VelocityArrow>();
 

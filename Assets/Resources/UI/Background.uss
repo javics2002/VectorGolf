@@ -1,0 +1,7 @@
+﻿#background {
+    background-image: url('project://database/Assets/Images/background.png?fileID=2800000&guid=10c30432428331e4893eca6f4fbdc95e&type=3#background');
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    position: absolute;
+    width: 100%;
+}

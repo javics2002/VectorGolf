@@ -2897,15 +2897,16 @@ PrefabInstance:
       propertyPath: m_text
       value: "Puedes mover el dron aplicandole una magnitud vectorial. El dron no
         cuenta con rozamiento y se mover\xE1 en la direcci\xF3n mostrada por la flecha
-        de previsualizacion."
+        de previsualizacion, ya que al contrario que el coche, cuenta directamente
+        con una magnitud vectorial."
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_fontSize
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_fontSizeBase
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData

@@ -6,12 +6,12 @@ public static class EnumeratorMethods
 	public static IEnumerable<float> Lerp(float previous, float next, float time)
 	{
 		var start = Time.time;
-		var end = start + 1.5f;
+		var end = start + time;
 		var now = start;
 
 		while (now < end)
 		{
-			yield return Mathf.Lerp(previous, next, (now - start) / 1.5f);
+			yield return Mathf.Lerp(previous, next, (now - start) / time);
 			now += Time.deltaTime;
 		}
 

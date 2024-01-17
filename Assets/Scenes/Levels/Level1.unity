@@ -525,6 +525,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 3402048967893659477}
+    - target: {fileID: 7523472755985671283, guid: 39b8673e86f13c646ad9d331ea77e284, type: 3}
+      propertyPath: arrowMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e20eec73da925449a571d73bfbc83ae, type: 2}
     - target: {fileID: 8194810613532027745, guid: 39b8673e86f13c646ad9d331ea77e284, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -593,7 +597,7 @@ PrefabInstance:
     - target: {fileID: 2384068119220134962, guid: e3daf66d3522f4347ad4e2967a555ec7, type: 3}
       propertyPath: LevelData
       value: 
-      objectReference: {fileID: 11400000, guid: 1c5643e160dcbd540a2a2bb912274309, type: 2}
+      objectReference: {fileID: 11400000, guid: f1eb06cb4142042459b72f33c7962ac4, type: 2}
     - target: {fileID: 2384068119220134962, guid: e3daf66d3522f4347ad4e2967a555ec7, type: 3}
       propertyPath: levelCompletion.Array.size
       value: 0
@@ -3973,6 +3977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gameplay Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5501389275477224089, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: Tutorial - Comprender las coordenadas X,Y
+      objectReference: {fileID: 0}
     - target: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4109,15 +4117,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: "La clave para comenzar a entender c\xF3mo funcionan los vectores es
+        comprender (en el caso de dos dimensiones), qu\xE9 son las coordenadas X,Y
+        del vector y c\xF3mo afectan al movimiento de un objeto.\nEn los siguientes
+        niveles, tendr\xE1s que mover desde el men\xFA de \"Magnitudes Disponibles\"
+        un control deslizante para modificar el valor de dichas coordenadas. Tu objetivo,
+        como en cualquier otro nivel, ser\xE1 meter la pelota en el hoyo.\n\xA1Buena
+        suerte!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_fontSize
+      value: 47.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 47.42
+      objectReference: {fileID: 0}
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8928992185839385292, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 721912294918094505, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 365332526}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
