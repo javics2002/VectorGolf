@@ -3977,6 +3977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gameplay Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5501389275477224089, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: Tutorial - Comprender las coordenadas X,Y
+      objectReference: {fileID: 0}
     - target: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4113,15 +4117,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_text
+      value: "La clave para comenzar a entender c\xF3mo funcionan los vectores es
+        comprender (en el caso de dos dimensiones), qu\xE9 son las coordenadas X,Y
+        del vector y c\xF3mo afectan al movimiento de un objeto.\nEn los siguientes
+        niveles, tendr\xE1s que mover desde el men\xFA de \"Magnitudes Disponibles\"
+        un control deslizante para modificar el valor de dichas coordenadas. Tu objetivo,
+        como en cualquier otro nivel, ser\xE1 meter la pelota en el hoyo.\n\xA1Buena
+        suerte!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_fontSize
+      value: 47.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 47.42
+      objectReference: {fileID: 0}
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8928992185839385292, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 721912294918094505, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6811415544341867181, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 365332526}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}

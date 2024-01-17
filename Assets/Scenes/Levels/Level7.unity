@@ -3720,17 +3720,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_text
-      value: "En este nivel, tendr\xE1s que realizar operaciones con vectores para
-        lograr meter la bola en el hoyo! Puedes arrastrar una fuerza aunque la pelota
-        se est\xE9 moviendo para realizar una suma de vectores.\n\r\n"
+      value: "En este nivel tendr\xE1s que realizar operaciones con vectores para
+        lograr meter la bola en el hoyo. Puedes arrastrar una fuerza aunque la pelota
+        se est\xE9 moviendo para realizar una suma de vectores.\nAdem\xE1s, puedes
+        pausar el tiempo pulsando el bot\xF3n de pausa (al lado del bot\xF3n de reset)
+        o pulsando la tecla \"Espacio\".\n\xA1Buena suerte!\n\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_fontSize
-      value: 70
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_fontSizeBase
-      value: 70
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928992185839385292, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 21.50471
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

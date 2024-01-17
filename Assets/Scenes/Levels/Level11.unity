@@ -1196,20 +1196,26 @@ PrefabInstance:
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_text
       value: "Puedes mover el coche para arrastrar la caja. La caja realizar\xE1
-        la fuerza opuesta, igual que lo aprendido con la tercera ley de Newton."
+        la fuerza opuesta, igual que lo aprendido con la tercera ley de Newton.\nEl
+        coche recibir\xE1 una magnitud escalar y se mover\xE1 hacia delante, por
+        lo tanto, el resultado de dicha multiplicaci\xF3n es una magnitud vectorial."
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_fontSize
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_fontSizeBase
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData
       value: 
       objectReference: {fileID: 11400000, guid: 0deb67a024a10134ba02ef311a8bcabb, type: 2}
+    - target: {fileID: 8928992185839385292, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 27.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 721912294918094505, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}

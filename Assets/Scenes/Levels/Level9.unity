@@ -2862,20 +2862,26 @@ PrefabInstance:
       propertyPath: m_text
       value: "La fuerza de fricci\xF3n es la fuerza que existe entre dos superficies
         en contacto, que se opone al deslizamiento. Se genera debido a las imperfecciones
-        entre las superficies en contacto."
+        entre las superficies en contacto.\nEn este nivel has de golpear la pelota
+        con la fuerza exacta contando con que el rozamiento se ir\xE1 restando a
+        la fuerza de golpeo de la pelota.\n\xA1Buena suerte!"
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_fontSize
-      value: 70
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8604232118463441253, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: m_fontSizeBase
-      value: 70
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8835242787356919722, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
       propertyPath: levelData
       value: 
       objectReference: {fileID: 11400000, guid: e3c9a060be173ee4ca4eed465bc8174d, type: 2}
+    - target: {fileID: 8928992185839385292, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 23
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 721912294918094505, guid: 6aee54a917ca8e84aa4b83f4256d8ee5, type: 3}
